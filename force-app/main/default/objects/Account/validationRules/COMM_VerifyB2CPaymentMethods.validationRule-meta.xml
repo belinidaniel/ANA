@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_VerifyB2CPaymentMethods</fullName>
+    <active>true</active>
+    <description>Validates if B2C Payment Method is VD</description>
+    <errorConditionFormula>AND(
+ISPICKVAL(Type, &apos;Individual&apos;),
+OR(
+INCLUDES(COMM_PaymentMethod__c , &apos;Courtesy&apos;),
+INCLUDES(COMM_PaymentMethod__c , &apos;Credit&apos;)))</errorConditionFormula>
+    <errorDisplayField>COMM_PaymentMethod__c</errorDisplayField>
+    <errorMessage>B2C can only pay by VD</errorMessage>
+</ValidationRule>

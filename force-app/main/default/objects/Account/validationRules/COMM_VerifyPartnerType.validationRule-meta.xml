@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_VerifyPartnerType</fullName>
+    <active>true</active>
+    <description>Validates if  is Partner? checkbox is filled when is chosen the value Partner in Type picklist.</description>
+    <errorConditionFormula>AND(
+ISPICKVAL(Type, &apos;Partner&apos;),
+NOT(COMM_IsPartner__c)
+)</errorConditionFormula>
+    <errorDisplayField>Type</errorDisplayField>
+    <errorMessage>Please check in the &quot;Is Partner?&quot; checkbox.</errorMessage>
+</ValidationRule>

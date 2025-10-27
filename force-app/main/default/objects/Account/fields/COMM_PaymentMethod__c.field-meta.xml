@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_PaymentMethod__c</fullName>
+    <description>In this field, the ANA Admin defines the payment method associated to the account</description>
+    <inlineHelpText>The Affiliates can pay by cash or credit
+Partners can pay by cash, credit or/and courtesy
+B2C can only pay by cash</inlineHelpText>
+    <label>Payment Method</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>VD</fullName>
+                <default>false</default>
+                <label>VD</label>
+            </value>
+            <value>
+                <fullName>Credit</fullName>
+                <default>false</default>
+                <label>Credit</label>
+            </value>
+            <value>
+                <fullName>Courtesy</fullName>
+                <default>false</default>
+                <label>Courtesy</label>
+            </value>
+            <value>
+                <fullName>Cash</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cash</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_ParentAccountData__c</fullName>
+    <description>Field to store JSON of Parent Account. Used to show data to affiliates in Community without bypassing sharing rules.</description>
+    <externalId>false</externalId>
+    <formula>&apos;{&quot;isB2C&quot;: &apos; + IF(Parent.IsPersonAccount, &apos;true&apos;, &apos;false&apos;) + &apos;, &quot;isAffiliate&quot;: &apos; +  IF(COMM_ParentAccount__r.COMM_IsAffiliate__c, &apos;true&apos;, &apos;false&apos;) + &apos;, &quot;companyEmail&quot;: &quot;&apos;+ COMM_ParentAccount__r.COMM_Email__c + &apos;&quot;,&quot;companyName&quot;: &quot;&apos; + COMM_ParentAccount__r.Name + &apos;&quot;,&quot;companyVATNumber&quot;: &quot;&apos; +  COMM_ParentAccount__r.COMM_VATNumber__c + &apos;&quot;,&quot;companyCountry&quot;: &quot;&apos; + TEXT(COMM_ParentAccount__r.BillingCountryCode) + &apos;&quot;,&quot;companyCity&quot;: &quot;&apos; + COMM_ParentAccount__r.BillingCity + &apos;&quot;,&quot;companyZipCode&quot;: &quot;&apos; +  COMM_ParentAccount__r.BillingPostalCode + &apos;&quot;,&quot;companyAddress&quot;: &quot;&apos; + COMM_ParentAccount__r.BillingStreet+ &apos;&quot;}&apos;</formula>
+    <label>Parent Account Data</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

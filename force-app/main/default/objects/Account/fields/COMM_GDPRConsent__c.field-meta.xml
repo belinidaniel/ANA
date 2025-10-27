@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_GDPRConsent__c</fullName>
+    <description>Picklist that indicates if the account accepts the GDPR terms</description>
+    <label>GDPR Consent?</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>COMM_Confirmation</valueSetName>
+    </valueSet>
+</CustomField>

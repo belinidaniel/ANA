@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_PartnerCategory__c</fullName>
+    <description>Field used to Categorize the Account that is a ANA Partner</description>
+    <label>Partner Category</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>COMM_AccountCategory</valueSetName>
+    </valueSet>
+</CustomField>

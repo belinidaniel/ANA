@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_IsPartner__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>In this field, the ANA Admin chooses whether the account type is an subscription partner or not</description>
+    <label>Is Partner?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

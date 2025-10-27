@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_VerifyPartnerFields</fullName>
+    <active>true</active>
+    <description>Validates if Email, Payment Method and Airport are set</description>
+    <errorConditionFormula>OR(
+				AND(
+        COMM_IsPartner__c,
+        NOT(ISPICKVAL(Type, &apos;Partner&apos;))
+    ),
+    AND(
+        COMM_IsPartner__c,
+        ISBLANK(COMM_PaymentMethod__c)
+    ),
+    AND(
+        COMM_IsPartner__c,
+        ISBLANK(COMM_Airport__c)
+    ),
+    AND(
+        COMM_IsPartner__c,
+        ISBLANK(COMM_Email__c)
+    )
+)</errorConditionFormula>
+    <errorMessage>Fill in the Email, Payment Method and Airport fields and check if type is Partner.</errorMessage>
+</ValidationRule>

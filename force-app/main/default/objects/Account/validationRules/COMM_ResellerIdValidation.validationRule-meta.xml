@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_ResellerIdValidation</fullName>
+    <active>true</active>
+    <description>Validate if Reseller Id is filled when Account is set as Reseller</description>
+    <errorConditionFormula>AND(
+ ISBLANK(COMM_ResellerId__c),
+ COMM_IsReseller__c = true
+)</errorConditionFormula>
+    <errorDisplayField>COMM_ResellerId__c</errorDisplayField>
+    <errorMessage>Reseller Id must be specified on Reseller Accounts!</errorMessage>
+</ValidationRule>

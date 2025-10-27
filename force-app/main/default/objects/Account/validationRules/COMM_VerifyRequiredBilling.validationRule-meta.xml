@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_VerifyRequiredBilling</fullName>
+    <active>true</active>
+    <description>Validates if for Partner or Affiliate, the required billing fields are set (Billing Address and VAT Number)</description>
+    <errorConditionFormula>AND(
+ISPICKVAL(Type, &apos;Collective&apos;) || ISPICKVAL(Type, &apos;Partner&apos;),
+OR(
+   ISPICKVAL(BillingCountryCode, &apos;&apos;),
+   ISBLANK(BillingCity),
+   ISBLANK(BillingStreet),
+   ISBLANK(BillingPostalCode),
+   ISBLANK(COMM_VATNumber__c)
+))</errorConditionFormula>
+    <errorMessage>Fill in VAT Number and Billing Address for Partner/Affiliate</errorMessage>
+</ValidationRule>

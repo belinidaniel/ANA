@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_IndividualStaff__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If checked indicates that this account will be able to see in Commerce the products with the checkbox “Requires Airport Staff”checked</description>
+    <label>Individual Staff?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_OfficialEntityRatioFormat</fullName>
+    <active>true</active>
+    <description>Ratio must be in format X/Y to be valid</description>
+    <errorConditionFormula>AND(
+NOT(ISBLANK(COMM_OfficialEntityRatio__c)),
+OR(
+  NOT(REGEX(COMM_OfficialEntityRatio__c, &quot;^[1-9]/[1-9]$&quot;)),
+  VALUE(LEFT(COMM_OfficialEntityRatio__c, FIND(&quot;/&quot;, COMM_OfficialEntityRatio__c) - 1)) &gt;
+  VALUE(RIGHT(COMM_OfficialEntityRatio__c, LEN(COMM_OfficialEntityRatio__c) - FIND(&quot;/&quot;, COMM_OfficialEntityRatio__c)))
+))</errorConditionFormula>
+    <errorDisplayField>COMM_OfficialEntityRatio__c</errorDisplayField>
+    <errorMessage>Value for ratio isn&apos;t in the correct format (X/Y)</errorMessage>
+</ValidationRule>
