@@ -1,0 +1,14 @@
+<template>
+    <template if:true={isModalOpen}>
+        <!-- Modal Content -->
+        <section>
+            <lightning-modal-header label={modalTitle}>
+                <i class="comm-icon__cross" onclick={close}></i>
+            </lightning-modal-header>
+            <lightning-modal-body><slot></slot></lightning-modal-body>
+        </section>
+
+        <!-- Modal Backdrop -->
+        <div class="comm-modal__backdrop" onclick={close}></div>
+    </template>
+</template>

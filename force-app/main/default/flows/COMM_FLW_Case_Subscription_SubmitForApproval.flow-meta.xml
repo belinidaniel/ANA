@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Submit for Approval by ANA Admin</description>
+        <name>COMM_Submit_for_Approval</name>
+        <label>Submit for Approval</label>
+        <locationX>50</locationX>
+        <locationY>755</locationY>
+        <actionName>submit</actionName>
+        <actionType>submit</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>objectId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>submitterId</name>
+            <value>
+                <elementReference>COMM_Variable_CaseOwner</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>nextApproverIds</name>
+            <value>
+                <elementReference>COMM_ApproverIDs</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>processDefinitionNameOrId</name>
+            <value>
+                <stringValue>COMM_AP_SubscriptionRequest</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>skipEntryCriteria</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <nameSegment>submit</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <description>Submit for Cancel Approval by ANA Admin</description>
+        <name>COMM_Submit_for_Cancel_Approval</name>
+        <label>Submit for Cancel Approval</label>
+        <locationX>314</locationX>
+        <locationY>755</locationY>
+        <actionName>submit</actionName>
+        <actionType>submit</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>objectId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>submitterId</name>
+            <value>
+                <elementReference>COMM_Variable_CaseOwner</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>nextApproverIds</name>
+            <value>
+                <elementReference>COMM_ApproverIDs</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>processDefinitionNameOrId</name>
+            <value>
+                <stringValue>COMM_AP_SubscriptionRequestCancellation</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>submit</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <description>Submit for Modification Approval by ANA Admin</description>
+        <name>COMM_Submit_for_Modification_Approval</name>
+        <label>Submit for Modification Approval</label>
+        <locationX>578</locationX>
+        <locationY>755</locationY>
+        <actionName>submit</actionName>
+        <actionType>submit</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>objectId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>submitterId</name>
+            <value>
+                <elementReference>COMM_Variable_CaseOwner</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>nextApproverIds</name>
+            <value>
+                <elementReference>COMM_ApproverIDs</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>processDefinitionNameOrId</name>
+            <value>
+                <stringValue>COMM_AP_SubscriptionRequestModification</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>submit</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <description>Submit for Modification Approval by ANA Admin (No SABA action needed after)</description>
+        <name>COMM_Submit_for_Modification_Approval_No_SABA</name>
+        <label>Submit for Modification Approval No SABA</label>
+        <locationX>842</locationX>
+        <locationY>755</locationY>
+        <actionName>submit</actionName>
+        <actionType>submit</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>objectId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>submitterId</name>
+            <value>
+                <elementReference>COMM_Variable_CaseOwner</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>nextApproverIds</name>
+            <value>
+                <elementReference>COMM_ApproverIDs</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>processDefinitionNameOrId</name>
+            <value>
+                <stringValue>COMM_AP_SubscriptionRequestModificationN</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>submit</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <description>Submit for Manual Renewal Approval by ANA Admin</description>
+        <name>COMM_Submit_for_Renewal_Approval</name>
+        <label>Submit for Manual Renewal Approval</label>
+        <locationX>1106</locationX>
+        <locationY>755</locationY>
+        <actionName>submit</actionName>
+        <actionType>submit</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>objectId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>submitterId</name>
+            <value>
+                <elementReference>COMM_Variable_CaseOwner</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>nextApproverIds</name>
+            <value>
+                <elementReference>COMM_ApproverIDs</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>processDefinitionNameOrId</name>
+            <value>
+                <stringValue>COMM_AP_SubscriptionRequestRenewal</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>submit</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Add Queue Id to Approver IDs</description>
+        <name>Add_Queue_Id_to_Approver_IDs</name>
+        <label>Add Queue Id to Approver IDs</label>
+        <locationX>710</locationX>
+        <locationY>539</locationY>
+        <assignmentItems>
+            <assignToReference>COMM_ApproverIDs</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>COMM_Get_Airport_Admin_Queue.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>COMM_Decision_RTCheck</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Case_Owner</name>
+        <label>Assign Case Owner</label>
+        <locationX>710</locationX>
+        <locationY>323</locationY>
+        <assignmentItems>
+            <assignToReference>COMM_Variable_CaseOwner</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>COMM_Get_Airport_Admin_Queue</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>COMM_Decision_RTCheck</name>
+        <label>RT Check</label>
+        <locationX>710</locationX>
+        <locationY>647</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>COMM_Outcome_NewSubscription</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>COMM_NewSubscription</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_Submit_for_Approval</targetReference>
+            </connector>
+            <label>RT New Subscription</label>
+        </rules>
+        <rules>
+            <name>COMM_Outcome_CancelationRequest</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>COMM_CancelationRequest</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_Submit_for_Cancel_Approval</targetReference>
+            </connector>
+            <label>RT Cancelation Request</label>
+        </rules>
+        <rules>
+            <name>COMM_Outcome_Modifications</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>COMM_ChangeOwnership</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>COMM_ChangePaymentPeriodicity</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>COMM_NewCardDueToDamageLoss</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>COMM_ChangeSubscriptionInformation</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_Submit_for_Modification_Approval</targetReference>
+            </connector>
+            <label>RT Modifications</label>
+        </rules>
+        <rules>
+            <name>COMM_Outcome_Modification_No_SABA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>COMM_ChangeUserInformation</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_Submit_for_Modification_Approval_No_SABA</targetReference>
+            </connector>
+            <label>RT Modification No SABA</label>
+        </rules>
+        <rules>
+            <name>COMM_Outcome_ManualRenewalRequest</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>COMM_ManualRenewal</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_Submit_for_Renewal_Approval</targetReference>
+            </connector>
+            <label>RT Manual Renewal Request</label>
+        </rules>
+    </decisions>
+    <description>Submits a New Subscription case for approval by ANA Admins</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Formula to retrieve Subscription&apos;s Airport. If Value Field is empty retrieve airport from Subscription&apos;s Product</description>
+        <name>COMM_SubscriptionAirportFormula</name>
+        <dataType>String</dataType>
+        <expression>IF(ISPICKVAL({!$Record.COMM_Subscription__r.COMM_AirportValue__c}, &quot;&quot;), TEXT({!$Record.COMM_Subscription__r.COMM_Product__r.COMM_Airport__c}), TEXT({!$Record.COMM_Subscription__r.COMM_AirportValue__c}))</expression>
+    </formulas>
+    <formulas>
+        <description>Formula for the Airport Admin Queue Name based on Subscription Location. If Airport value is missing add to ANA Admin Queue.</description>
+        <name>COMM_SubscriptionRequestAirportAdminQueueNameFormula</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!COMM_SubscriptionAirportFormula}), &quot;COMM_SubscriptionRequestANAAdmin&quot;, &quot;COMM_SubscriptionRequestAirportAdmin_&quot; + {!COMM_SubscriptionAirportFormula})</expression>
+    </formulas>
+    <interviewLabel>Case Subscription Submit For Approval {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Subscription Submit For Approval</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get Airport Admin Queue</description>
+        <name>COMM_Get_Airport_Admin_Queue</name>
+        <label>Get Airport Admin Queue</label>
+        <locationX>710</locationX>
+        <locationY>431</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Add_Queue_Id_to_Approver_IDs</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Type</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Queue</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>COMM_SubscriptionRequestAirportAdminQueueNameFormula</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Group</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>584</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Assign_Case_Owner</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+OR(
+    {!$Record.RecordType.DeveloperName} = &apos;COMM_NewSubscription&apos;,
+    {!$Record.RecordType.DeveloperName} = &apos;COMM_CancelationRequest&apos;,
+    {!$Record.RecordType.DeveloperName} = &apos;COMM_NewCardDueToDamageLoss&apos;,
+    {!$Record.RecordType.DeveloperName} = &apos;COMM_ChangeOwnership&apos;,
+    {!$Record.RecordType.DeveloperName} = &apos;COMM_ChangeSubscriptionInformation&apos;,
+    {!$Record.RecordType.DeveloperName} = &apos;COMM_ChangePaymentPeriodicity&apos;,
+    {!$Record.RecordType.DeveloperName} = &apos;COMM_ManualRenewal&apos;,
+    {!$Record.RecordType.DeveloperName}=&apos;COMM_ChangeUserInformation&apos;
+),
+ISPICKVAL({!$Record.Status}, &apos;Waiting Approval&apos;),
+BEGINS({!$Record.OwnerId}, &apos;005&apos;),
+({!$Record.Owner:User.Profile.Name} &lt;&gt; &apos;Customer Community Plus Login User&apos;),
+({!$Record.Owner:User.Profile.Name} &lt;&gt; &apos;Customer Community Plus&apos;)
+)</filterFormula>
+        <object>Case</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>Notification_Body_EN</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;This user&apos;s subscription request {&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;!$Record&lt;/span&gt;.COMM_SubscriptionNumber__c} {&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;!$Record&lt;/span&gt;.COMM_FirstName__c} {&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;!$Record&lt;/span&gt;.COMM_LastName__c} is pending for 2 days.&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Notification_Body_ES</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Su solicitud de abono para {!$Record.COMM_SubscriptionNumber__c} {!$Record.COMM_FirstName__c} {!$Record.COMM_LastName__c} &lt;/span&gt;lleva pendiente 2 días.&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Notification_Body_PT</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;O pedido de avença deste utilizador&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt; {!$Record.COMM_SubscriptionNumber__c} {!$Record.COMM_FirstName__c} {!$Record.COMM_LastName__c} está pendente há 2 dias.&lt;/span&gt;&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Notification_Title_EN</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;ANA – Aeroportos de Portugal Pending Subscription Request&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Notification_Title_ES</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;ANA – Aeroportos de Portugal Solicitud de Abono Pendiente&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Notification_Title_PT</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;ANA – Aeroportos de Portugal Pedido de Avença Pendente&lt;/p&gt;</text>
+    </textTemplates>
+    <variables>
+        <description>List of approver IDs</description>
+        <name>COMM_ApproverIDs</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>COMM_Variable_CaseOwner</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>UserEmails</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

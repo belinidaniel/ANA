@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <customErrors>
+        <description>Add error message to corresponding field</description>
+        <name>COMM_ErrorMessage_BillingCity</name>
+        <label>Add Error Billing City</label>
+        <locationX>50</locationX>
+        <locationY>995</locationY>
+        <customErrorMessages>
+            <errorMessage>{!$Label.COMM_ORDER_VR_LengthBillingCity}</errorMessage>
+            <fieldSelection>BillingCity</fieldSelection>
+            <isFieldError>true</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <customErrors>
+        <description>Add error message to corresponding field</description>
+        <name>COMM_ErrorMessage_BillingPostalCode</name>
+        <label>Add Error Billing Postal Code</label>
+        <locationX>50</locationX>
+        <locationY>695</locationY>
+        <connector>
+            <targetReference>COMM_Decision_BillingCity_Check</targetReference>
+        </connector>
+        <customErrorMessages>
+            <errorMessage>{!$Label.COMM_ORDER_VR_LengthBillingPostalCode}</errorMessage>
+            <fieldSelection>BillingPostalCode</fieldSelection>
+            <isFieldError>true</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <customErrors>
+        <description>Add error message to corresponding field</description>
+        <name>COMM_ErrorMessage_BillingStreet</name>
+        <label>Add Error Billing Street</label>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
+        <connector>
+            <targetReference>COMM_Decision_BillingPostalCode_Check</targetReference>
+        </connector>
+        <customErrorMessages>
+            <errorMessage>{!$Label.COMM_ORDER_VR_LengthBillingStreet}</errorMessage>
+            <fieldSelection>BillingStreet</fieldSelection>
+            <isFieldError>true</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <description>This validation rule ensures that the lengths of the Billing City does not exceed 35 characters.</description>
+        <name>COMM_Decision_BillingCity_Check</name>
+        <label>Billing City Check</label>
+        <locationX>182</locationX>
+        <locationY>887</locationY>
+        <defaultConnectorLabel>Passed Validation</defaultConnectorLabel>
+        <rules>
+            <name>Billing_City_35_characters</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>COMM_Formula_CheckBillingCity_Length</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_ErrorMessage_BillingCity</targetReference>
+            </connector>
+            <label>Billing City &gt; 35 characters</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This validation rule ensures that the lengths of the Billing Postal Code does not exceed 10 characters.</description>
+        <name>COMM_Decision_BillingPostalCode_Check</name>
+        <label>Billing Postal Code Check</label>
+        <locationX>182</locationX>
+        <locationY>587</locationY>
+        <defaultConnector>
+            <targetReference>COMM_Decision_BillingCity_Check</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Passed Validation</defaultConnectorLabel>
+        <rules>
+            <name>BillingPostalCode_more_10_characters</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>COMM_Formula_CheckBillingPostalCode_Length</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_ErrorMessage_BillingPostalCode</targetReference>
+            </connector>
+            <label>Billing Postal Code &gt; 10 characters</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This validation rule ensures that the lengths of the Billing Address does not exceed 35 characters.</description>
+        <name>COMM_Decision_BillingStreet_Check</name>
+        <label>Billing Street Check</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <defaultConnector>
+            <targetReference>COMM_Decision_BillingPostalCode_Check</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Passed Validation</defaultConnectorLabel>
+        <rules>
+            <name>BillingStreet_more_35_characters</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>COMM_Formula_CheckBillingStreet_Length</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_ErrorMessage_BillingStreet</targetReference>
+            </connector>
+            <label>Billing Street &gt; 35 characters</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>COMM_Formula_CheckBillingCity_Length</name>
+        <dataType>Boolean</dataType>
+        <expression>LEN({!$Record.BillingCity}) &gt; 35</expression>
+    </formulas>
+    <formulas>
+        <name>COMM_Formula_CheckBillingPostalCode_Length</name>
+        <dataType>Boolean</dataType>
+        <expression>LEN({!$Record.BillingPostalCode}) &gt; 10</expression>
+    </formulas>
+    <formulas>
+        <name>COMM_Formula_CheckBillingStreet_Length</name>
+        <dataType>Boolean</dataType>
+        <expression>LEN({!$Record.BillingStreet}) &gt; 35</expression>
+    </formulas>
+    <interviewLabel>Order Validation Rules {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Order Validation Rules</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>COMM_Decision_BillingStreet_Check</targetReference>
+        </connector>
+        <object>Order</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Generate_PDF_and_Send_Vouchers_Email</name>
+        <label>Generate PDF and Send Vouchers Email</label>
+        <locationX>176</locationX>
+        <locationY>170</locationY>
+        <actionName>COMM_SL_SendVouchersEmail</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>invoiceIds</name>
+            <value>
+                <elementReference>$Record.COMM_InvoiceId__c</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>COMM_SL_SendVouchersEmail</nameSegment>
+    </actionCalls>
+    <apiVersion>61.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>This flow will be triggered by a platform event to Generate Order voucher and Send Email based on the invoice Id</description>
+    <environments>Default</environments>
+    <interviewLabel>OMS Process Event Generate Voucher PDF and Send Email {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>OMS Process Event Generate Voucher PDF and Send Email</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Generate_PDF_and_Send_Vouchers_Email</targetReference>
+        </connector>
+        <flowRunAsUser>DefaultWorkflowUser</flowRunAsUser>
+        <object>COMM_GenerateVoucherPDFAndSendEmail__e</object>
+        <triggerType>PlatformEvent</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

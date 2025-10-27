@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Login</label>
+    <protected>true</protected>
+    <values>
+        <field>COMM_Buffer__c</field>
+        <value xsi:type="xsd:double">5.0</value>
+    </values>
+    <values>
+        <field>COMM_Value__c</field>
+        <value xsi:type="xsd:string">k6RyrPYE26/eGk5L/lryoyGnge0str6FRKamqk+uwxY=</value>
+    </values>
+</CustomMetadata>

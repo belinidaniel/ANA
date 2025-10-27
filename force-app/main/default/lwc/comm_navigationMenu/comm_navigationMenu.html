@@ -1,0 +1,21 @@
+<template>
+    <div class="navbar">
+        <!-- Burger Menu -->
+        <button class="comm-navigation-menu__burger-menu" onclick={toggleMenu}><i class="comm-icon__vector"></i></button>
+
+        <!-- Navigation Menu Item list -->
+        <nav role="navigation" class="comm-navigation-menu">
+            <ul>
+                <template for:each={menuItems} for:item="item">
+                    <li key={item.id}>
+                        <c-comm_navigation-menu-item item={item} onmenuitemclicked={hideMenu}></c-comm_navigation-menu-item>
+                    </li>
+                </template>
+                <li class="comm-navigation-menu__see-more" onclick={toggleSeeMore}><span>{label.seeMore}</span><i class="comm-icon__vector"></i></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Backdrop for burger menu -->
+    <div class="comm-navigation-menu__backdrop" onclick={hideMenu}></div>
+</template>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Required Parking Fields</label>
+    <protected>false</protected>
+    <values>
+        <field>COMM_Key__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>COMM_Value__c</field>
+        <value xsi:type="xsd:string">id;tax_class_id;name;short_description;long_description;online_flag;valid_from;valid_to;c_soldInStore;c_externalPricing;c_externalAvailability;c_requiresAirportStaff;brand;c_timeToTerminal;c_offerType</value>
+    </values>
+</CustomMetadata>

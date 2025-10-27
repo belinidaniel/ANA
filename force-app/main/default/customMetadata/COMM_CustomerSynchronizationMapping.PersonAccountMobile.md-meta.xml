@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Person Account Mobile</label>
+    <protected>false</protected>
+    <values>
+        <field>COMM_AddressMapping__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>COMM_CommerceApiFieldName__c</field>
+        <value xsi:type="xsd:string">phone_home</value>
+    </values>
+    <values>
+        <field>COMM_CoreApiFieldName__c</field>
+        <value xsi:type="xsd:string">PersonMobilePhone</value>
+    </values>
+    <values>
+        <field>COMM_CoreApiObjectName__c</field>
+        <value xsi:type="xsd:string">Account</value>
+    </values>
+    <values>
+        <field>COMM_MappingForB2C__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+</CustomMetadata>

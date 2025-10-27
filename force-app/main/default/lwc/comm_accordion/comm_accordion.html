@@ -1,0 +1,9 @@
+<template>
+    <section class="comm-accordion-container">
+        <lightning-accordion class="comm-accordion" onclick={onClickToggleBody}>
+            <lightning-accordion-section label={accordionContentTitle}>
+                <lightning-formatted-rich-text value={accordionContentBody}></lightning-formatted-rich-text>
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </section>
+</template>

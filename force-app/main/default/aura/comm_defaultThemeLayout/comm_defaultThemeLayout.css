@@ -1,0 +1,99 @@
+.THIS {
+}
+
+.THIS.comm-theme {
+    display: flex;
+    overflow: hidden;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.THIS.comm-theme > section {
+    padding-top: 80px;
+    padding-bottom: 100px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.THIS.comm-theme header {
+    width: 100%;
+    border-bottom: 0.0625rem solid #e3eaef;
+}
+
+.THIS.comm-theme header .comm-theme__header {
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    position: relative;
+    height: 6.25rem;
+    align-items: center;
+    flex-direction: row;
+    max-width: 100.375rem;
+    padding-left: 0.9375rem;
+    padding-right: 0.9375rem;
+    justify-content: space-between;
+}
+
+.THIS.comm-theme section {
+    flex: 1 0 auto;
+}
+
+.THIS.comm-theme section {
+    flex: 1 0 auto;
+}
+
+.THIS.comm-theme header .comm-theme__header .comm-theme__language-selector {
+    margin-left: 1.25rem;
+    margin-right: 11px;
+}
+
+.THIS.comm-theme header .comm-theme__header .comm-theme__notifications {
+    margin-left: 1.25rem;
+}
+
+.THIS.comm-theme header .comm-theme__header .comm-theme__accmenu {
+    margin-left: auto;
+}
+
+.THIS.comm-theme header .comm-theme__header .comm-theme__nav {
+    margin-right: auto;
+}
+
+.THIS.comm-theme header .comm-theme__header .comm-theme__logo {
+    margin-right: 1.25rem;
+    flex-shrink: 0;
+}
+
+@media only screen and (min-width: 768px) {
+    .THIS.comm-theme header .comm-theme__header .comm-theme__language-selector {
+        margin-left: 2.5rem;
+        margin-right: unset;
+    }
+
+    .THIS.comm-theme header .comm-theme__header .comm-theme__nav {
+        margin-right: 1.25rem;
+        margin-left: auto;
+    }
+}
+
+.THIS.skip-link {
+    display: none;
+}
+
+.THIS.skip-link.show {
+    z-index: 100;
+    display: block;
+    overflow: hidden;
+    max-width: 200px;
+    border: 3px solid black;
+    position: absolute;
+    background: #fff;
+    padding: 1rem 1.5rem;
+    transition: all .2s ease-in-out;
+    color: #052145;
+}
+
+.THIS.skip-link.show:hover {
+    color: #007bff;
+    text-decoration: underline !important;
+}

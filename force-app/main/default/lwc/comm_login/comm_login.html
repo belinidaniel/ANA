@@ -1,0 +1,59 @@
+<template>
+    <section class="comm-login">
+        <!-- Login - Titles -->
+        <div class="comm-login__title">
+            <span>{label.title}</span>
+            <span>{label.subtitle}</span>
+        </div>
+
+        <!-- Form error feedback -->
+        <div if:true={isFormError} class="comm-login__feedback">
+            <i class="comm-icon__information"></i>
+            <span>{label.errorFeedback}</span>
+        </div>
+
+        <!-- Login - Subscription Portal Login Form (with only Azure AD) -->
+        <form if:true={loginWithAD} class="comm-login__credentials-form" novalidate>
+            <a href="/subscriptions/services/auth/sso/Azure_AD"
+                ><lightning-button class="comm-button__tertiary comm-button__subscription-icon" label={label.subscriptionAccess}></lightning-button
+            ></a>
+        </form>
+
+        <!-- Login - Credentials login form -->
+        <form if:true={isCredentialsLogin} class="comm-login__credentials-form" novalidate>
+            <c-comm_input type="email" data-name="email" label={label.email} is-required="true"></c-comm_input>
+            <div>
+                <c-comm_input type="password" data-name="password" label={label.password} is-required="true"></c-comm_input>
+                <a href="/ForgotPassword">{label.forgotPassword}</a>
+            </div>
+            <lightning-button class="comm-button__primary" label={label.login} onclick={handleOnClickLogin}></lightning-button>
+            <span>{label.or}</span>
+            <a href="/services/auth/sso/Google"
+                ><lightning-button class="comm-button__tertiary comm-button__google-icon" label={label.loginWith}></lightning-button
+            ></a>
+            <a href="/services/auth/sso/Facebook"
+                ><lightning-button class="comm-button__tertiary comm-button__facebook-icon" label={label.loginWith}></lightning-button
+            ></a>
+            <a href="/subscriptions"
+                ><lightning-button class="comm-button__tertiary comm-button__subscription-icon" label={label.subscriptionAccess}></lightning-button
+            ></a>
+            <a type="button" onclick={toggleLoginForm}>{label.withReservation}</a>
+            <div>{label.newHere}&nbsp;<a href="/SelfRegister">{label.createAccount}</a></div>
+        </form>
+
+        <!-- Login - Reservation login form -->
+        <form if:true={isReservationLogin} class="comm-login__reservation-form" novalidate>
+            <c-comm_input type="text" label={label.orderNumber} is-required="true"></c-comm_input>
+            <c-comm_input type="email" label={label.email} is-required="true"></c-comm_input>
+            <div>
+                <c-comm_input type="text" label={label.postalCode} is-required="true"></c-comm_input>
+                <c-comm_input type="text" label={label.region} is-required="true"></c-comm_input>
+            </div>
+            <lightning-button type="submit" class="comm-button__primary" label={label.login}></lightning-button>
+            <div>{label.backTo}&nbsp;<a type="button" onclick={toggleLoginForm}>{label.withCredentials}</a></div>
+        </form>
+    </section>
+
+    <!-- Login - Image section -->
+    <img if:true={pageIllustrationUrl} src={pageIllustrationUrl} alt={pageIllustrationTitle} />
+</template>

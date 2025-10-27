@@ -1,0 +1,19 @@
+<template>
+    <section if:true={showConsentTracking} class="comm-consent-tracking">
+        <p class="comm-consent-tracking__description">
+            {label.description}&nbsp;<b><a onclick={navigateToPage}>{label.cookiesPolicy}</a></b>
+        </p>
+        <div class="comm-consent-tracking__buttons-group">
+            <lightning-button
+                class="comm-button__primary-consent-tracking"
+                label={label.accept}
+                onclick={hideConsentOnClickAccept}
+            ></lightning-button>
+            <lightning-button
+                class="comm-button__secondary-consent-tracking"
+                label={label.decline}
+                onclick={hideConsentOnClickDecline}
+            ></lightning-button>
+        </div>
+    </section>
+</template>

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>COMM_Assignmnet_ProfileIdToList</name>
+        <label>Assign Profile Id to List</label>
+        <locationX>468</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>COMM_Variable_ProfileList</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>COMM_Formula_GetProfileIdWith15Chars</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>COMM_Loop_ProfileRecords</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Confirm if the re-activation action can run based on Subscription Data</description>
+        <name>COMM_Decision_ConfirmActionAvailability</name>
+        <label>Confirm Action Availability</label>
+        <locationX>182</locationX>
+        <locationY>650</locationY>
+        <defaultConnector>
+            <targetReference>COMM_Screen_SubscriptionReactivationNotPermitted</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Confirmed</defaultConnectorLabel>
+        <rules>
+            <name>COMM_Outcome_Confirmed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>recordId.COMM_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Archieved</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>COMM_Formula_CurrentDate</leftValueReference>
+                <operator>LessThanOrEqualTo</operator>
+                <rightValue>
+                    <elementReference>COMM_Formula_CancellationDateLimit</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>COMM_Formula_CurrentDate</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <elementReference>recordId.COMM_CancellationDate__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>recordId.COMM_Active__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>recordId.COMM_CancellationDate__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_Screen_SubscriptionReActivationWarning</targetReference>
+            </connector>
+            <label>Confirmed</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Confirm if re-activation action can run by the current user</description>
+        <name>COMM_Decision_ConfirmActionPermissions</name>
+        <label>Confirm Action Permissions</label>
+        <locationX>380</locationX>
+        <locationY>542</locationY>
+        <defaultConnector>
+            <targetReference>COMM_Screen_SubscriptionReactivationWithoutPermission</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Permissions Not Confirmed</defaultConnectorLabel>
+        <rules>
+            <name>COMM_Outcome_PermissionsConfirmed</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>COMM_Variable_ProfileList</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <elementReference>$User.ProfileId</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$UserRole.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ANA Admin</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_Decision_ConfirmActionAvailability</targetReference>
+            </connector>
+            <label>Permissions Confirmed</label>
+        </rules>
+    </decisions>
+    <description>This flow gives the possibility to re-activate a subscription 15 days after the cancellation request is send, in order to efficiently manage the company subscriptions.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Formula to confirm if related Account has Automatic Renewal to mirror it on the Subscription Record</description>
+        <name>COMM_Formula_AccountWithAutomaticRenewal</name>
+        <dataType>Boolean</dataType>
+        <expression>ISPICKVAL({!recordId.COMM_Account__r.COMM_PaymentRenewal__c}, &apos;Automatic&apos;)</expression>
+    </formulas>
+    <formulas>
+        <description>Cancellation action limit date</description>
+        <name>COMM_Formula_CancellationDateLimit</name>
+        <dataType>Date</dataType>
+        <expression>{!recordId.COMM_CancellationDate__c} + 15</expression>
+    </formulas>
+    <formulas>
+        <description>Get Today Date</description>
+        <name>COMM_Formula_CurrentDate</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <formulas>
+        <name>COMM_Formula_GetProfileIdWith15Chars</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!COMM_Loop_ProfileRecords.Id}, 15)</expression>
+    </formulas>
+    <interviewLabel>COMM: Subscription Cancellation {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>COMM: Subscription Re-activation</label>
+    <loops>
+        <name>COMM_Loop_ProfileRecords</name>
+        <label>Loop Profile Records</label>
+        <locationX>380</locationX>
+        <locationY>242</locationY>
+        <collectionReference>COMM_Get_PermittedProfiles</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>COMM_Assignmnet_ProfileIdToList</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>COMM_Decision_ConfirmActionPermissions</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <description>Get Profiles with permission to re-activation a Subscription</description>
+        <name>COMM_Get_PermittedProfiles</name>
+        <label>Get Permitted Profiles</label>
+        <locationX>380</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>COMM_Loop_ProfileRecords</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Super Admin</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>System Administrator</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Profile</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>COMM_Update_Subscription</name>
+        <label>Update Subscription</label>
+        <locationX>50</locationX>
+        <locationY>866</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>COMM_ActiveSubscriptionRequest__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>COMM_AutomaticRenewal__c</field>
+            <value>
+                <elementReference>COMM_Formula_AccountWithAutomaticRenewal</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>COMM_CancellationDate__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>COMM_Status__c</field>
+            <value>
+                <stringValue>Process Concluded</stringValue>
+            </value>
+        </inputAssignments>
+        <object>COMM_Subscription__c</object>
+    </recordUpdates>
+    <screens>
+        <name>COMM_Screen_SubscriptionReactivationNotPermitted</name>
+        <label>Subscription Re-activation Not Permitted</label>
+        <locationX>314</locationX>
+        <locationY>758</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>COMM_DisplayText_SubscriptionReactivationNotPermitted</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!$Label.COMM_SUBSCRIPTION_NOTPERMITTEDWARNING}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <nextOrFinishButtonLabel>Close</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>COMM_Screen_SubscriptionReActivationWarning</name>
+        <label>Screen Subscription Re-Activation Warning</label>
+        <locationX>50</locationX>
+        <locationY>758</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>COMM_Update_Subscription</targetReference>
+        </connector>
+        <fields>
+            <name>COMM_DisplayText_SubscriptionReactivationWarning</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;{!$Label.COMM_SUBSCRIPTION_REACTIVATIONWARNING}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <nextOrFinishButtonLabel>Proceed</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>COMM_Screen_SubscriptionReactivationWithoutPermission</name>
+        <label>Subscription Re-activation Without Permission</label>
+        <locationX>578</locationX>
+        <locationY>650</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>COMM_DisplayText_SubscriptionReactivationWithoutPermission</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;{!$Label.COMM_SUBSCRIPTION_ACTIONWITHOUTPERMISSION}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <nextOrFinishButtonLabel>Close</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>254</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>COMM_Get_PermittedProfiles</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>COMM_Variable_ProfileList</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Current Subscription Record</description>
+        <name>recordId</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>COMM_Subscription__c</objectType>
+    </variables>
+</Flow>

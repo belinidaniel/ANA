@@ -1,0 +1,18 @@
+<!--
+    Page rendered through redirection on a 404 status server error
+-->
+<template>
+    <div class="comm-error">
+        <!--Image-->
+        <img class="comm_error__image" src={imageUrl} alt={imageTitle} />
+
+        <!--Title and subtitle-->
+        <div class="comm-error__title">
+            <h1><lightning-formatted-rich-text value={label.title}></lightning-formatted-rich-text></h1>
+        </div>
+        <div class="comm-error__subtitle"><lightning-formatted-rich-text value={label.subtitle}></lightning-formatted-rich-text></div>
+
+        <!--Button-->
+        <a onclick={navigateToPage}><lightning-button class="comm-button__primary" label={buttonLabel}></lightning-button></a>
+    </div>
+</template>

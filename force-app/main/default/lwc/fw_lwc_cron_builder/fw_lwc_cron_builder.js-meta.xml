@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="urn:metadata.tooling.soap.sforce.com" fqn="lwc_cron_builder">
+    <apiVersion>58.0</apiVersion>
+	<isExposed>true</isExposed>
+	<masterLabel>Cron Builder</masterLabel>
+	<description>LWC displays an inteface to build cron expressions</description>
+	<targets> 
+        <target>lightning__FlowScreen</target>
+    </targets>
+	<targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="cronExpression" label="Cron Expression" type="String" role="outputOnly"/>
+			<property name="cronDescription" label="Cron Description" type="String" role="outputOnly"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

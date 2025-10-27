@@ -1,0 +1,75 @@
+<template>
+	<lightning-layout>
+		<lightning-layout-item padding="around-small" size="5">
+			<lightning-radio-group
+				name="yearRadioGroup"
+				label={label.Select_Option}
+				value={yearRadioOption}
+				options={yearRadioOptions}
+				type="radio"
+				onchange={handleYearRadioGroupChange}
+			></lightning-radio-group>
+		</lightning-layout-item>
+		<lightning-layout-item padding="around-small" size="7">
+			<!-- EVERY X YEAR STARTING AT Y -->
+			<template if:true={isStartingAtYearChecked}>
+				<lightning-layout>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="yearFrequency"
+							label={label.Every}
+							value={yearFrequencyOption}
+							options={yearFrequencyOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="startingYear"
+							label={label.Starting_in}
+							value={startingYearOption}
+							options={yearOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+				</lightning-layout>
+			</template>
+			<!-- AT SPECIFIC YEAR -->
+			<template if:true={isSpecificYearChecked}>
+				<lightning-dual-listbox
+					name="specificYear"
+					label={label.Select_Years}
+					source-label={label.Available}
+					selected-label={label.Selected}
+					value={specificYearOption}
+					options={yearOptions}
+					onchange={handleValueChange}
+					variant="label-hidden"
+				></lightning-dual-listbox>
+			</template>
+			<!-- BETWEEN YEAR -->
+			<template if:true={isBetweenYearChecked}>
+				<lightning-layout>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="betweenYearStart"
+							label={label.Start_in}
+							value={betweenYearStartOption}
+							options={yearOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="betweenYearEnd"
+							label={label.To}
+							value={betweenYearEndOption}
+							options={yearOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+				</lightning-layout>
+			</template>
+		</lightning-layout-item>
+	</lightning-layout>
+</template>

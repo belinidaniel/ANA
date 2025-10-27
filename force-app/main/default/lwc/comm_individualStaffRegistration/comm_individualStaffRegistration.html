@@ -1,0 +1,226 @@
+<template>
+    <!-- Individual staff registration title -->
+    <h1><label class="comm-individual-staff-registration__main-title">{label.mainTitle}</label></h1>
+
+    <!-- Spinner -->
+    <c-comm_loader is-loading={isLoading}></c-comm_loader>
+
+    <!-- Individual staff registration request -->
+    <form if:true={fillForm} class="comm-individual-staff-registration" novalidate>
+        <fieldset class="comm-individual-staff-registration__personal-data-staff">
+            <span class="comm-individual-staff-registration__title">{label.personalDataTitle}</span>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.billingDataFirstName}
+                data-src="personal-first-name"
+                is-required="true"
+                message-when-pattern-mismatch={label.nameErrorMessage}
+                onchange={handleInputChange}
+                max-length={validation.privateBillingFirstNameCharLimit}
+                value={userData.FirstName}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.billingDataLastName}
+                data-src="personal-last-name"
+                is-required="true"
+                message-when-pattern-mismatch={label.nameErrorMessage}
+                onchange={handleInputChange}
+                max-length={validation.privateBillingLastNameCharLimit}
+                value={userData.LastName}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.billingDataNif}
+                data-src="personal-vat-number"
+                is-required="true"
+                max-length={validation.vatCharLimit}
+                onchange={handleInputChange}
+                value={userData.Contact.Account.COMM_VATNumberWithCode__c}
+            ></c-comm_input>
+            <div>
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="email"
+                    label={label.personalDataEmail}
+                    data-src="personal-email-address"
+                    is-required="true"
+                    onchange={handleInputChange}
+                    value={userData.Email}
+                ></c-comm_input>
+                <div class="comm-form__phone-group">
+                    <c-comm_input
+                        class-name="comm-form__input"
+                        pattern={pattern.phoneCode}
+                        type="text"
+                        label={label.personalDataCode}
+                        data-src="personal-phone-code"
+                        is-required="true"
+                        message-when-pattern-mismatch={label.phoneCodeErrorMessage}
+                        onchange={handleInputChange}
+                        value={userData.phoneCode}
+                    ></c-comm_input>
+                    <c-comm_input
+                        class-name="comm-form__input"
+                        pattern={pattern.mobilePhone}
+                        type="text"
+                        label={label.personalDataMobile}
+                        data-src="personal-phone-number"
+                        is-required="true"
+                        message-when-pattern-mismatch={label.vatErrorMessage}
+                        onchange={handleInputChange}
+                        value={userData.phone}
+                    ></c-comm_input>
+                </div>
+            </div>
+            <c-comm_input
+                class-name="comm-form__textarea"
+                type="textarea"
+                label={label.billingDataAddress}
+                data-src="personal-address-street"
+                is-required="true"
+                onchange={handleInputChange}
+                max-length={validation.privateBillingAddressCharLimit}
+                value={userData.Contact.Account.BillingStreet}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.billingDataPostalCode}
+                data-src="personal-address-zipcode"
+                is-required="true"
+                onchange={handleInputChange}
+                max-length={validation.privateBillingPostalCodeCharLimit}
+                value={userData.Contact.Account.BillingPostalCode}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.billingDataCity}
+                data-src="personal-address-city"
+                is-required="true"
+                onchange={handleInputChange}
+                max-length={validation.privateBillingCityCharLimit}
+                value={userData.Contact.Account.BillingCity}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__select"
+                type="select"
+                label={label.billingDataCountry}
+                data-src="personal-address-country"
+                options={countryOptions}
+                is-required="true"
+                onchange={handleInputChange}
+                value={userData.Contact.Account.BillingCountryCode}
+            ></c-comm_input>
+        </fieldset>
+        <fieldset class="comm-individual-staff-registration__personal-data-work">
+            <span class="comm-individual-staff-registration__title">{label.carStaffTitle}</span>
+            <div class="comm-individual-staff-registration__work-function">
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="text"
+                    label={label.carStaffWorkFunction}
+                    data-src="job-role"
+                    is-required="true"
+                    onchange={handleInputChange}
+                ></c-comm_input>
+                <div class="comm-individual-staff-registration__fileUpload">
+                    <label for="file-input" class="comm-individual-staff-registration__upload">
+                        <i class={fileIconClass} onclick={handleUploaderClick}></i>
+                        <div class="comm-individual-staff-registration__group-upload">
+                            <span>{label.carStaffInfo1}</span>
+                            <span>{fileUploaderText}</span>
+                        </div>
+                    </label>
+                    <input
+                        data-src="file-uploader"
+                        id="file-input"
+                        name="file-input"
+                        class="comm-form__file-uploader"
+                        type="file"
+                        accept=".pdf, .jpeg"
+                        onchange={handleFileChange}
+                    />
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="comm-individual-staff-registration__section-car">
+            <span class="comm-individual-staff-registration__title">{label.carTitle}</span>
+            <span class="comm-individual-staff-registration__car-subtitle">{label.carOne}</span>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.carPlate}
+                data-src="vehicle-license"
+                is-required="true"
+                max-length="8"
+                onchange={handleInputChange}
+            ></c-comm_input>
+            <c-comm_input class-name="comm-form__input" type="text" label={label.carBrand} data-src="vehicle-brand" is-required="true"></c-comm_input>
+            <c-comm_input class-name="comm-form__input" type="text" label={label.carModel} data-src="vehicle-model" is-required="true"></c-comm_input>
+            <span class="comm-individual-staff-registration__car-subtitle">{label.carTwo}</span>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.carPlate}
+                data-src="second-vehicle-license"
+                max-length="8"
+            ></c-comm_input>
+            <c-comm_input class-name="comm-form__input" type="text" label={label.carBrand} data-src="second-vehicle-brand"></c-comm_input>
+            <c-comm_input class-name="comm-form__input" type="text" label={label.carModel} data-src="second-vehicle-model"></c-comm_input>
+        </fieldset>
+
+        <fieldset class="comm-individual-staff-registration__section-terms">
+            <span class="comm-individual-staff-registration__title">{label.carTerms}</span>
+            <label for="firstTermsAndConditions" class="comm-form__checkbox-group">
+                <c-comm_input type="checkbox" class-name="comm-form__checkbox" data-src="privacy-consent" onchange={handleOnChange}></c-comm_input>
+                <span></span>
+                {label.carStaffFirstTerms}
+            </label>
+            <label for="secondTermsAndConditions" class="comm-form__checkbox-group">
+                <c-comm_input
+                    type="checkbox"
+                    class-name="comm-form__checkbox"
+                    data-src="license-reading-consent"
+                    onchange={handleOnChange}
+                ></c-comm_input>
+                <span></span>
+                {label.carStaffSecondTerms}
+            </label>
+            <label for="thirdTermsAndConditions" class="comm-form__checkbox-group">
+                <c-comm_input type="checkbox" class-name="comm-form__checkbox" data-src="marketing-consent" onchange={handleOnChange}></c-comm_input>
+                <span></span>
+                {label.carStaffInfoThirdTerms}
+            </label>
+        </fieldset>
+
+        <!-- Staff Submit Buttom -->
+        <fieldset class="comm-individual-staff-registration__section-save">
+            <lightning-button
+                class="comm-button__primary"
+                label={label.staffSubmitButton}
+                onclick={handleClick}
+                disabled={isDisabled}
+                type="submit"
+            ></lightning-button>
+        </fieldset>
+    </form>
+    <div class="comm-individual-staff-registration__form-submitted" if:true={formSubmitted}>
+        <i class="comm-icon__check"></i>
+        <span>{label.staffSubmitSentSuccess}</span>
+        <span>{label.staffSubmitResponseSoon}</span>
+        <span>{label.staffSubmitThankYou}</span>
+        <lightning-button class="comm-button__primary" label={label.staffSubmitReturnButton} onclick={handleReturn}></lightning-button>
+    </div>
+
+    <div class="comm-individual-staff-registration__form-submitted" if:true={hasPendingCase}>
+        <span>{label.requestInApproval}</span>
+        <span>{label.requestAlreadyExists}</span>
+        <lightning-button class="comm-button__primary" label={label.staffSubmitReturnButton} onclick={handleReturn}></lightning-button>
+    </div>
+</template>

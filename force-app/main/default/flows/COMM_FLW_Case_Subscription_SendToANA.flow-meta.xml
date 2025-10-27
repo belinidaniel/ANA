@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Navigate_To_Case_Related_List</name>
+        <label>Navigate To Case Related List</label>
+        <locationX>176</locationX>
+        <locationY>782</locationY>
+        <actionName>c:COMM_LC_ScreenFlowNavigateTo</actionName>
+        <actionType>component</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>objectApiName</name>
+            <value>
+                <stringValue>Case</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>listName</name>
+            <value>
+                <stringValue>Recent</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>c:COMM_LC_ScreenFlowNavigateTo</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Assign_to_Airport_Admin</name>
+        <label>Assign to Airport Admin</label>
+        <locationX>176</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>recordId.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Airport_Admin_Queue.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Case</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Change_Status_to_Returned_to_Airport_Admin</name>
+        <label>Change Status to Returned to Airport Admin</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>recordId.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Returned to Airport Admin</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_to_Airport_Admin</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_SABA_Rejection</name>
+        <label>Set SABA Rejection</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>recordId.COMM_SABARejection__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SABA_Rejection</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Change_Status_to_Returned_to_Airport_Admin</targetReference>
+        </connector>
+    </assignments>
+    <environments>Default</environments>
+    <formulas>
+        <description>Formula to retrieve Subscription&apos;s Airport. If Value Field is empty retrieve airport from Subscription&apos;s Product</description>
+        <name>COMM_SubscriptionAirportFormula</name>
+        <dataType>String</dataType>
+        <expression>IF(ISPICKVAL({!recordId.COMM_Subscription__r.COMM_AirportValue__c}, &quot;&quot;), TEXT({!recordId.COMM_Subscription__r.COMM_Product__r.COMM_Airport__c}), TEXT({!recordId.COMM_Subscription__r.COMM_AirportValue__c}))</expression>
+    </formulas>
+    <formulas>
+        <description>Formula for the Airport Admin Queue Name based on Subscription Location. If Airport value is missing add to ANA Admin Queue.</description>
+        <name>COMM_SubscriptionRequestAirportAdminQueueNameFormula</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!COMM_SubscriptionAirportFormula}), &quot;COMM_SubscriptionRequestANAAdmin&quot;, &quot;COMM_SubscriptionRequestAirportAdmin_&quot; + {!COMM_SubscriptionAirportFormula})</expression>
+    </formulas>
+    <interviewLabel>Case Subscription Send to ANA {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Subscription Send to Airport Admin</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Get_Airport_Admin_Queue</name>
+        <label>Get Airport Admin Queue</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Set_SABA_Rejection</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Type</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Queue</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>COMM_SubscriptionRequestAirportAdminQueueNameFormula</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Group</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Case</name>
+        <label>Update Case</label>
+        <locationX>176</locationX>
+        <locationY>674</locationY>
+        <connector>
+            <targetReference>Navigate_To_Case_Related_List</targetReference>
+        </connector>
+        <inputReference>recordId</inputReference>
+    </recordUpdates>
+    <screens>
+        <name>Are_you_sure</name>
+        <label>Are you sure?</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <backButtonLabel>No</backButtonLabel>
+        <connector>
+            <targetReference>Get_Airport_Admin_Queue</targetReference>
+        </connector>
+        <fields>
+            <name>Are_you_sure_text</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!$Label.COMM_SUBSCRIPTION_RETURN_TO_ANA}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>SABA_Rejection</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>recordId.COMM_SABARejection__c</elementReference>
+            </defaultValue>
+            <fieldText>SABA Rejection</fieldText>
+            <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>recordId.COMM_SABARejection__c</leftValueReference>
+                    <operator>IsNull</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <nextOrFinishButtonLabel>Yes</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Are_you_sure</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>NotificationBody_EN</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;This user&apos;s subscription request {!recordId.COMM_SubscriptionNumber__c} {!recordId.COMM_FirstName__c} {!recordId.COMM_LastName__c} is now available for approval.&lt;/span&gt;&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>NotificationBody_ES</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Su solicitud de abono para {!recordId.COMM_SubscriptionNumber__c} {!recordId.COMM_FirstName__c} {!recordId.COMM_LastName__c} ya está disponible para su aprobación.&lt;/span&gt;&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>NotificationBody_PT</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;O processo de pedido de avença deste utilizador {!recordId.COMM_SubscriptionNumber__c} - {!recordId.COMM_FirstName__c} {!recordId.COMM_SubscriptionNumber__c} já está disponível para conclusão.&lt;/span&gt;&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>NotTitle_EN</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;ANA – Aeroportos de Portugal&lt;/p&gt;&lt;p&gt;New Subscription Request&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>NotTitle_ES</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;ANA – Aeroportos de Portugal&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Solicitud de abono&lt;/span&gt;&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>NotTitle_PT</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;ANA – Aeroportos de Portugal&lt;/p&gt;&lt;p&gt;Pedido de nova Avença&lt;/p&gt;</text>
+    </textTemplates>
+    <variables>
+        <name>recordId</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+</Flow>

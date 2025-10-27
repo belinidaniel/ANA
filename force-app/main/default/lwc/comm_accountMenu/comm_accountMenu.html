@@ -1,0 +1,40 @@
+<!--
+    Account Menu
+    Renders Account Menu component.
+-->
+
+<template>
+    <div if:false={isGuest} class="comm-header__account-switch" onmouseover={showAccordion} onmouseout={hideAccordion}>
+        <div class="comm-header__icon-container">
+            <i class="comm-icon__user"></i>
+            <span>{initials}</span>
+        </div>
+        <button class="comm-header__button-account" onclick={toggleAccordion}><span>{username}</span><i class="comm-icon__vector"></i></button>
+        <ul>
+            <li><a onclick={redirectToAccount}>{label.accountDetails}</a></li>
+            <template if:false={isCustomer}>
+                <li><a onclick={openModal}>{label.switchAccount}</a></li>
+            </template>
+            <template if:true={isCustomer}>
+                <li><a onclick={redirectToMyReservations}>{label.myReservations}</a></li>
+            </template>
+            <li><a onclick={redirectToLogout}>{label.logout}</a></li>
+        </ul>
+    </div>
+
+    <!--Account menu modal-->
+    <c-comm_modal modal-title={label.modalTitle}>
+        <div class="comm-modal__subtitle">{label.modalSubtitle}</div>
+        <lightning-radio-group
+            class="comm-form__radio-group"
+            options={managedAccounts}
+            value={effectiveAccountId}
+            type="radio"
+            onchange={handleOnChangeAccountSwitcher}
+        ></lightning-radio-group>
+        <div class="comm-modal__button-group">
+            <lightning-button class="comm-button__primary" label={label.confirm} onclick={handleOnClickConfirmAccount}></lightning-button>
+            <lightning-button class="comm-button__secondary" label={label.cancel} onclick={closeModal}></lightning-button>
+        </div>
+    </c-comm_modal>
+</template>

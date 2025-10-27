@@ -1,0 +1,480 @@
+<template>
+    <!-- Account information title -->
+    <h1><label class="comm-account-information__main-title">{label.mainTitle}</label></h1>
+
+    <form class="comm-account-information" novalidate>
+        <!-- Personal Data -->
+        <fieldset>
+            <section class="comm-account-information__personal-data-header">
+                <legend class="comm-account-information__title">{label.personalDataTitle}</legend>
+                <a
+                    if:true={isCustomer}
+                    class="comm-account-information__change-password-link"
+                    data-src="modal-change-password"
+                    onclick={handleOnClick}
+                    >{label.personalDataChangePass}</a
+                >
+            </section>
+            <section class="comm-account-information__personal-data">
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="text"
+                    label={label.personalDataFirstName}
+                    is-required={isCustomer}
+                    is-disabled={isPartner}
+                    data-src="personal-first-name"
+                    value={accountData.personalFirstName}
+                    onchange={handleOnChange}
+                    message-when-pattern-mismatch={label.nameErrorMessage}
+                    max-length={validation.personalFirstNameCharLimit}
+                    pattern={pattern.name}
+                ></c-comm_input>
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="text"
+                    label={label.personalDataLastName}
+                    is-required={isCustomer}
+                    is-disabled={isPartner}
+                    data-src="personal-last-name"
+                    value={accountData.personalLastName}
+                    onchange={handleOnChange}
+                    message-when-pattern-mismatch={label.nameErrorMessage}
+                    max-length={validation.personalLastNameCharLimit}
+                    pattern={pattern.name}
+                ></c-comm_input>
+                <span>
+                    <c-comm_input
+                        class-name="comm-form__input"
+                        type="email"
+                        label={label.personalDataEmail}
+                        is-disabled="true"
+                        value={accountData.personalEmail}
+                    ></c-comm_input>
+                    <a if:true={isCustomer} class="comm-account-information__change-email-link" data-src="modal-change-email" onclick={handleOnClick}
+                        >{label.personalDataChangeEmail}</a
+                    >
+                    <span class="comm-account-information__info">{label.personalDataInfo}</span>
+                </span>
+                <div class="comm-form__phone-group">
+                    <c-comm_input
+                        class-name="comm-form__input"
+                        pattern={pattern.phoneCode}
+                        type="text"
+                        label={label.personalDataCode}
+                        is-required={isCustomer}
+                        is-disabled={isPartner}
+                        data-src="personal-phone-code"
+                        value={accountData.personalPhoneCode}
+                        onchange={handleOnChange}
+                        message-when-pattern-mismatch={label.phoneCodeErrorMessage}
+                        max-length="4"
+                    ></c-comm_input>
+                    <c-comm_input
+                        class-name="comm-form__input"
+                        pattern={pattern.mobilePhone}
+                        type="text"
+                        label={label.personalDataMobile}
+                        is-required={isCustomer}
+                        is-disabled={isPartner}
+                        data-src="personal-phone-number"
+                        value={accountData.personalPhoneNumber}
+                        onchange={handleOnChange}
+                        message-when-pattern-mismatch={label.vatErrorMessage}
+                        max-length="11"
+                        min-length="7"
+                    ></c-comm_input>
+                </div>
+            </section>
+
+            <!-- Private Billing Data -->
+            <section lwc:if={accountData.isB2C} class="comm-account-information__billing-data">
+                <legend class="comm-account-information__title">{label.billingDataTitle}</legend>
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="text"
+                    label={label.billingDataFirstName}
+                    is-required="true"
+                    data-src="billing-first-name"
+                    value={accountData.billingFirstName}
+                    onchange={handleOnChange}
+                    max-length={validation.privateBillingFirstNameCharLimit}
+                ></c-comm_input>
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="text"
+                    label={label.billingDataLastName}
+                    is-required="true"
+                    data-src="billing-last-name"
+                    value={accountData.billingLastName}
+                    onchange={handleOnChange}
+                    max-length={validation.privateBillingLastNameCharLimit}
+                ></c-comm_input>
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="text"
+                    label={label.billingDataNif}
+                    is-required="true"
+                    data-src="billing-vat-number"
+                    value={accountData.billingVATNumber}
+                    onchange={handleOnChange}
+                    max-length={validation.vatCharLimit}
+                ></c-comm_input>
+                <c-comm_input
+                    class-name="comm-form__textarea"
+                    type="textarea"
+                    label={label.billingDataAddress}
+                    is-required="true"
+                    data-src="billing-address-street"
+                    value={accountData.billingAddress}
+                    onchange={handleOnChange}
+                    max-length={validation.privateBillingAddressCharLimit}
+                ></c-comm_input>
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="text"
+                    label={label.billingDataPostalCode}
+                    is-required="true"
+                    data-src="billing-address-zipcode"
+                    value={accountData.billingZipCode}
+                    onchange={handleOnChange}
+                    max-length={validation.privateBillingPostalCodeCharLimit}
+                ></c-comm_input>
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="text"
+                    label={label.billingDataCity}
+                    is-required="true"
+                    data-src="billing-address-city"
+                    value={accountData.billingCity}
+                    onchange={handleOnChange}
+                    max-length={validation.privateBillingCityCharLimit}
+                ></c-comm_input>
+                <c-comm_input
+                    class-name="comm-form__select"
+                    type="select"
+                    label={label.billingDataCountry}
+                    data-src="billing-address-country"
+                    value={accountData.billingCountry}
+                    options={countryOptions}
+                    onchange={handleOnChange}
+                    required
+                ></c-comm_input>
+            </section>
+
+            <!-- Company revenue data -->
+            <section class="comm-account-information__company-data" data-is-affiliate={isAffiliate}>
+                <legend class="comm-account-information__title">{companyDataSectionTitle}</legend>
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="text"
+                    label={label.companyDataName}
+                    is-disabled={isB2B}
+                    data-src="company-name"
+                    value={accountData.companyName}
+                    onchange={handleOnChange}
+                    max-length={validation.companyBillingNameCharLimit}
+                ></c-comm_input>
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="text"
+                    label={label.companyDataNif}
+                    is-disabled={isB2B}
+                    data-src="company-vat-number"
+                    value={accountData.companyVATNumber}
+                    onchange={handleOnChange}
+                    max-length={validation.vatCharLimit}
+                ></c-comm_input>
+                <c-comm_input
+                    lwc:if={accountData.isAffiliate}
+                    class-name="comm-form__input"
+                    type="email"
+                    label={label.companyDataEmail}
+                    is-disabled="true"
+                    value={accountData.companyEmail}
+                ></c-comm_input>
+                <c-comm_input
+                    class-name="comm-form__textarea"
+                    type="textarea"
+                    label={label.companyDataAddress}
+                    is-disabled={isB2B}
+                    data-src="company-address-street"
+                    value={accountData.companyAddress}
+                    onchange={handleOnChange}
+                    max-length={validation.companyBillingAddressCharLimit}
+                ></c-comm_input>
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="text"
+                    label={label.companyDataPostalCode}
+                    is-disabled={isB2B}
+                    data-src="company-address-zipcode"
+                    value={accountData.companyZipCode}
+                    onchange={handleOnChange}
+                    max-length={validation.companyBillingPostalCodeCharLimit}
+                ></c-comm_input>
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="text"
+                    label={label.companyDataCity}
+                    is-disabled={isB2B}
+                    data-src="company-address-city"
+                    value={accountData.companyCity}
+                    onchange={handleOnChange}
+                    max-length={validation.companyBillingCityCharLimit}
+                ></c-comm_input>
+                <c-comm_input
+                    class-name="comm-form__select"
+                    type="select"
+                    label={label.companyDataCountry}
+                    data-src="company-address-country"
+                    value={accountData.companyCountry}
+                    options={countryOptions}
+                    onchange={handleOnChange}
+                    is-disabled={isB2B}
+                ></c-comm_input>
+            </section>
+
+            <!-- Marketing Communication -->
+            <section class="comm-account-information__section-communication">
+                <div class="comm-account-information__section-marketing">
+                    <legend class="comm-account-information__title">{label.marketingDataTitle}</legend>
+
+                    <label for="marketingComunicationCheckbox">
+                        <div class="comm-form__checkbox-group">
+                            <c-comm_input
+                                type="checkbox"
+                                class-name="comm-form__checkbox"
+                                data-src="marketing-consent"
+                                checked={accountData.marketingConsent}
+                                onchange={handleOnChange}
+                            ></c-comm_input>
+                            {label.marketingDataInfo}
+                        </div>
+                    </label>
+                </div>
+                <!-- Preferencial Contact -->
+                <div class="comm-account-information__section-contact">
+                    <legend class="comm-account-information__title">{label.contactDataTitle}</legend>
+                    <div class="comm-account-information__section-contact-container">
+                        <input
+                            class="comm-account-information__toggle-checkbox"
+                            name="contactToogleCheckbox"
+                            type="checkbox"
+                            id="toggle"
+                            data-src="preferencial-contact"
+                            checked={preferMobileContact}
+                            onchange={handleOnChange}
+                        />
+                        <label for="toggle" class="switch">
+                            <div class="options">
+                                <span class="option1">{label.contactDataEmail}</span>
+                                <span class="option2">{label.contactDataMobile}</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Individual Staff Request -->
+            <section if:true={isCustomer} class="comm-account-information__section-buy">
+                <legend class="comm-account-information__subtitle">{label.staffDataInfo}</legend>
+                <lightning-button
+                    class="comm-button__account-information-staff"
+                    label={label.staffDataButton}
+                    onclick={navigateToIndividualStaffForm}
+                    disabled={accountData.requestPending}
+                ></lightning-button>
+                <template if:true={accountData.requestPending}>
+                    <span>{label.requestInApproval}</span>
+                    <span>{label.requestAlreadyExists}</span>
+                </template>
+            </section>
+
+            <!-- Save Buttom -->
+            <section class="comm-account-information__section-save">
+                <lightning-button
+                    class="comm-button__primary"
+                    label={label.dataSaveButton}
+                    data-src="submit-information"
+                    onclick={handleOnClick}
+                    disabled={isDisabled}
+                    type="submit"
+                ></lightning-button>
+            </section>
+            <c-comm_loader is-loading={isLoading}></c-comm_loader>
+
+            <!-- Delete Account -->
+            <section class="comm-account-information__section">
+                <a if:true={isCustomer} class="comm-account-information__delete-account" data-src="modal-delete-account" onclick={handleOnClick}
+                    >{label.dataDeleteAccountButton}</a
+                >
+                <a if:true={isPartner} class="comm-account-information__delete-account" data-src="modal-delete-account" onclick={handleOnClick}
+                    >{label.dataDeactivateAccountButton}</a
+                >
+            </section>
+        </fieldset>
+    </form>
+
+    <!-- Modal Delete Account -->
+    <c-comm_modal
+        if:true={isCustomer}
+        class="comm-account-information__delete-account-modal"
+        modal-title={label.modalDeleteAccountTitle}
+        onclose={handleDeleteClose}
+    >
+        <template if:true={showDeleteSpinner}><lightning-spinner alternative-text={label.modalDeleteAccountTitle}></lightning-spinner></template>
+        <template if:true={deleteAccount}>
+            <div class="comm-modal__subtitle">{label.modalDeleteAccountInfo}</div>
+            <lightning-radio-group class="comm-form__radio-group" options={options} value={value} type="radio"> </lightning-radio-group>
+            <div class="comm-account-information__modal-buttons">
+                <lightning-button
+                    class="comm-button__primary-modal"
+                    label={label.deleteAccountYesButton}
+                    onclick={handleDeleteAccountConfirm}
+                ></lightning-button>
+                <lightning-button
+                    class="comm-button__secondary-modal"
+                    data-src="modal-close"
+                    label={label.deleteAccountNoButton}
+                    onclick={closeModal}
+                ></lightning-button>
+            </div>
+            <div class="comm-account-information__modal-info-group">
+                <span class="comm-account-information__modal-info-title">{label.deleteAccountInfo1}</span>
+                <span class="comm-account-information__modal-info">{label.deleteAccountInfo2}</span>
+                <span class="comm-account-information__modal-info">{label.deleteAccountInfo3}</span>
+                <span class="comm-account-information__modal-info">{label.deleteAccountInfo4}<a href={modalEmailLinkHref}> {modalEmailLink}</a></span>
+            </div>
+        </template>
+
+        <!-- Account Deleted -->
+        <form if:true={isAccountDeleted} novalidate>
+            <div class="comm-account-information__confirmation">
+                <i class="comm-icon__check"></i>
+                <span class="comm-account-information__modal-info">{label.deleteAccountInfo5}</span>
+            </div>
+        </form>
+    </c-comm_modal>
+
+    <!-- Modal Deactivate Account -->
+    <c-comm_modal
+        if:true={isPartner}
+        class="comm-account-information__delete-account-modal"
+        modal-title={label.modalDeactivateAccountTitle}
+        onclose={handleDeleteClose}
+    >
+        <template if:true={showDeleteSpinner}><lightning-spinner alternative-text={label.modalDeactivateAccountTitle}></lightning-spinner></template>
+        <template if:true={deleteAccount}>
+            <div class="comm-modal__subtitle">{label.modalDeactivateAccountInfo}</div>
+            <lightning-radio-group class="comm-form__radio-group" options={options} value={value} type="radio"> </lightning-radio-group>
+            <div class="comm-account-information__modal-buttons">
+                <lightning-button
+                    class="comm-button__primary-modal"
+                    label={label.deactivateAccountYesButton}
+                    onclick={handleDeleteAccountConfirm}
+                ></lightning-button>
+                <lightning-button
+                    class="comm-button__secondary-modal"
+                    data-src="modal-close"
+                    label={label.deactivateAccountNoButton}
+                    onclick={closeModal}
+                ></lightning-button>
+            </div>
+            <div class="comm-account-information__modal-info-group">
+                <span class="comm-account-information__modal-info-title">{label.deactivateAccountInfo1}</span>
+                <span class="comm-account-information__modal-info">{label.deleteAccountInfo2}</span>
+                <span class="comm-account-information__modal-info">{label.deleteAccountInfo3}</span>
+                <span class="comm-account-information__modal-info">{label.deleteAccountInfo4}</span>
+            </div>
+        </template>
+
+        <!-- Account Deleted -->
+        <form if:true={isAccountDeleted} novalidate>
+            <div class="comm-account-information__confirmation">
+                <i class="comm-icon__check"></i>
+                <span class="comm-account-information__modal-info">{label.deactivateAccountInfo2}</span>
+            </div>
+        </form>
+    </c-comm_modal>
+
+    <!-- Modal Change Password -->
+    <c-comm_modal class="comm-account-information__change-pass-modal" modal-title={label.modalChangePassTitle}>
+        <template if:true={isChangePassword}>
+            <div class="comm-modal__subtitle">{label.modalChangePassInfo1}</div>
+            <div class="comm-account-information__modal-info-pass">{label.modalChangePassInfo2}</div>
+            <lightning-radio-group class="comm-form__radio-group" options={options} value={value} type="radio"> </lightning-radio-group>
+            <div class="comm-account-information__modal-buttons-pass">
+                <lightning-button
+                    class="comm-button__primary-modal"
+                    label={label.modalChangePassYesButton}
+                    onclick={handleChangePassConfirm}
+                ></lightning-button>
+                <lightning-button class="comm-button__secondary-modal" label={label.modalChangePassNoButton} onclick={closeModal}></lightning-button>
+            </div>
+        </template>
+
+        <!-- Password Changed -->
+        <form if:true={changePassword} novalidate>
+            <i class="comm-icon__check"></i>
+            <span class="comm-account-information__modal-info"
+                >{label.modalChangePassSentMail1} {accountData.personalEmail}{label.modalChangePassSentMail2}</span
+            >
+        </form>
+    </c-comm_modal>
+
+    <!-- Modal Change Email -->
+    <c-comm_modal class="comm-account-information__change-email-modal" modal-title={label.modalChangeEmailTitle}>
+        <!-- Modal Change Email - Confirmation -->
+        <form if:true={isEmailConfirm} novalidate>
+            <div class="comm-account-information__modal-info">{label.modalConfirmEmailInfo}</div>
+            <div class="comm-account-information__input">
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="email"
+                    label={label.modalConfirmEmailNew}
+                    is-required="true"
+                    data-src="new-email"
+                    onchange={handleOnEmailChange}
+                ></c-comm_input>
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="email"
+                    label={label.modalConfirmEmailConfirmNew}
+                    is-required="true"
+                    data-src="confirm-email"
+                    onchange={handleOnEmailChange}
+                ></c-comm_input>
+            </div>
+            <lightning-button
+                class="comm-button__primary comm-account-information__buttons"
+                label={label.modalConfirmEmailButtonConfirm}
+                data-src="confirm-email-button"
+                onclick={handleChangeEmailConfirm}
+                disabled={isDisabledButtonModal}
+            ></lightning-button>
+        </form>
+
+        <!-- Email Confirmation -->
+        <form if:true={isEmailSent} novalidate>
+            <i class="comm-icon__check"></i>
+            <span class="comm-account-information__modal-info-email-sent"
+                >{label.modalConfirmEmailEmailSent1} {newEmail}{label.modalConfirmEmailEmailSent2}</span
+            >
+        </form>
+
+        <!-- Modal Email Changed Confirmation -->
+        <form if:true={isEmailChanged} novalidate>
+            <div>
+                <i class="comm-icon__check"></i>
+                <span class="comm-account-information__modal-info">{label.modalConfirmEmailSuccess}</span>
+            </div>
+        </form>
+
+        <!-- Modal Email Change Link Invalid -->
+        <form if:true={isEmailInvalid} novalidate>
+            <div>
+                <span class="comm-account-information__modal-info">{label.modalConfirmEmailExpired}</span>
+            </div>
+        </form>
+    </c-comm_modal>
+</template>

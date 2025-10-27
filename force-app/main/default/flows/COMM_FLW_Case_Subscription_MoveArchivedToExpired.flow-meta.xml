@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Release_Reservations</name>
+        <label>Release Reservations</label>
+        <locationX>242</locationX>
+        <locationY>708</locationY>
+        <actionName>COMM_SL_ClearProductReservations</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Update_Related_Subscriptions</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>endDate</name>
+            <value>
+                <elementReference>Get_Capacity.COMM_ValidTo__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>productCodeList</name>
+            <value>
+                <elementReference>ProductCodeList</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>startDate</name>
+            <value>
+                <elementReference>StartDate</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>COMM_SL_ClearProductReservations</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>COMM_Assignmnet_SetProductCodes</name>
+        <label>Set Product Codes</label>
+        <locationX>242</locationX>
+        <locationY>600</locationY>
+        <assignmentItems>
+            <assignToReference>ProductCodeList</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>$Record.Product.ProductCode</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Release_Reservations</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>we should only expire certain subscriptions based on the request issued
+https://jira.ana.pt/browse/TICKET-239519</description>
+        <name>check_for_subscriptions_to_expire</name>
+        <label>check for subscriptions to expire</label>
+        <locationX>374</locationX>
+        <locationY>276</locationY>
+        <defaultConnector>
+            <targetReference>Update_Case_to_Expired</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>subscription_should_expire</name>
+            <conditionLogic>NOT(1 AND 2 AND 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Change Payment Periodicity</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Change Ownership</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Card due To Damage/Loss</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_to_Expired</targetReference>
+            </connector>
+            <label>subscription should expire</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>StartDate</name>
+        <dataType>DateTime</dataType>
+        <expression>NOW()</expression>
+    </formulas>
+    <interviewLabel>Case Subscription Move Archived to Expired {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Subscription Move Archived to Expired</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Capacity</name>
+        <label>Get Capacity</label>
+        <locationX>242</locationX>
+        <locationY>492</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>COMM_Assignmnet_SetProductCodes</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>COMM_Product__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Product.COMM_ParentProduct__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>COMM_Capacity__c</object>
+        <sortField>COMM_ValidTo__c</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update only the Case to Expired</description>
+        <name>Update_Case_to_Expired</name>
+        <label>Update to Expired</label>
+        <locationX>506</locationX>
+        <locationY>384</locationY>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Expired</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Related_Subscriptions</name>
+        <label>Update Related Subscriptions</label>
+        <locationX>242</locationX>
+        <locationY>816</locationY>
+        <inputAssignments>
+            <field>COMM_Status__c</field>
+            <value>
+                <stringValue>Expired</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record.COMM_Subscription__r</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_to_Expired</name>
+        <label>Update to Expired</label>
+        <locationX>242</locationX>
+        <locationY>384</locationY>
+        <connector>
+            <targetReference>Get_Capacity</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Expired</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+{!$Record.RecordType.DeveloperName}=&apos;COMM_NewSubscription&apos;,
+ISPICKVAL({!$Record.Status}, &apos;Archived&apos;)
+)</filterFormula>
+        <object>Case</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <scheduledPaths>
+            <name>X15_Days_After</name>
+            <connector>
+                <targetReference>check_for_subscriptions_to_expire</targetReference>
+            </connector>
+            <label>15 Days After</label>
+            <offsetNumber>15</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <timeSource>RecordTriggerEvent</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>ProductCodeList</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

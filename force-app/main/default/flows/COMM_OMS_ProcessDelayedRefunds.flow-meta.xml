@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Ensure_Refunds</name>
+        <label>Ensure Refunds</label>
+        <locationX>242</locationX>
+        <locationY>492</locationY>
+        <actionName>ensureRefundsOrderSummaryAsync</actionName>
+        <actionType>ensureRefundsOrderSummaryAsync</actionType>
+        <connector>
+            <targetReference>Update_Process_Status</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>orderSummaryId</name>
+            <value>
+                <elementReference>$Record.COMM_CreditMemo__r.ReferenceEntityId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>ensureRefundsAsyncInput</name>
+            <value>
+                <elementReference>ensureRefundsAsyncInputRepresentation</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>ensureRefundsOrderSummaryAsync</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>62.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Ensure_Refund_Assignment</name>
+        <label>Ensure Refund Assignment</label>
+        <locationX>242</locationX>
+        <locationY>384</locationY>
+        <assignmentItems>
+            <assignToReference>ensureRefundsAsyncInputRepresentation.creditMemoId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.COMM_CreditMemo__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Ensure_Refunds</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Process_Status</name>
+        <label>Process Status?</label>
+        <locationX>374</locationX>
+        <locationY>276</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Process_Status_Not_Processed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.COMM_ProcessStatus__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Not Processed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Ensure_Refund_Assignment</targetReference>
+            </connector>
+            <label>Not Processed</label>
+        </rules>
+    </decisions>
+    <description>This flow will process all Delayed Refunds. 
+This is required for partial returns that take place on the same day the payment Capture which due to Gateway processors and Banking systems don&apos;t allow.</description>
+    <environments>Default</environments>
+    <interviewLabel>OMS Process Delayed Refunds {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>OMS Process Delayed Refunds</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Process_Status</name>
+        <label>Update Process Status</label>
+        <locationX>242</locationX>
+        <locationY>600</locationY>
+        <inputAssignments>
+            <field>COMM_ProcessStatus__c</field>
+            <value>
+                <stringValue>Processed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <object>COMM_DelayedRefund__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <name>Async_24H_after_creation</name>
+            <connector>
+                <targetReference>Process_Status</targetReference>
+            </connector>
+            <label>Async 24H after creation</label>
+            <maxBatchSize>10</maxBatchSize>
+            <offsetNumber>24</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>ensureRefundsAsyncInputRepresentation</name>
+        <apexClass>ConnectApi__EnsureRefundsAsyncInputRepresentation</apexClass>
+        <dataType>Apex</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

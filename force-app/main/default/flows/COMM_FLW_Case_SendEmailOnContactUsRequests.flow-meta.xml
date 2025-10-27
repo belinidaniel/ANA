@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Action to call Apex class responsible to send email.</description>
+        <name>COMM_SendEmail</name>
+        <label>Send Email</label>
+        <locationX>50</locationX>
+        <locationY>1463</locationY>
+        <actionName>COMM_SL_SendEmail</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>COMM_CloseCase</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>orgWideId</name>
+            <value>
+                <elementReference>COMM_GetOrgWideAddress.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>recipientEmail</name>
+            <value>
+                <elementReference>COMM_EmailRecipients</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>saveAsActivity</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>templateId</name>
+            <value>
+                <elementReference>COMM_GetEmailTemplate.COMM_Variable_EmailTemplate.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>whatId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>COMM_SL_SendEmail</nameSegment>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>COMM_SetEmailRecipient</name>
+        <label>Set Email Recipient</label>
+        <locationX>270</locationX>
+        <locationY>947</locationY>
+        <assignmentItems>
+            <assignToReference>COMM_EmailRecipients</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>COMM_LoopFilteredContactUsFilteredMappings.COMM_Email__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>COMM_LoopFilteredContactUsFilteredMappings</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set Email recipients from filtered collection.</description>
+        <name>COMM_SetFilteredCollection</name>
+        <label>Set filtered collection</label>
+        <locationX>50</locationX>
+        <locationY>647</locationY>
+        <assignmentItems>
+            <assignToReference>COMM_FilteredContactUsMappingCollection</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>COMM_FilterContactUsEmailMappingByReason</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>COMM_LoopFilteredContactUsFilteredMappings</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set Email recipients from filtered collection.</description>
+        <name>COMM_SetFilteredCollection_2</name>
+        <label>Set filtered collection</label>
+        <locationX>314</locationX>
+        <locationY>647</locationY>
+        <assignmentItems>
+            <assignToReference>COMM_FilteredContactUsMappingCollection</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>COMM_FilterContactUsEmailMappingByDefault</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>COMM_LoopFilteredContactUsFilteredMappings</targetReference>
+        </connector>
+    </assignments>
+    <collectionProcessors>
+        <description>Filter Contact Us Email Mapping by Default value.</description>
+        <name>COMM_FilterContactUsEmailMappingByDefault</name>
+        <elementSubtype>FilterCollectionProcessor</elementSubtype>
+        <label>Filter Contact Us Email Mapping by Default</label>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
+        <assignNextValueToReference>currentItem_COMM_FilterContactUsEmailMappingByReason</assignNextValueToReference>
+        <collectionProcessorType>FilterCollectionProcessor</collectionProcessorType>
+        <collectionReference>COMM_ContactUsMappingRecords</collectionReference>
+        <conditionLogic>and</conditionLogic>
+        <conditions>
+            <leftValueReference>currentItem_COMM_FilterContactUsEmailMappingByReason.COMM_Reason__c</leftValueReference>
+            <operator>EqualTo</operator>
+            <rightValue>
+                <stringValue>Default</stringValue>
+            </rightValue>
+        </conditions>
+        <connector>
+            <targetReference>COMM_SetFilteredCollection_2</targetReference>
+        </connector>
+    </collectionProcessors>
+    <collectionProcessors>
+        <description>Filter Contact Us Email Mapping by Case Reason.</description>
+        <name>COMM_FilterContactUsEmailMappingByReason</name>
+        <elementSubtype>FilterCollectionProcessor</elementSubtype>
+        <label>Filter Contact Us Email Mapping by Reason</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <assignNextValueToReference>currentItem_COMM_FilterContactUsEmailMappingByReason</assignNextValueToReference>
+        <collectionProcessorType>FilterCollectionProcessor</collectionProcessorType>
+        <collectionReference>COMM_ContactUsMappingRecords</collectionReference>
+        <conditionLogic>and</conditionLogic>
+        <conditions>
+            <leftValueReference>currentItem_COMM_FilterContactUsEmailMappingByReason.COMM_Reason__c</leftValueReference>
+            <operator>EqualTo</operator>
+            <rightValue>
+                <elementReference>$Record.Reason</elementReference>
+            </rightValue>
+        </conditions>
+        <connector>
+            <targetReference>COMM_SetFilteredCollection</targetReference>
+        </connector>
+    </collectionProcessors>
+    <decisions>
+        <description>Decision to check if Contact Us custom metadata record is found for current Case.</description>
+        <name>COMM_ContactUsEmailMappingIsFoundAndReasonFilled</name>
+        <label>Contact Us Email Mapping is found and Reason filled?</label>
+        <locationX>182</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>COMM_FilterContactUsEmailMappingByDefault</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>COMM_GetContactUsEmailMapping</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Reason</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_FilterContactUsEmailMappingByReason</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Decision to check if email recipients are defined.</description>
+        <name>COMM_EmailRecipientsDefined</name>
+        <label>Email Recipients Defined?</label>
+        <locationX>182</locationX>
+        <locationY>1139</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_COMM_EmailRecipientsDefined</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>COMM_EmailRecipients</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_GetOrgWideAddress</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Flow to send emails on Cases for Contact Us requests depending on Airport and Reason.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Variable with Case Airport and Case Reason separated by &quot;_&quot;.</description>
+        <name>COMM_AirportReason</name>
+        <dataType>String</dataType>
+        <expression>{!COMM_AirportText} + &apos;_&apos; + TEXT({!$Record.Reason})</expression>
+    </formulas>
+    <interviewLabel>Flow to send emails on Cases for Contact Us requests depending on Airport and Reason. {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Send Email On Contact Us Requests</label>
+    <loops>
+        <description>Loop Collection of filtered Contact Us Filtered Mappings by Reason.</description>
+        <name>COMM_LoopFilteredContactUsFilteredMappings</name>
+        <label>Loop Filtered Contact Us Filtered Mappings</label>
+        <locationX>182</locationX>
+        <locationY>839</locationY>
+        <collectionReference>COMM_FilteredContactUsMappingCollection</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>COMM_SetEmailRecipient</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>COMM_EmailRecipientsDefined</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>COMM_GetContactUsEmailMapping</name>
+        <label>Get Contact Us Email Mapping</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>COMM_ContactUsEmailMappingIsFoundAndReasonFilled</targetReference>
+        </connector>
+        <filterLogic>1 AND (2 OR 3)</filterLogic>
+        <filters>
+            <field>COMM_Airport__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.COMM_Airport__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>COMM_Reason__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Reason</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>COMM_Reason__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Default</stringValue>
+            </value>
+        </filters>
+        <object>COMM_ContactUsEmailMapping__mdt</object>
+        <outputReference>COMM_ContactUsMappingRecords</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>COMM_Email__c</queriedFields>
+        <queriedFields>COMM_Reason__c</queriedFields>
+        <queriedFields>COMM_Airport__c</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <description>Get default no-reply org wide address to be set as email sender.</description>
+        <name>COMM_GetOrgWideAddress</name>
+        <label>Get Org Wide Address</label>
+        <locationX>50</locationX>
+        <locationY>1247</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>COMM_GetEmailTemplate</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Purpose</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>DefaultNoreply</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>OrgWideEmailAddress</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update the Case Status that triggered the process to Completed.</description>
+        <name>COMM_CloseCase</name>
+        <label>Close Case</label>
+        <locationX>50</locationX>
+        <locationY>1571</locationY>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Process Concluded</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>COMM_GetContactUsEmailMapping</targetReference>
+        </connector>
+        <filterFormula>AND(
+{!$Record.RecordType.DeveloperName} = &apos;COMM_ContactUs&apos;,
+ISPICKVAL({!$Record.Origin}, &apos;Web&apos;),
+NOT(ISNULL({!$Record.COMM_Airport__c}))
+)</filterFormula>
+        <object>Case</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <description>Call Subflow that retrieves the requires Email Template by Language</description>
+        <name>COMM_GetEmailTemplate</name>
+        <label>Get Email Template</label>
+        <locationX>50</locationX>
+        <locationY>1355</locationY>
+        <connector>
+            <targetReference>COMM_SendEmail</targetReference>
+        </connector>
+        <flowName>COMM_FLW_GetEmailTemplateByLocale</flowName>
+        <inputAssignments>
+            <name>COMM_Variable_EmailTemplateName</name>
+            <value>
+                <stringValue>COMM_ContactUs_NewClaim</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>COMM_Variable_LanguageCode</name>
+            <value>
+                <stringValue>pt_PT</stringValue>
+            </value>
+        </inputAssignments>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </subflows>
+    <variables>
+        <description>Variable with Case Airport value as text.</description>
+        <name>COMM_AirportText</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Variable to store retrieve Contact Us Mapping Records</description>
+        <name>COMM_ContactUsMappingRecords</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>COMM_ContactUsEmailMapping__mdt</objectType>
+    </variables>
+    <variables>
+        <description>Text Collection variable to store email addresses of recipients of email to send.</description>
+        <name>COMM_EmailRecipients</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Colletction variable with filtered Contact Us Email Mappings.</description>
+        <name>COMM_FilteredContactUsMappingCollection</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>COMM_ContactUsEmailMapping__mdt</objectType>
+    </variables>
+    <variables>
+        <name>currentItem_COMM_FilterContactUsEmailMappingByReason</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>COMM_ContactUsEmailMapping__mdt</objectType>
+    </variables>
+</Flow>

@@ -1,0 +1,23 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <!-- Header - Multi Language Selector -->
+    <div class="comm-header__multi-language" onmouseover={showAccordion} onmouseout={hideAccordion}>
+        <button aria-label={selectedLanguage} class="comm-header__button-language" onclick={toggleAccordion}>
+            {selectedLanguage}<i class="comm-icon__vector"></i>
+        </button>
+        <ul>
+            <template for:each={langOptions} for:item="item">
+                <li key={item.value}>
+                    <a
+                        tabindex="0"
+                        aria-label={item.language}
+                        data-id={item.value}
+                        is-current={item.isCurrentLanguage}
+                        onclick={handleOnClickSelectLanguage}
+                        >{item.language}</a
+                    >
+                </li>
+            </template>
+        </ul>
+    </div>
+</template>

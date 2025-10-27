@@ -1,0 +1,153 @@
+<template>
+	<lightning-layout>
+		<lightning-layout-item padding="around-small" size="5">
+			<lightning-radio-group
+				name="dayRadioGroup"
+				label={label.Select_Option}
+				value={dayRadioOption}
+				options={dayRadioOptions}
+				type="radio"
+				onchange={handleDayRadioGroupChange}
+			></lightning-radio-group>
+		</lightning-layout-item>
+		<lightning-layout-item padding="around-small" size="7">
+			<!-- EVERY X DAYS OF WEEK STARTING ON Y DAY OF WEEK -->
+			<template if:true={isStartingAtDayOfWeekChecked}>
+				<lightning-layout>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="dayOfWeekFrequency"
+							label={label.Every}
+							value={dayOfWeekFrequencyOption}
+							options={dayOfWeekNumberOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="startDayOfWeek"
+							label={label.Starting_on}
+							value={startDayOfWeekOption}
+							options={dayOfWeekNameOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+				</lightning-layout>
+			</template>
+			<!-- EVERY X DAYS OF MONTH STARTING ON Y DAY OF MONTH -->
+			<template if:true={isStartingAtDayOfMonthChecked}>
+				<lightning-layout>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="dayOfMonthFrequency"
+							label={label.Every}
+							value={dayOfMonthFrequencyOption}
+							options={dayOfMonthOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="startDayOfMonth"
+							label={label.Starting_on}
+							value={startDayOfMonthOption}
+							options={indexOfMonthOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+				</lightning-layout>
+			</template>
+			<!-- AT SPECIFIC DAYS OF WEEK -->
+			<template if:true={isSpecificDayOfWeekChecked}>
+				<lightning-dual-listbox
+					name="specificDayOfWeek"
+					label={label.Select_Weekday}
+					source-label={label.Available}
+					selected-label={label.Selected}
+					value={specificDayOfWeekOption}
+					options={dayOfWeekShortOptions}
+					onchange={handleValueChange}
+					variant="label-hidden"
+				></lightning-dual-listbox>
+			</template>
+			<!-- AT SPECIFIC DAYS OF MONTH -->
+			<template if:true={isSpecificDayOfMonthChecked}>
+				<lightning-dual-listbox
+					name="specificDayOfMonth"
+					label={label.Select_Monthday}
+					source-label={label.Available}
+					selected-label={label.Selected}
+					value={specificDayOfMonthOption}
+					options={dayOfMonthOptions}
+					onchange={handleValueChange}
+					variant="label-hidden"
+				></lightning-dual-listbox>
+			</template>
+			<!-- LAST DAY OF WEEK OF MONTH -->
+			<template if:true={isLastDayOfWeekOfMonthChecked}>
+				<lightning-layout>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="lastDayOfWeekOfMonth"
+							label={label.Last}
+							value={lastDayOfWeekOfMonthOption}
+							options={dayOfWeekNameOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+				</lightning-layout>
+			</template>
+			<!-- LAST DAY DAYS BEFORE END OF MONTH -->
+			<template if:true={isLastDaysBeforeEndMonthChecked}>
+				<lightning-layout>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="lastDaysBeforeEndMonth"
+							label={label.Last}
+							value={lastDaysBeforeEndMonthOption}
+							options={dayOfMonthOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+				</lightning-layout>
+			</template>
+			<!-- NEAREST WEEKDAY -->
+			<template if:true={isNearestWeekDayChecked}>
+				<lightning-layout>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="nearestWeekDay"
+							label={label.Monthday}
+							value={nearestWeekDayOption}
+							options={indexOfMonthOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+				</lightning-layout>
+			</template>
+			<!-- INDEX OF DAY OF WEEK -->
+			<template if:true={isIndexOfWeekDayChecked}>
+				<lightning-layout>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="indexOfWeekDay"
+							label={label.Weekday_in_Month}
+							value={indexOfWeekDayOption}
+							options={indexOfWeekDayOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="indexOfWeekName"
+							label={label.Weekday}
+							value={indexOfWeekNameOption}
+							options={dayOfWeekNameOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+				</lightning-layout>
+			</template>
+		</lightning-layout-item>
+	</lightning-layout>
+</template>

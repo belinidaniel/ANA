@@ -1,0 +1,55 @@
+<!-- sldsValidatorIgnore -->
+
+<!--
+    Header
+    Renders Header component with Navigation Menu, Multilanguage and Notifications.
+-->
+<template>
+    <!-- Header - Logo images-->
+    <div class="comm-header__images">
+        <a class="comm-header__logo-home" aria-label="Logo" href="main">
+            <img src={firstLogoUrl} alt={firstLogoTitle} />
+            <img src={secondLogoUrl} alt={secondLogoTitle} />
+        </a>
+    </div>
+
+    <!-- Header - Navigation Menu -->
+    <section if:false={isGuest}>
+        <button class="comm-header__navigation-menu-toggle" onclick={toggleMenu}>
+            <i class="comm-icon__vector"></i>
+        </button>
+        <c-comm_navigation-menu link-set-master-label={linkSetMasterLabel} add-home-menu-item={addHomeMenuItem} include-image-urls={includeImageUrls}>
+        </c-comm_navigation-menu>
+    </section>
+
+    <!-- Header - Account Menu Dropdown -->
+    <div if:false={isGuest} class="comm-header__account-menu">
+        <c-comm_account-menu></c-comm_account-menu>
+    </div>
+
+    <!-- Header - Navigation Menu -->
+    <button if:false={isGuest} class="comm-header__notifications">
+        <i class="comm-icon__bell"></i>
+    </button>
+
+    <!-- Header - Multi Language Selector -->
+    <div class="comm-header__multi-language" onmouseover={showAccordion} onmouseout={hideAccordion}>
+        <button aria-label={selectedLanguage} class="comm-header__button-language" onclick={toggleAccordion}>
+            {selectedLanguage}<i class="comm-icon__vector"></i>
+        </button>
+        <ul>
+            <template for:each={langOptions} for:item="item">
+                <li key={item.value}>
+                    <a
+                        tabindex="0"
+                        aria-label={item.language}
+                        data-id={item.value}
+                        is-current={item.isCurrentLanguage}
+                        onclick={handleOnClickSelectLanguage}
+                        >{item.language}</a
+                    >
+                </li>
+            </template>
+        </ul>
+    </div>
+</template>

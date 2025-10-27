@@ -1,0 +1,249 @@
+<template>
+    <!-- Subscription form already submitted -->
+    <form if:true={formAlreadySubmitted} class="comm-subscription-partner-request" novalidate>
+        <h1 class="comm-subscription-partner-request__main-title">{label.subscriptionNotAvailable}</h1>
+    </form>
+
+    <!-- Subscription Partner request form -->
+    <form if:true={fillForm} class="comm-subscription-partner-request" novalidate>
+        <h1 class="comm-subscription-partner-request__main-title">{recordData.recordTypeName}</h1>
+        <c-comm_loader is-loading={isLoading}></c-comm_loader>
+        <!-- End user personal information form section -->
+        <fieldset class="comm-subscription-partner-request__personal-data-staff">
+            <span class="comm-subscription-partner-request__title">{label.personalDataTitle}</span>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.billingDataFirstName}
+                data-src="personal-first-name"
+                value={recordData.personalFirstName}
+                is-required="true"
+                is-disabled={isPersonalInformationDisabled}
+                message-when-pattern-mismatch={label.nameErrorMessage}
+                max-length={validation.privateBillingFirstNameCharLimit}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.billingDataLastName}
+                data-src="personal-last-name"
+                value={recordData.personalLastName}
+                is-required="true"
+                is-disabled={isPersonalInformationDisabled}
+                message-when-pattern-mismatch={label.nameErrorMessage}
+                max-length={validation.privateBillingLastNameCharLimit}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.billingDataNif}
+                data-src="personal-vat-number"
+                value={recordData.personalVAT}
+                is-required="true"
+                is-disabled={isPersonalInformationDisabled}
+                max-length={validation.vatCharLimit}
+                onchange={handleOnChange}
+            ></c-comm_input>
+            <div>
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="email"
+                    label={label.personalDataEmail}
+                    data-src="personal-email-address"
+                    value={recordData.personalEmail}
+                    is-required="true"
+                    is-disabled={isPersonalInformationDisabled}
+                ></c-comm_input>
+                <div class="comm-form__phone-group">
+                    <c-comm_input
+                        class-name="comm-form__input"
+                        pattern={pattern.phoneCode}
+                        type="text"
+                        label={label.personalDataCode}
+                        data-src="personal-phone-code"
+                        value={recordData.personalPhoneCode}
+                        is-required="true"
+                        is-disabled={isPersonalInformationDisabled}
+                        message-when-pattern-mismatch={label.phoneCodeErrorMessage}
+                    ></c-comm_input>
+                    <c-comm_input
+                        class-name="comm-form__input"
+                        pattern={pattern.mobilePhone}
+                        type="tel"
+                        label={label.personalDataMobile}
+                        data-src="personal-phone-number"
+                        value={recordData.personalPhoneNumber}
+                        is-required="true"
+                        is-disabled={isPersonalInformationDisabled}
+                    ></c-comm_input>
+                </div>
+            </div>
+            <c-comm_input
+                class-name="comm-form__textarea"
+                type="textarea"
+                label={label.billingDataAddress}
+                data-src="personal-address-street"
+                value={recordData.personalAddress}
+                is-required="true"
+                is-disabled={isPersonalInformationDisabled}
+                max-length={validation.privateBillingAddressCharLimit}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.billingDataPostalCode}
+                data-src="personal-address-zipcode"
+                value={recordData.personalZipCode}
+                is-required="true"
+                is-disabled={isPersonalInformationDisabled}
+                max-length={validation.privateBillingPostalCodeCharLimit}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.billingDataCity}
+                data-src="personal-address-city"
+                value={recordData.personalCity}
+                is-required="true"
+                is-disabled={isPersonalInformationDisabled}
+                max-length={validation.privateBillingCityCharLimit}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__select"
+                type="select"
+                label={label.billingDataCountry}
+                data-src="personal-address-country"
+                value={recordData.personalCountry}
+                options={countryOptions}
+                onchange={handleOnChange}
+                is-required="true"
+                is-disabled={isPersonalInformationDisabled}
+            ></c-comm_input>
+        </fieldset>
+        <!-- End user work information form section -->
+        <fieldset class="comm-subscription-partner-request__personal-data-work">
+            <div class="comm-subscription-partner-request__work-function">
+                <c-comm_input
+                    class-name="comm-form__input"
+                    type="text"
+                    label={label.carStaffWorkFunction}
+                    data-src="job-role"
+                    value={recordData.jobRole}
+                    is-required="true"
+                    is-disabled={isPersonalInformationDisabled}
+                ></c-comm_input>
+                <div>
+                    <label for="file-input" class="comm-subscription-partner-request__upload">
+                        <i class="comm-icon__download"></i>
+                        <div class="comm-subscription-partner-request__group-upload">
+                            <span>{label.carStaffInfo1} *</span>
+                            <span>{fileUploaderText}</span>
+                        </div>
+                    </label>
+                    <input
+                        data-src="file-uploader"
+                        id="file-input"
+                        name="file-input"
+                        class="comm-form__file-uploader"
+                        type="file"
+                        accept=".pdf, .jpeg"
+                        onchange={handleUploaderClick}
+                    />
+                </div>
+            </div>
+        </fieldset>
+        <!-- End user car information form section -->
+        <fieldset class="comm-subscription-partner-request__section-car">
+            <span class="comm-subscription-partner-request__title">{label.carTitle}</span>
+            <span class="comm-subscription-partner-request__car-subtitle">{label.carOne}</span>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.carPlate}
+                data-src="vehicle-license"
+                value={recordData.vehicleLicense}
+                is-required="true"
+                is-disabled={isVehicleInformationDisabled}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.carBrand}
+                data-src="vehicle-brand"
+                value={recordData.vehicleBrand}
+                is-required="true"
+                is-disabled={isVehicleInformationDisabled}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.carModel}
+                data-src="vehicle-model"
+                value={recordData.vehicleModel}
+                is-required="true"
+                is-disabled={isVehicleInformationDisabled}
+            ></c-comm_input>
+            <span class="comm-subscription-partner-request__car-subtitle">{label.carTwo}</span>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.carPlate}
+                data-src="second-vehicle-license"
+                value={recordData.secondVehicleLicense}
+                is-disabled={isVehicleInformationDisabled}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.carBrand}
+                data-src="second-vehicle-brand"
+                value={recordData.secondVehicleBrand}
+                is-disabled={isVehicleInformationDisabled}
+            ></c-comm_input>
+            <c-comm_input
+                class-name="comm-form__input"
+                type="text"
+                label={label.carModel}
+                data-src="second-vehicle-model"
+                value={recordData.secondVehicleModel}
+                is-disabled={isVehicleInformationDisabled}
+            ></c-comm_input>
+        </fieldset>
+        <!-- Terms and conditions form section -->
+        <fieldset class="comm-subscription-partner-request__section-terms">
+            <span class="comm-subscription-partner-request__title">{label.carTerms}</span>
+            <label class="comm-form__checkbox-group">
+                <c-comm_input type="checkbox" class-name="comm-form__checkbox" data-src="privacy-consent" onchange={handleOnChange}></c-comm_input>
+                <span>{label.carStaffFirstTerms}</span>
+            </label>
+            <label class="comm-form__checkbox-group">
+                <c-comm_input
+                    type="checkbox"
+                    class-name="comm-form__checkbox"
+                    data-src="license-reading-consent"
+                    onchange={handleOnChange}
+                ></c-comm_input>
+                <span>{label.carStaffSecondTerms}</span>
+            </label>
+            <label class="comm-form__checkbox-group">
+                <c-comm_input type="checkbox" class-name="comm-form__checkbox" data-src="marketing-consent" onchange={handleOnChange}></c-comm_input>
+                <span>{label.carStaffInfoThirdTerms}</span>
+            </label>
+        </fieldset>
+
+        <!-- Submit Buttom -->
+        <fieldset class="comm-subscription-partner-request__section-save">
+            <lightning-button
+                class="comm-button__primary"
+                label={label.staffSubmitButton}
+                disabled={disabled}
+                onclick={handleSubmit}
+            ></lightning-button>
+        </fieldset>
+    </form>
+
+    <!-- Form submitted successfully -->
+    <form if:true={formSubmitted} class="comm-subscription-partner-request" novalidate>
+        <h1 class="comm-subscription-partner-request__main-title">{label.subscriptionFormSuccess}</h1>
+    </form>
+</template>

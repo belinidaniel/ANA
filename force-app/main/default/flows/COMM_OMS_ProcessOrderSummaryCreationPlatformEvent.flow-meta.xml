@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Assignment_1</name>
+        <label>Assignment 1</label>
+        <locationX>50</locationX>
+        <locationY>386</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Order_Summary.COMM_ReplacedOrderProcessStatus__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>To Process</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Order_Summary</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>isReplacementOrder</name>
+        <label>is Replacement Order?</label>
+        <locationX>182</locationX>
+        <locationY>278</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>isReplacementOrderYes</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Order_Summary.COMM_ReplacedOrder__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Order_Summary.COMM_ReplacedOrderItems__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assignment_1</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>This flow will do the following on the back of the Order Summary Creation Platform Event
+- Update COMM_ReplacedOrderProcessStatus = To Process if it is a replacement Order (this will trigger another flow)</description>
+    <environments>Default</environments>
+    <interviewLabel>Process Order Summary Creation Platform Event {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>OMS Process Order Summary Creation Platform Event</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Order_Summary</name>
+        <label>Get Order Summary</label>
+        <locationX>182</locationX>
+        <locationY>170</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>isReplacementOrder</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.OrderSummaryId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>OrderSummary</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>COMM_ReplacedOrder__c</queriedFields>
+        <queriedFields>COMM_ReplacedOrderItems__c</queriedFields>
+        <queriedFields>COMM_ReplacedOrderProcessStatus__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Order_Summary</name>
+        <label>Update Order Summary</label>
+        <locationX>50</locationX>
+        <locationY>494</locationY>
+        <inputReference>Get_Order_Summary</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Order_Summary</targetReference>
+        </connector>
+        <flowRunAsUser>DefaultWorkflowUser</flowRunAsUser>
+        <object>OrderSummaryCreatedEvent</object>
+        <triggerType>PlatformEvent</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -1,0 +1,75 @@
+<template>
+	<lightning-layout>
+		<lightning-layout-item padding="around-small" size="5">
+			<lightning-radio-group 
+				name="hourRadioGroup"
+				label={label.Select_Option}
+				value={hourRadioOption}
+				options={hourRadioOptions}
+				type="radio"
+				onchange={handleHourRadioGroupChange}
+			></lightning-radio-group>
+		</lightning-layout-item>
+		<lightning-layout-item padding="around-small" size="7">
+			<!-- EVERY X HOURS STARTING AT Y -->
+			<template if:true={isStartingAtHourChecked}>
+				<lightning-layout>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="hourFrequency"
+							label={label.Every}
+							value={hourFrequencyOption}
+							options={hourFrequencyOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="startingHour"
+							label={label.Starting_at_Y}
+							value={startingHourOption}
+							options={hourOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+				</lightning-layout>
+			</template>
+			<!-- AT SPECIFIC HOURS -->
+			<template if:true={isSpecificHourChecked}>
+				<lightning-dual-listbox 
+					name="specificHour"
+					label={label.Select_Hour}
+					source-label={label.Available}
+					selected-label={label.Selected}
+					value={specificHourOption}
+					options={hourOptions}
+					onchange={handleValueChange}
+					variant="label-hidden"
+				></lightning-dual-listbox>
+			</template>
+			<!-- BETWEEN HOURS -->
+			<template if:true={isBetweenHourChecked}>
+				<lightning-layout>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="betweenHourStart"
+							label={label.Start_at}
+							value={betweenHourStartOption}
+							options={hourOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="betweenHourEnd"
+							label={label.To}
+							value={betweenHourEndOption}
+							options={hourOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+				</lightning-layout>
+			</template>
+		</lightning-layout-item>
+	</lightning-layout>
+</template>

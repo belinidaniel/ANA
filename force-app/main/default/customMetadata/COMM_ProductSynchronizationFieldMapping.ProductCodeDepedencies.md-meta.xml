@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Product Code Depedencies</label>
+    <protected>false</protected>
+    <values>
+        <field>COMM_CommerceApiFieldName__c</field>
+        <value xsi:type="xsd:string">c_productDependencies</value>
+    </values>
+    <values>
+        <field>COMM_CoreApiFieldName__c</field>
+        <value xsi:type="xsd:string">COMM_ProductCodeDepedencies__c</value>
+    </values>
+</CustomMetadata>

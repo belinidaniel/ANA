@@ -1,0 +1,24 @@
+<template>
+    <!--SECTION-->
+    <section class="comm-theme__skip-links" onkeyup={showSkipLinks}>
+        <li><a href="#header">{label.header}</a></li>
+        <li><a href="#main">{label.main}</a></li>
+        <li><a href="#footer">{label.footer}</a></li>
+    </section>
+
+    <!--BACKDROP-->
+    <div class="comm-theme__backdrop" onclick={closeSkipLinks}></div>
+
+    <!--COMM-THEME-->
+    <div class="comm-theme">
+        <header data-f6-region id="header">
+            <slot name="header"></slot>
+        </header>
+        <section data-f6-region id="main">
+            <slot></slot>
+        </section>
+        <footer data-f6-region id="footer">
+            <slot name="footer"></slot>
+        </footer>
+    </div>
+</template>

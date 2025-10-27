@@ -1,0 +1,56 @@
+<!--
+    Global Input
+    Generates Input field - supports regular input types such as:
+    Text, Password, Email, Number, etc
+-->
+
+<template>
+    <template if:false={isTypeSelect}>
+        <template if:false={isTypeTextarea}>
+            <lightning-input
+                class={className}
+                type={type}
+                label={label}
+                onfocus={handleFocus}
+                onblur={handleOnBlur}
+                onchange={handleOnChange}
+                required={isRequired}
+                pattern={pattern}
+                disabled={isDisabled}
+                value={value}
+                checked={checked}
+                max-length={maxLength}
+                message-when-pattern-mismatch={messageWhenPatternMismatch}
+            ></lightning-input>
+        </template>
+    </template>
+    <lightning-combobox
+        if:true={isTypeSelect}
+        class={className}
+        label={label}
+        data-src={srcData}
+        options={options}
+        required={isRequired}
+        value={value}
+        disabled={isDisabled}
+        onchange={handleOnChange}
+    ></lightning-combobox>
+    <lightning-textarea
+        if:true={isTypeTextarea}
+        class={className}
+        label={label}
+        onfocus={handleFocus}
+        onblur={handleOnBlur}
+        onchange={handleOnChange}
+        required={isRequired}
+        disabled={isDisabled}
+        value={value}
+        max-length={maxLength}
+    ></lightning-textarea>
+
+    <!-- Type password specific icon for password visibility -->
+    <i if:true={isTypePassword} class="comm-icon__eye-stricked" onclick={togglePasswordVisibility}></i>
+
+    <!-- Icon for select dropdown -->
+    <i if:true={isTypeSelect} class="comm-icon__vector"></i>
+</template>

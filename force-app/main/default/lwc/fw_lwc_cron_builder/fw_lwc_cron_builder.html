@@ -1,0 +1,48 @@
+<template>
+	<div class="slds-text-heading_large slds-text-align_center">{cronExpression}</div>
+	<div>{cronDescription}</div>
+
+	<lightning-tabset>
+		<!-- SECONDS -->
+		<lightning-tab label={label.Seconds}>
+			<lightning-combobox
+				name="seconds"
+				label={label.Seconds}
+				value={cronSecond}
+				options={timeOptions}
+				onchange={handleSecondsChange}
+			></lightning-combobox>
+		</lightning-tab>
+
+		<!-- MINUTES -->
+		<lightning-tab label={label.Minutes}>
+			<lightning-combobox
+				name="minutes"
+				label={label.Minutes}
+				value={cronMinute}
+				options={timeOptions}
+				onchange={handleMinutesChange}
+			></lightning-combobox>
+		</lightning-tab>
+
+		<!-- HOURS -->
+		<lightning-tab label={label.Hours}>
+			<c-fw_lwc_cron_builder_hour onhourchange={handleHourChange}></c-fw_lwc_cron_builder_hour>
+		</lightning-tab>
+
+		<!-- DAYS -->
+		<lightning-tab label={label.Day}>
+			<c-fw_lwc_cron_builder_day ondayweekchange={handleDayWeekChange} ondaymonthchange={handleDayMonthChange}></c-fw_lwc_cron_builder_day>
+		</lightning-tab>
+
+		<!-- MONTHS -->
+		<lightning-tab label={label.Month}>
+			<c-fw_lwc_cron_builder_month onmonthchange={handleMonthChange}></c-fw_lwc_cron_builder_month>
+		</lightning-tab>
+
+		<!-- YEARS -->
+		<lightning-tab label={label.Year}>
+			<c-fw_lwc_cron_builder_year onyearchange={handleYearChange}></c-fw_lwc_cron_builder_year>
+		</lightning-tab>
+	</lightning-tabset>
+</template>

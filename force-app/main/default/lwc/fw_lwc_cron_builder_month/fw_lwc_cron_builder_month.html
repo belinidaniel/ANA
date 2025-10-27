@@ -1,0 +1,75 @@
+<template>
+	<lightning-layout>
+		<lightning-layout-item padding="around-small" size="5">
+			<lightning-radio-group
+				name="monthRadioGroup"
+				label={label.Select_Option}
+				value={monthRadioOption}
+				options={monthRadioOptions}
+				type="radio"
+				onchange={handleMonthRadioGroupChange}
+			></lightning-radio-group>
+		</lightning-layout-item>
+		<lightning-layout-item padding="around-small" size="7">
+			<!-- EVERY X MONTH STARTING AT Y -->
+			<template if:true={isStartingAtMonthChecked}>
+				<lightning-layout>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="monthFrequency"
+							label={label.Every}
+							value={monthFrequencyOption}
+							options={monthFrequencyOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="startingMonth"
+							label={label.Starting_in}
+							value={startingMonthOption}
+							options={monthOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+				</lightning-layout>
+			</template>
+			<!-- AT SPECIFIC MONTH -->
+			<template if:true={isSpecificMonthChecked}>
+				<lightning-dual-listbox
+					name="specificMonth"
+					label={label.Select_Months}
+					source-label={label.Available}
+					selected-label={label.Selected}
+					value={specificMonthOption}
+					options={monthShortOptions}
+					onchange={handleValueChange}
+					variant="label-hidden"
+				></lightning-dual-listbox>
+			</template>
+			<!-- BETWEEN MONTH -->
+			<template if:true={isBetweenMonthChecked}>
+				<lightning-layout>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="betweenMonthStart"
+							label={label.Start_in}
+							value={betweenMonthStartOption}
+							options={monthOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+					<lightning-layout-item padding="around-small" size="4">
+						<lightning-combobox
+							name="betweenMonthEnd"
+							label={label.To}
+							value={betweenMonthEndOption}
+							options={monthOptions}
+							onchange={handleValueChange}
+						></lightning-combobox>
+					</lightning-layout-item>
+				</lightning-layout>
+			</template>
+		</lightning-layout-item>
+	</lightning-layout>
+</template>

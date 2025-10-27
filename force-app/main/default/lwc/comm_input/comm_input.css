@@ -1,0 +1,14 @@
+:host {
+    position: relative;
+    display: block;
+}
+
+.comm-icon__eye-stricked.is-text {
+    top: 15px;
+    right: 21px;
+    font-size: 19px;
+}
+
+.comm-icon__eye-stricked.is-text::before {
+    content: '\e91c';
+}

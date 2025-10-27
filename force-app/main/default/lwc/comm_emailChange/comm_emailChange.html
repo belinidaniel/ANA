@@ -1,0 +1,22 @@
+<template>
+    <c-comm_loader is-loading={isLoading}></c-comm_loader>
+    <!-- Show Messages if User is Guest -->
+    <template lwc:if={showForm}>
+        <div class="comm-change-email">
+            <div class="comm-change-email__title">
+                <h1><span>{label.emailChangeTitle}</span></h1>
+            </div>
+            <template lwc:if={isEmailChanged}>
+                <i class="comm-icon__check"></i>
+                <span class="comm-change-email__info">{label.confirmEmailSuccess}</span>
+            </template>
+            <template lwc:else>
+                <i class="comm-icon__cross"></i>
+                <span class="comm-change-email__info">{label.confirmEmailExpired}</span>
+            </template>
+
+            <lightning-button type="button" class="comm-button__primary" label={label.goToLogin} onclick={navigateToLogin}></lightning-button>
+        </div>
+        <img if:true={pageIllustrationUrl} src={pageIllustrationUrl} alt={pageIllustrationTitle} />
+    </template>
+</template>

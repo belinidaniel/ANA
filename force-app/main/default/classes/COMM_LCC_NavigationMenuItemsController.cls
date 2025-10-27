@@ -1,0 +1,81 @@
+/**
+ * @description A basic controller for fetching NavigationMenuItems.
+ */
+@SuppressWarnings('PMD.ExcessiveParameterList')
+public with sharing class COMM_LCC_NavigationMenuItemsController {
+    /**
+     * @description Performs SOQL query to determine all the children NavigationLinkSet based on the provided menu name.
+     * See https://developer.salesforce.com/docs/atlas.en-us.chatterapi.meta/chatterapi/connect_resources_navigation_menu_items.htm
+     *
+     * @param navigationLinkSetMasterLabel the menu name (NavigationLinkSet.MasterLabel)
+     * @param publishStatus publish status (Live or Draft)
+     * @param addHomeMenuItem if true, will include the Home menu item in the data
+     * @param includeImageUrl if true, will include any menu item's image URLs in the data; ensure relevant users have permissions to access the Document object (for CustomBrandAsset)
+     * @return the navigation menu items
+     */
+    @AuraEnabled(cacheable=true)
+    public static List<ConnectApi.NavigationMenuItem> getNavigationMenuItems(
+        String navigationLinkSetMasterLabel,
+        String publishStatus,
+        Boolean addHomeMenuItem,
+        Boolean includeImageUrl
+    ) {
+        String navigationLinkSetDeveloperName = getNavigationLinkSetDeveloperName(navigationLinkSetMasterLabel);
+
+        ConnectApi.PublishStatus publishStatusEnum;
+        if (publishStatus.equalsIgnoreCase(ConnectApi.PublishStatus.Draft.name())) {
+            publishStatusEnum = ConnectApi.PublishStatus.Draft;
+        } else {
+            publishStatusEnum = ConnectApi.PublishStatus.Live;
+        }
+
+        // Exclude any types that aren't supported for your navigation menu.
+        List<ConnectApi.NavigationMenuItemType> menuItemsToSkip = new List<ConnectApi.NavigationMenuItemType>{
+            ConnectApi.NavigationMenuItemType.Event, // not supported in custom component nav menus
+            ConnectApi.NavigationMenuItemType.SystemLink // not supported in nav menus
+        };
+
+        String navigationLinkSetId = null; // must provide the API the navigationLinkSetId or navigationLinkSetDeveloperName, but not both
+
+        String networkId = Network.getNetworkId();
+        System.assert(networkId != null);
+
+        // Connect API: https://developer.salesforce.com/docs/atlas.en-us.chatterapi.meta/chatterapi/connect_resources_navigation_menu_items.htm
+        ConnectApi.NavigationMenuItemCollection menu = ConnectApi.NavigationMenu.getCommunityNavigationMenu(
+            networkId,
+            navigationLinkSetId,
+            navigationLinkSetDeveloperName,
+            publishStatusEnum,
+            includeImageUrl,
+            addHomeMenuItem,
+            menuItemsToSkip
+        );
+
+        List<ConnectApi.NavigationMenuItem> items = menu.menuItems;
+        return items;
+    }
+
+    /**
+     * @description Look up the DeveloperName of the NavigationLinkSet based on the provided
+     * MasterLabel (aka menu name) and the NetworkId of the current context.
+     *
+     * @param navigationLinkSetMasterLabel the menu name (NavigationLinkSet.MasterLabel)
+     * @return the navigation linkset DeveloperName
+     */
+    @SuppressWarnings('PMD.ApexCRUDViolation')
+    private static String getNavigationLinkSetDeveloperName(String navigationLinkSetMasterLabel) {
+        String networkId = Network.getNetworkId();
+        System.assert(networkId != null);
+
+        List<NavigationLinkSet> navigationLinkSets = [
+            SELECT DeveloperName, Id, MasterLabel, NetworkId
+            FROM NavigationLinkSet
+            WHERE NetworkId = :networkId AND MasterLabel = :navigationLinkSetMasterLabel
+            WITH SECURITY_ENFORCED
+            LIMIT 1
+        ];
+
+        NavigationLinkSet navigationLinkSet = navigationLinkSets.get(0);
+        return navigationLinkSet.DeveloperName;
+    }
+}

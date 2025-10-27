@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Business Account Billing VAT</label>
+    <protected>false</protected>
+    <values>
+        <field>COMM_AddressMapping__c</field>
+        <value xsi:type="xsd:string">COMM_BILLING_COMPANY</value>
+    </values>
+    <values>
+        <field>COMM_CommerceApiFieldName__c</field>
+        <value xsi:type="xsd:string">c_comm_vatNumber</value>
+    </values>
+    <values>
+        <field>COMM_CoreApiFieldName__c</field>
+        <value xsi:type="xsd:string">COMM_VATNumber__c</value>
+    </values>
+    <values>
+        <field>COMM_CoreApiObjectName__c</field>
+        <value xsi:type="xsd:string">Account</value>
+    </values>
+    <values>
+        <field>COMM_MappingForB2C__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+</CustomMetadata>

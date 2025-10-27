@@ -1,0 +1,107 @@
+<template>
+    <!-- Show Form if User isn't to be redirected automatically -->
+    <template if:false={redirectionRequired}>
+        <template if:true={renderedFinished}>
+            <section class="comm-register">
+                <!-- Register - Titles -->
+                <div class="comm-register__title">
+                    <h1><span>{label.title}</span></h1>
+                    <span if:true={isCredentialsRegister}>{label.subtitle}</span>
+                    <span if:true={isEmailValidation}>{label.emailValidation}</span>
+                    <span if:true={isAccountCreated}>{label.accountCreated}</span>
+                    <span if:true={isAccountCreatedFailed}>{label.accountCreated}</span>
+                </div>
+
+                <!-- Register - Credentials register form -->
+                <form if:true={isCredentialsRegister} class="comm-register__credentials-form" novalidate>
+                    <div>
+                        <c-comm_input
+                            type="text"
+                            label={label.firstName}
+                            is-required="true"
+                            pattern={pattern.name}
+                            onchange={handleFirstNameChange}
+                            message-when-pattern-mismatch={label.nameErrorMessage}
+                            max-length={validation.personalFirstNameCharLimit}
+                        ></c-comm_input>
+                        <c-comm_input
+                            type="text"
+                            label={label.lastName}
+                            is-required="true"
+                            pattern={pattern.name}
+                            onchange={handleLastNameChange}
+                            message-when-pattern-mismatch={label.nameErrorMessage}
+                            max-length={validation.personalLastNameCharLimit}
+                        ></c-comm_input>
+                    </div>
+                    <c-comm_input type="email" label={label.email} is-required="true" onchange={handleEmailChange}></c-comm_input>
+                    <c-comm_input type="password" label={label.password} is-required="true" onchange={handlePasswordChange}></c-comm_input>
+                    <c-comm_input
+                        type="password"
+                        label={label.confirmPassword}
+                        is-required="true"
+                        onchange={handlePasswordConfirmationChange}
+                    ></c-comm_input>
+
+                    <!-- Password Validator-->
+                    <c-comm_password-validator
+                        password={password}
+                        password-confirmation={passwordConfirmation}
+                        email={email}
+                        first-name={firstName}
+                        last-name={lastName}
+                        onvalidation={handleValidation}
+                    ></c-comm_password-validator>
+                    <!-- Buttons -->
+                    <lightning-button
+                        onclick={handleRegistration}
+                        type="submit"
+                        class="comm-button__primary comm-registration-submit"
+                        label={label.register}
+                        disabled
+                    ></lightning-button>
+                    <span>{label.or}</span>
+                    <a href="/services/auth/sso/Google"
+                        ><lightning-button class="comm-button__tertiary comm-button__google-icon" label={label.registerWith}></lightning-button
+                    ></a>
+                    <a href="/services/auth/sso/Facebook"
+                        ><lightning-button class="comm-button__tertiary comm-button__facebook-icon" label={label.registerWith}></lightning-button
+                    ></a>
+                    <div>{label.alreadyHaveAccount}&nbsp;<a onclick={navigateToLogin}>{label.login}</a></div>
+                </form>
+
+                <!-- Register - Email Validation -->
+                <form if:true={isEmailValidation} class="comm-register__email-validation">
+                    <div>
+                        <i class="comm-icon__check"></i>
+                        <span>{label.emailValidationDescription1}&nbsp;{email}.&nbsp;{label.emailValidationDescription2}</span>
+                    </div>
+                    <lightning-button type="button" class="comm-button__primary" label={label.goToLogin} onclick={navigateToLogin}></lightning-button>
+                </form>
+
+                <!-- Register - Account Created -->
+                <form if:true={isAccountCreated} class="comm-register__password-configuration">
+                    <div>
+                        <i class="comm-icon__check"></i>
+                        <span>{label.accountCreatedDescription}</span>
+                    </div>
+                    <lightning-button type="button" class="comm-button__primary" label={label.goToLogin} onclick={navigateToLogin}></lightning-button>
+                </form>
+
+                <!-- Register - Account Created Failed -->
+                <form if:true={isAccountCreatedFailed} class="comm-register__password-configuration">
+                    <div>
+                        <i class="comm-icon__cross"></i>
+                        <span>{label.ValidationFailed}</span>
+                    </div>
+                    <lightning-button type="button" class="comm-button__primary" label={label.goToLogin} onclick={navigateToLogin}></lightning-button>
+                </form>
+            </section>
+
+            <!-- Login - Image section -->
+            <img if:true={pageIllustrationUrl} src={pageIllustrationUrl} alt={pageIllustrationTitle} />
+
+            <c-comm_loader is-loading={isLoading}></c-comm_loader
+        ></template>
+    </template>
+</template>

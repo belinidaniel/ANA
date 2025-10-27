@@ -1,0 +1,29 @@
+<aura:component implements="forceCommunity:themeLayout" description="Default Theme Layout">
+    <aura:attribute name="headerLogo" type="Aura.Component[]" />
+    <aura:attribute name="navBar" type="Aura.Component[]" />
+    <aura:attribute name="headerAccountMenu" type="Aura.Component[]" />
+    <aura:attribute name="headerLanguageSelector" type="Aura.Component[]" />
+    <aura:attribute name="footer" type="Aura.Component[]" />
+
+    <!-- Skip link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#footer-content" class="skip-link">Skip to footer</a>
+
+    <div class="comm-theme">
+        <header>
+            <div class="comm-theme__header">
+                <div class="comm-theme__logo">{!v.headerLogo}</div>
+                <div class="comm-theme__nav">{!v.navBar}</div>
+                <div class="comm-theme__accmenu">{!v.headerAccountMenu}</div>
+                <div class="comm-theme__language-selector">{!v.headerLanguageSelector}</div>
+            </div>
+        </header>
+
+        <!-- Main content with corresponding anchor ID -->
+        <section id="main-content">{!v.body}</section>
+
+        <!-- Footer with corresponding anchor ID -->
+        <footer id="footer-content">{!v.footer}</footer>
+    </div>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+</aura:component>

@@ -1,0 +1,67 @@
+<template>
+    <section class="comm-login">
+        <!-- Login - Titles -->
+        <div class="comm-login__title">
+            <h1><span>{label.title}</span></h1>
+            <span>{label.subtitle}</span>
+        </div>
+
+        <!-- Form error feedback -->
+        <div if:true={isFormError} class="comm-login__feedback">
+            <i class="comm-icon__information"></i>
+            <span>{label.errorFeedback}</span>
+        </div>
+
+        <!-- Login - Subscription Portal Login Form (only with Azure AD) -->
+        <form if:true={isSubscription} class="comm-login__credentials-form-button" novalidate>
+            <a href={subscriptionLink}
+                ><lightning-button class="comm-button__tertiary comm-button__subscription-icon" label={label.subscriptionAccess}></lightning-button
+            ></a>
+        </form>
+
+        <!-- Login - Credentials login form -->
+        <form if:true={isCredentialsLogin} class="comm-login__credentials-form" novalidate>
+            <c-comm_input class="active" type="email" data-name="email" label={label.email} is-required="true"></c-comm_input>
+            <div>
+                <c-comm_input class="active" type="password" data-name="password" label={label.password} is-required="true"></c-comm_input>
+                <a onclick={navigateToForgotPassword}>{label.forgotPassword}</a>
+            </div>
+            <lightning-button class="comm-button__primary" label={label.login} onclick={handleOnClickLogin} type="submit"></lightning-button>
+            <span>{label.or}</span>
+            <a href={googleService}
+                ><lightning-button class="comm-button__tertiary comm-button__google-icon" label={label.loginWith}></lightning-button
+            ></a>
+            <a href={facebookService}
+                ><lightning-button class="comm-button__tertiary comm-button__facebook-icon" label={label.loginWith}></lightning-button
+            ></a>
+            <a href={subscriptionUrl}
+                ><lightning-button class="comm-button__tertiary comm-button__subscription-icon" label={label.subscriptionAccess}></lightning-button
+            ></a>
+            <a type="button" onclick={toggleLoginForm}>{label.withReservation}</a>
+            <div>{label.newHere}&nbsp;<a onclick={navigateToRegister}>{label.createAccount}</a></div>
+        </form>
+
+        <!-- Login - Reservation login form -->
+        <form if:true={isReservationLogin} class="comm-login__reservation-form" novalidate>
+            <c-comm_input type="text" data-name="order" label={label.orderNumber} is-required="true"></c-comm_input>
+            <c-comm_input type="email" data-name="email" label={label.email} is-required="true"></c-comm_input>
+            <div>
+                <c-comm_input type="text" data-name="postalCode" label={label.postalCode} is-required="true"></c-comm_input>
+                <c-comm_input type="text" data-name="region" label={label.region} is-required="true"></c-comm_input>
+            </div>
+            <lightning-button
+                type="button"
+                data-href={buttonLink}
+                class="comm-button__primary"
+                label={label.login}
+                onclick={navigateToMyOrders}
+            ></lightning-button>
+            <div>{label.backTo}&nbsp;<a type="button" onclick={toggleLoginForm}>{label.withCredentials}</a></div>
+        </form>
+    </section>
+
+    <!-- Login - Image section -->
+    <img if:true={pageIllustrationUrl} src={pageIllustrationUrl} alt={pageIllustrationTitle} />
+
+    <c-comm_loader is-loading={isLoading}></c-comm_loader>
+</template>

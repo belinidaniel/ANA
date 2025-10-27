@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Set relevant Case fields with the information of existing Affiliate Account.</description>
+        <name>COMM_SetCaseDetails</name>
+        <label>Set Case Details</label>
+        <locationX>50</locationX>
+        <locationY>611</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.COMM_ExistingAffiliateAccount__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>COMM_GetAccount.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.COMM_AffiliateCategory__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>COMM_GetAccount.COMM_AffiliateCategory__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.COMM_CompanyVATNumber__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>COMM_GetAccount.COMM_VATNumber__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.COMM_AffiliatePaymentMethod__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>COMM_GetAccount.COMM_PaymentMethod__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.COMM_CompanyName__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>COMM_GetAccount.Name</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>Decision to check if there is an Account already related on VAT Number specified on Case Affiliate Registration Request.</description>
+        <name>COMM_AccountFound</name>
+        <label>Account found?</label>
+        <locationX>182</locationX>
+        <locationY>503</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>COMM_GetAccount</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_SetCaseDetails</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Flow to get Account related on VAT for Case Affiliate Registration Requests.</description>
+    <environments>Default</environments>
+    <interviewLabel>Case Get Affiliate Account on Affiliate Registration Request {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Get Affiliate Account on Affiliate Registration Request</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get Account record by Company VAT Number specified on Affiliate request Case.</description>
+        <name>COMM_GetAccount</name>
+        <label>Get Account</label>
+        <locationX>182</locationX>
+        <locationY>395</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>COMM_AccountFound</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>COMM_GetCollectivePartnerRecordType.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>COMM_IsAffiliate__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>COMM_AffiliateCategory__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>COMM_VATNumber__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.COMM_CompanyVATNumber__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Type</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Collective</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Get Collective/Partner Record Type details.</description>
+        <name>COMM_GetCollectivePartnerRecordType</name>
+        <label>Get Collective/Partner Record Type</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>COMM_GetAccount</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>COMM_CollectivePartner</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>COMM_GetCollectivePartnerRecordType</targetReference>
+        </connector>
+        <filterFormula>AND(
+TEXT({!$Record.Type}) = &apos;Affiliate Registration Request&apos;,
+TEXT({!$Record.Status}) = &apos;Waiting Approval&apos;,
+NOT(ISBLANK({!$Record.COMM_CompanyVATNumber__c}))
+)</filterFormula>
+        <object>Case</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

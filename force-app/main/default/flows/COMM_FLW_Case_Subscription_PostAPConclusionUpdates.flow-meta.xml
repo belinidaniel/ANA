@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>COMM_Decision_ConfirmCaseProcessInstanceStepExists</name>
+        <label>Confirm if Case Process Instance Step Exists</label>
+        <locationX>182</locationX>
+        <locationY>647</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>COMM_Outcome_Exists</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>COMM_Get_CaseProcessInstanceStep</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_Get_ConcludedRequestSABACustomNotification</targetReference>
+            </connector>
+            <label>Exists</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>COMM_Decision_ConfirmIfProcessProcessInstanceExists</name>
+        <label>Confirm if Process Process Instance Exists</label>
+        <locationX>380</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>COMM_Outcome_ProcessInstanceExists</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>COMM_Get_CaseProcessInstance</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_Get_CaseProcessInstanceStep</targetReference>
+            </connector>
+            <label>Process Instance Exists</label>
+        </rules>
+    </decisions>
+    <description>Perform field updates and send notifications after ANA Admin approve case</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Formula to retrieve Subscription&apos;s Airport. If Value Field is empty retrieve airport from Subscription&apos;s Product</description>
+        <name>COMM_SubscriptionAirportFormula</name>
+        <dataType>String</dataType>
+        <expression>IF(ISPICKVAL({!$Record.COMM_Subscription__r.COMM_AirportValue__c}, &quot;&quot;), TEXT({!$Record.COMM_Subscription__r.COMM_Product__r.COMM_Airport__c}), TEXT({!$Record.COMM_Subscription__r.COMM_AirportValue__c}))</expression>
+    </formulas>
+    <formulas>
+        <description>Formula for the Airport Admin Queue Name based on Subscription Location. If Airport value is missing add to ANA Admin Queue.</description>
+        <name>COMM_SubscriptionRequestAirportAdminQueueNameFormula</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!COMM_SubscriptionAirportFormula}),
+ &quot;COMM_SubscriptionRequestANAAdmin&quot;,
+ &quot;Subscription_Request_SABA_&quot; + {!COMM_SubscriptionAirportFormula})</expression>
+    </formulas>
+    <interviewLabel>Case Subscription Post AP Conclusion Updates {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Subscription Post AP Conclusion Updates</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get Case Process Instance to identify the conclusion</description>
+        <name>COMM_Get_CaseProcessInstance</name>
+        <label>Get Case Process Instance</label>
+        <locationX>380</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>COMM_Decision_ConfirmIfProcessProcessInstanceExists</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>TargetObjectId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ProcessInstance</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Get Case Process Instance Step to identify the conclusion</description>
+        <name>COMM_Get_CaseProcessInstanceStep</name>
+        <label>Get Case Process Instance Step</label>
+        <locationX>182</locationX>
+        <locationY>539</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>COMM_Decision_ConfirmCaseProcessInstanceStepExists</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ProcessInstanceId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>COMM_Get_CaseProcessInstance.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>StepStatus</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ProcessInstanceStep</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>COMM_Get_ConcludedRequestSABACustomNotification</name>
+        <label>Get Concluded Request SABA Custom Notification</label>
+        <locationX>50</locationX>
+        <locationY>755</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>COMM_Send_SABA_Notification</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>COMM_SABA_SubscriptionConcluded</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>CustomNotificationType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>254</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>COMM_Get_CaseProcessInstance</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+  {!$Record.RecordType.DeveloperName}=&apos;COMM_CancelationRequest&apos;,
+  ISPICKVAL({!$Record.Status}, &apos;Waiting Conclusion&apos;),
+  BEGINS({!$Record.OwnerId}, &apos;005&apos;)
+)</filterFormula>
+        <object>Case</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>COMM_Send_SABA_Notification</name>
+        <label>Send SABA Notification</label>
+        <locationX>50</locationX>
+        <locationY>863</locationY>
+        <flowName>COMM_FLW_Generic_SendNotificationToQueue</flowName>
+        <inputAssignments>
+            <name>CustomNotificationId</name>
+            <value>
+                <elementReference>COMM_Get_ConcludedRequestSABACustomNotification.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Notification_TargetId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>NotificationBody_EN</name>
+            <value>
+                <elementReference>COMM_TextTemplate_SABANotificationBodyEN</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>NotificationBody_ES</name>
+            <value>
+                <elementReference>COMM_TextTemplate_SABANotificationBodyES</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>NotificationBody_PT</name>
+            <value>
+                <elementReference>COMM_TextTemplate_SABANotificationBodyPT</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>NotificationTitle_EN</name>
+            <value>
+                <elementReference>COMM_TextTemplate_SABANotificationTitleEN</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>NotificationTitle_ES</name>
+            <value>
+                <elementReference>COMM_TextTemplate_SABANotificationTitleES</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>NotificationTitle_PT</name>
+            <value>
+                <elementReference>COMM_TextTemplate_SABANotificationTitlePT</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>QueueDeveloperName</name>
+            <value>
+                <elementReference>COMM_SubscriptionRequestAirportAdminQueueNameFormula</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <textTemplates>
+        <name>COMM_TextTemplate_SABANotificationBodyEN</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Cancelation request {!$Record.COMM_Subscription__c} approved by ANA Admin.
+The current subscription will end on: {!$Record.COMM_Subscription__r.COMM_EndDate__c}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>COMM_TextTemplate_SABANotificationBodyES</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Solicitud de cancelación {!$Record.COMM_Subscription__c} aprobada por el administrador de ANA.
+La suscripción actual finalizará el: {!$Record.COMM_Subscription__r.COMM_EndDate__c}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>COMM_TextTemplate_SABANotificationBodyPT</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Solicitação de cancelamento {!$Record.COMM_Subscription__c} aprovada pela ANA Admin.
+A subscrião atual terminará em: {!$Record.COMM_Subscription__r.COMM_EndDate__c}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>COMM_TextTemplate_SABANotificationTitleEN</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>ANA – Aeroportos de Portugal Subscription Cancelation Request</text>
+    </textTemplates>
+    <textTemplates>
+        <name>COMM_TextTemplate_SABANotificationTitleES</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>ANA – Aeroportos de Portugal Solicitud de cancelación de suscripción</text>
+    </textTemplates>
+    <textTemplates>
+        <name>COMM_TextTemplate_SABANotificationTitlePT</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>ANA – Aeroportos de Portugal Pedido de Cancelamento de Subscrição</text>
+    </textTemplates>
+    <variables>
+        <name>COMM_Variable_SABAUserList</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>List used on standard action &quot;Send Custom Notification&quot; to include the user which will receive the notification</description>
+        <name>COMM_Variable_UserList</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

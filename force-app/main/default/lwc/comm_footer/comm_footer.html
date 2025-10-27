@@ -1,0 +1,28 @@
+<template>
+    <section>
+        <!-- Footer - Images -->
+        <a class="comm-footer__logo-home" data-href={logoLink} onclick={navigateToPage} aria-label={label.homepage}>
+            <img src={mainLogoResourceUrl} data-href={logoLink} alt="mainLogo" if:true={mainLogoResourceUrl} />
+            <img src={secondLogoResourceUrl} data-href={logoLink} alt="secondLogo" if:true={secondLogoResourceUrl} />
+        </a>
+
+        <!-- Footer - Copyright Caption-->
+        <div class="comm-footer__caption" if:true={copyright}>{copyright}</div>
+
+        <!-- Footer - Links -->
+        <div class="comm-footer__links">
+            <ul if:true={firstSectionTitle}>
+                <li><div class="comm-footer__title">{firstSectionTitle}</div></li>
+                <li if:true={firstSectionLink1Label}><a data-href={firstSectionLink1Url} onclick={navigateToPage}>{firstSectionLink1Label}</a></li>
+                <li if:true={firstSectionLink2Label}><a data-href={firstSectionLink2Url} onclick={navigateToPage}>{firstSectionLink2Label}</a></li>
+                <li if:true={firstSectionLink3Label}><a data-href={firstSectionLink3Url} onclick={navigateToPage}>{firstSectionLink3Label}</a></li>
+            </ul>
+            <ul if:true={secondSectionTitle}>
+                <li><div class="comm-footer__title">{secondSectionTitle}</div></li>
+                <li if:true={secondSectionLink1Label}><a data-href={secondSectionLink1Url} onclick={navigateToPage}>{secondSectionLink1Label}</a></li>
+                <li if:true={secondSectionLink2Label}><a href={secondSectionLink2Url}>{secondSectionLink2Label}</a></li>
+                <li if:true={secondSectionLink3Label}><a href={secondSectionLink3Url}>{secondSectionLink3Label}</a></li>
+            </ul>
+        </div>
+    </section>
+</template>

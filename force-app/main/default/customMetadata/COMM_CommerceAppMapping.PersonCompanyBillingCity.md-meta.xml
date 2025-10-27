@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Person Company Billing City</label>
+    <protected>false</protected>
+    <values>
+        <field>COMM_CustomAttribute__c</field>
+        <value xsi:type="xsd:string">companyBillingAddress</value>
+    </values>
+    <values>
+        <field>COMM_FieldApiName__c</field>
+        <value xsi:type="xsd:string">COMM_CompanyBillingAddress__City__s</value>
+    </values>
+    <values>
+        <field>COMM_IsB2CMapping__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>COMM_IsObjecField__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>COMM_ObjectAttributeName__c</field>
+        <value xsi:type="xsd:string">city</value>
+    </values>
+    <values>
+        <field>COMM_SObjectApiName__c</field>
+        <value xsi:type="xsd:string">Account</value>
+    </values>
+</CustomMetadata>

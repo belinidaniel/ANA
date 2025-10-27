@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <customErrors>
+        <description>Case Reason Of Rejection missing Comments</description>
+        <name>COMM_CustomError_CaseReasonOfRejectionEmpty</name>
+        <label>Case Reason Of Rejection Empty</label>
+        <locationX>50</locationX>
+        <locationY>719</locationY>
+        <customErrorMessages>
+            <errorMessage>{!$Label.COMM_CASE_REASON_OF_REJECTION_EMPTY}</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <name>COMM_Decision_ConfirmIfProcessProcessInstanceExists</name>
+        <label>Confirm if Process Process Instance Exists</label>
+        <locationX>380</locationX>
+        <locationY>395</locationY>
+        <defaultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>COMM_CustomError_CaseReasonOfRejectionEmpty</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>COMM_Outcome_ProcessInstanceExists</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>COMM_Get_CaseProcessInstance</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_Get_CaseProcessInstanceStep</targetReference>
+            </connector>
+            <label>Process Instance Exists</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>COMM_Decision_ConfirmIfProcessProcessInstanceStepExists</name>
+        <label>Confirm if Process Process Instance Step Exists</label>
+        <locationX>182</locationX>
+        <locationY>611</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>COMM_Outcome_ProcessInstanceStepExistsWithoutComments</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>COMM_Get_CaseProcessInstanceStep</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>COMM_CustomError_CaseReasonOfRejectionEmpty</targetReference>
+            </connector>
+            <label>Process Instance Step Exists Without Comments</label>
+        </rules>
+    </decisions>
+    <description>Case Approval Process Rejection Validation on Comeents field, it must be filled!</description>
+    <environments>Default</environments>
+    <interviewLabel>Case Approval Process Rejection Validation {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Approval Process Rejection Validation</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get Case Process Instance to identify the rejection reason</description>
+        <name>COMM_Get_CaseProcessInstance</name>
+        <label>Get Case Process Instance</label>
+        <locationX>380</locationX>
+        <locationY>287</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>COMM_Decision_ConfirmIfProcessProcessInstanceExists</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>TargetObjectId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ProcessInstance</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Get Case Process Instance Step to identify the rejection reason</description>
+        <name>COMM_Get_CaseProcessInstanceStep</name>
+        <label>Get Case Process Instance Step</label>
+        <locationX>182</locationX>
+        <locationY>503</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>COMM_Decision_ConfirmIfProcessProcessInstanceStepExists</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ProcessInstanceId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>COMM_Get_CaseProcessInstance.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>StepStatus</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Rejected</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Comments</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ProcessInstanceStep</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>254</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>COMM_Get_CaseProcessInstance</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Request Denied</stringValue>
+            </value>
+        </filters>
+        <object>Case</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
