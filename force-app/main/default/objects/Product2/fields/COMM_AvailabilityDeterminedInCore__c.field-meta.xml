@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_AvailabilityDeterminedInCore__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checkbox to determine if the Product&apos;s Availability is controlled in Core or in Commerce</description>
+    <label>Availability determined in Core</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

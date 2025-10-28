@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_ValidTo__c</fullName>
+    <description>End date and hour for which the price is valid date for which the product is deemed valid</description>
+    <label>Valid To</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

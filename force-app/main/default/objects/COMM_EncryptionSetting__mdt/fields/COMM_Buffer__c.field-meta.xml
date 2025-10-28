@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_Buffer__c</fullName>
+    <defaultValue>10</defaultValue>
+    <description>Buffer time that request is valid from the moment it&apos;s generated on the client side until it&apos;s finished being processed on server side</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Time (in seconds) that the request is valid since creation</inlineHelpText>
+    <label>Buffer</label>
+    <precision>3</precision>
+    <required>true</required>
+    <scale>0</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

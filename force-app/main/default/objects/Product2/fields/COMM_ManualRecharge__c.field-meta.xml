@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_ManualRecharge__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>The e-mail sent to the client that is doing a Public Subscription Recurring Acquisition is different depending on this field. If the box is ticked in “Yes”, the user will receive an e-mail that indicates that he has to manually recharge the card.
+
+If the box is ticked in “No” the user receives an e-mail confirming that his subscription was successfully acquired.</description>
+    <label>Manual Recharge</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

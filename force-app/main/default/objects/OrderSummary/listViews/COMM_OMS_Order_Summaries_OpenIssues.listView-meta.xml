@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_OMS_Order_Summaries_OpenIssues</fullName>
+    <columns>Name</columns>
+    <columns>Account</columns>
+    <columns>Status</columns>
+    <columns>OrderedDate</columns>
+    <columns>GrandTotalAmount</columns>
+    <columns>CreatedDate</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CreatedDate</field>
+        <operation>greaterOrEqual</operation>
+        <value>9/5/2024 4:00 PM</value>
+    </filters>
+    <filters>
+        <field>COMM_IsLegacyOrder__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>ActiveProcessExceptionCount</field>
+        <operation>greaterThan</operation>
+        <value>0</value>
+    </filters>
+    <label>Order Summaries - With Issues</label>
+</ListView>

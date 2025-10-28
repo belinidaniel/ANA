@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_Subscription</fullName>
+    <active>true</active>
+    <description>Record Type for Capacity used in Subscription Products</description>
+    <label>Subscription</label>
+    <picklistValues>
+        <picklist>COMM_ProcessStatus__c</picklist>
+        <values>
+            <fullName>COMPLETED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FAILED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NOT PROCESSED</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>PENDING</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RUNNING</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

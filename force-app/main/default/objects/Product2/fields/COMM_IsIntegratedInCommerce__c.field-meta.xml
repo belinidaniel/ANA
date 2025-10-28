@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_IsIntegratedInCommerce__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>To flag if a Product record is integrated in Salesforce Commerce.</description>
+    <label>Is Integrated in Commerce?</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

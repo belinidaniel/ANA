@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_ProductLocation__c</fullName>
+    <caseSensitive>true</caseSensitive>
+    <description>Unique Identifier for the Product Location record. This is the ProductCode concatenated with the Location.
+
+Examples: 
+
+OPO_P1_premium_20240101_Hour_00,
+
+OPO_P1_premium_20240101_Hour_01,
+
+OPO_P1_premium_20240101_Subscriptions</description>
+    <externalId>true</externalId>
+    <label>Product Location</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

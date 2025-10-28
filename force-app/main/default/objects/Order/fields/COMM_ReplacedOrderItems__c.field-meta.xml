@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_ReplacedOrderItems__c</fullName>
+    <description>List of Order Product Summary Ids that were cancelled on the original Order. List of Ids separated by , (comma). These should be salesforce a list of Order Product Summary Ids</description>
+    <label>Replaced Order Product Summary Ids</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

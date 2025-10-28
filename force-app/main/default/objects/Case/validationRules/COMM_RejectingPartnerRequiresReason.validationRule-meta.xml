@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_RejectingPartnerRequiresReason</fullName>
+    <active>true</active>
+    <description>Provide a reason for rejecting the Case.</description>
+    <errorConditionFormula>AND(
+				RecordType.DeveloperName = &apos;COMM_PartnerRequest&apos;,
+    ISPICKVAL(Status, &quot;Request Denied&quot;),
+    ISBLANK(COMM_ReasonOfRejection__c)
+)</errorConditionFormula>
+    <errorDisplayField>COMM_ReasonOfRejection__c</errorDisplayField>
+    <errorMessage>Please provide a reason for rejecting the Case</errorMessage>
+</ValidationRule>

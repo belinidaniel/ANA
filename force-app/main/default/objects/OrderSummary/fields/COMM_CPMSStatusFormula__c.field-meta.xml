@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_CPMSStatusFormula__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF ( INCLUDES ( COMM_CPMSStatus__c , &quot;New&quot; ), &quot;New; &quot;, null ) &amp;
+IF ( INCLUDES ( COMM_CPMSStatus__c , &quot;Reserved&quot; ), &quot;Reserved; &quot;, null ) &amp;
+IF ( INCLUDES ( COMM_CPMSStatus__c , &quot;Cancelled&quot; ), &quot;Cancelled; &quot;, null ) &amp;
+IF ( INCLUDES ( COMM_CPMSStatus__c , &quot;Error&quot; ), &quot;Error&quot;, null )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>CPMS Status</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

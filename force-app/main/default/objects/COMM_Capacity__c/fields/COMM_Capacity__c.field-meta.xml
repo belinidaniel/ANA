@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_Capacity__c</fullName>
+    <description>It is the daily capacity set by hour, that is constant throughout the operating hours.
+
+This capacity configuration is not applicable to subscriptions.
+
+For the subscriptions, the capacity is calculated by multiplying the total number of parking spaces by the multiplier. This capacity is constant, therefore is not defined by hour.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>To put the product as suspended, changed capacity to 0.</inlineHelpText>
+    <label>Capacity</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

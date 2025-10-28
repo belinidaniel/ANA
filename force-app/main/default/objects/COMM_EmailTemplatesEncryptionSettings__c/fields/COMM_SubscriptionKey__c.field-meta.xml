@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_SubscriptionKey__c</fullName>
+    <description>Key used to encrypt Id of the Case related to a Subscription.</description>
+    <externalId>false</externalId>
+    <label>Subscription Key</label>
+    <length>16</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_Subscripton__c</fullName>
+    <description>The Subscription that generated the Invoice</description>
+    <label>Subscripton</label>
+    <referenceTo>COMM_Subscription__c</referenceTo>
+    <relationshipLabel>Subscription Invoices</relationshipLabel>
+    <relationshipName>SubscriptionInvoices</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_ReplacedOrder__c</fullName>
+    <description>Replaced Order Summary Id when a new order to replace the original (or order items) is created. These should be a salesforce OrderSummary Id</description>
+    <externalId>false</externalId>
+    <label>Replaced Order Summary Id</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

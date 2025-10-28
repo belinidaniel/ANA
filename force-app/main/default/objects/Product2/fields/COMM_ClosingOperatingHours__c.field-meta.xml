@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_ClosingOperatingHours__c</fullName>
+    <description>Specific time during which the product stops being operational to be sold to the customers</description>
+    <label>Closing Operating Hours</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Time</type>
+</CustomField>

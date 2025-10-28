@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_Product__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Product that the Voucher is associated with</description>
+    <label>Product</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>(1 OR (2 AND 3)) AND 4</booleanFilter>
+        <errorMessage>Only Fast Track and Lounge Products that are Child can be associated with a Free Voucher.</errorMessage>
+        <filterItems>
+            <field>Product2.Family</field>
+            <operation>equals</operation>
+            <value>Fast Track</value>
+        </filterItems>
+        <filterItems>
+            <field>Product2.Family</field>
+            <operation>equals</operation>
+            <value>Lounge</value>
+        </filterItems>
+        <filterItems>
+            <field>Product2.COMM_ParentProduct__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </filterItems>
+        <filterItems>
+            <field>Product2.IsActive</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>Free Vouchers</relationshipLabel>
+    <relationshipName>FreeVouchers</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

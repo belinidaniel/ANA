@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_SetupInitialStock__c</fullName>
+    <description>Indicate if the Subscription should be considered by the initial stock reservation (COMM_Async_SubscOCICreateStock)</description>
+    <externalId>false</externalId>
+    <label>Setup Initial Stock</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

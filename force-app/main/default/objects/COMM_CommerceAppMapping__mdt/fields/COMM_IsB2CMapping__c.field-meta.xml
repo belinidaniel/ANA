@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_IsB2CMapping__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checkbox indicates mapping is performed if client is B2C (value = checked) or B2B (value = unchecked)</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Is B2C Mapping?</label>
+    <type>Checkbox</type>
+</CustomField>

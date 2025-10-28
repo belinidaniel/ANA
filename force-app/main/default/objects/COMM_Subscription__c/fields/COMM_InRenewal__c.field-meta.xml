@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_InRenewal__c</fullName>
+    <description>Formula field to identify if Subscription is in Renewal Process</description>
+    <formula>AND(
+COMM_ActiveSubscriptionRequestRecordType__c == &quot;COMM_RecurringPublicSubscription&quot;,
+NOT(OR(
+    ISPICKVAL(COMM_ActiveSubscriptionRequest__r.Status, &quot;Process Concluded&quot;),
+    ISPICKVAL(COMM_ActiveSubscriptionRequest__r.Status, &quot;Archived&quot;),
+    ISPICKVAL(COMM_ActiveSubscriptionRequest__r.Status, &quot;Expired&quot;)))
+)</formula>
+    <label>In Renewal</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

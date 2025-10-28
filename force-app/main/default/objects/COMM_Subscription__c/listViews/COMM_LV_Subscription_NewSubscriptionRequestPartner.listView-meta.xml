@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_LV_Subscription_NewSubscriptionRequestPartner</fullName>
+    <columns>NAME</columns>
+    <columns>COMM_SubscriptionNumber__c</columns>
+    <columns>COMM_Status__c</columns>
+    <columns>COMM_Account__c</columns>
+    <columns>COMM_FirstName__c</columns>
+    <columns>COMM_LastName__c</columns>
+    <columns>COMM_Product__c</columns>
+    <columns>COMM_Airport__c</columns>
+    <columns>COMM_ActiveSubscriptionRequest__c</columns>
+    <columns>COMM_ActiveSubscriptionRequestStatus__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>COMM_ActiveSubscriptionRequestRecordType__c</field>
+        <operation>equals</operation>
+        <value>COMM_NewSubscription</value>
+    </filters>
+    <filters>
+        <field>COMM_CheckPartnerVisibility__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Subscription New Request Partner</label>
+    <sharedTo>
+        <group>COMM_PublicGroupPartnerAdmin</group>
+    </sharedTo>
+</ListView>

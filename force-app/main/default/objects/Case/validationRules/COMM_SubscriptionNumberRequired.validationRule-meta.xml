@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_SubscriptionNumberRequired</fullName>
+    <active>true</active>
+    <description>Subscription Number is Required</description>
+    <errorConditionFormula>AND(    
+				ISBLANK(COMM_SubscriptionNumber__c),
+				ISPICKVAL(Status, &quot;Process Concluded&quot;),
+				RecordType.DeveloperName = &apos;COMM_NewSubscription&apos;
+				)</errorConditionFormula>
+    <errorDisplayField>COMM_SubscriptionNumber__c</errorDisplayField>
+    <errorMessage>Subscription Number is Required</errorMessage>
+</ValidationRule>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_ActiveSubscription</fullName>
+    <active>true</active>
+    <description>Validation which will lock the subscription &quot;Active&quot; status, while Subscription status is Process Concluded.</description>
+    <errorConditionFormula>AND(
+NOT($Permission.COMM_CustomPermission_AdminByPass),
+ISPICKVAL(COMM_Status__c, &apos;Process Concluded&apos;),
+PRIORVALUE(COMM_Active__c),
+ISCHANGED(COMM_Active__c)
+)</errorConditionFormula>
+    <errorDisplayField>COMM_Active__c</errorDisplayField>
+    <errorMessage>You can&apos;t deactivate the Subscription when Subscription status is in Process Concluded!</errorMessage>
+</ValidationRule>

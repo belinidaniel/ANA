@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Change Subsciption Information</fullName>
+    <description>Case Support Process for Change Subsciption Information</description>
+    <isActive>true</isActive>
+    <values>
+        <fullName>Canceled</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>In Approval</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Pending Form</fullName>
+        <default>true</default>
+    </values>
+    <values>
+        <fullName>Process Concluded</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Request Denied</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Returned to Ana</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Waiting Approval</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Waiting Conclusion</fullName>
+        <default>false</default>
+    </values>
+</BusinessProcess>

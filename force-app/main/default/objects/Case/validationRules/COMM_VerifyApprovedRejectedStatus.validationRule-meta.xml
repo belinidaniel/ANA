@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_VerifyApprovedRejectedStatus</fullName>
+    <active>true</active>
+    <description>If the case is approved or rejected, the status cannot be changed</description>
+    <errorConditionFormula>AND(
+ISCHANGED(Status),
+OR(
+ISPICKVAL(PRIORVALUE(Status), &quot;Process Concluded&quot;),
+ISPICKVAL(PRIORVALUE(Status), &quot;Request Denied&quot;)
+),
+OR(
+RecordType.DeveloperName = &apos;COMM_AffiliateRequest&apos;,
+RecordType.DeveloperName = &apos;COMM_PartnerRequest&apos;
+)
+)</errorConditionFormula>
+    <errorMessage>When the Case is in Process Concluded or Request Denied status, you cannot change the status</errorMessage>
+</ValidationRule>

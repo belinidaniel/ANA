@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_PaymentTypeRequiredForSubPortal</fullName>
+    <active>true</active>
+    <description>Payment Type is mandatory for Child Products of Subscription Category sold on the Subscription Portal</description>
+    <errorConditionFormula>AND(
+NOT(ISBLANK(COMM_ParentProduct__c)),
+INCLUDES(COMM_WhereProductAvailable__c, &apos;Subscriptions Portal&apos;),
+ISPICKVAL(Family , &apos;Subscription&apos;),
+ISBLANK(COMM_PaymentType__c))</errorConditionFormula>
+    <errorDisplayField>COMM_PaymentType__c</errorDisplayField>
+    <errorMessage>Please fill Payment Type</errorMessage>
+</ValidationRule>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_LV_All</fullName>
+    <columns>MasterLabel</columns>
+    <columns>DeveloperName</columns>
+    <columns>COMM_SObjectApiName__c</columns>
+    <columns>COMM_FieldApiName__c</columns>
+    <columns>COMM_CustomAttribute__c</columns>
+    <columns>COMM_IsObjecField__c</columns>
+    <columns>COMM_ObjectAttributeName__c</columns>
+    <columns>COMM_IsB2CMapping__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <language>en_US</language>
+</ListView>

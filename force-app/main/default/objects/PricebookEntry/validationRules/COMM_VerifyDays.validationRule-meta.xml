@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_VerifyDays</fullName>
+    <active>true</active>
+    <description>Validates if the number defined for Day fields is positive</description>
+    <errorConditionFormula>AND(
+    ISPICKVAL(Product2.Family, &quot;Parking&quot;),
+    OR(
+        COMM_FirstPeriodStartDay__c &lt;= 0,
+        COMM_SecondPeriodStartDay__c &lt;= 0,
+        COMM_ThirdPeriodStartDay__c &lt;= 0,
+        COMM_FourthPeriodStartDay__c &lt;= 0,
+        COMM_FirstPeriodEndDay__c &lt;= 0,
+        COMM_SecondPeriodEndDay__c &lt;= 0,
+        COMM_ThirdPeriodEndDay__c &lt;= 0,
+        COMM_FourthPeriodEndDay__c &lt;= 0
+    )
+)</errorConditionFormula>
+    <errorMessage>The day should be a positive number</errorMessage>
+</ValidationRule>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_ParentProductCode__c</fullName>
+    <description>Product Code of Parent Product</description>
+    <externalId>false</externalId>
+    <formula>COMM_ParentProduct__r.ProductCode</formula>
+    <label>Parent Product Code</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

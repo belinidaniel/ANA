@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Metadata to store tax applied to sold products in invoices</description>
+    <label>Tax Value Configuration</label>
+    <pluralLabel>Tax Value Configurations</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

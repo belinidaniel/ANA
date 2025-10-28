@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_SubCategory__c</fullName>
+    <description>Used to define the sub-category of the product.</description>
+    <label>Sub-Category</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Family</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Park</fullName>
+                <default>false</default>
+                <label>Park</label>
+            </value>
+            <value>
+                <fullName>Lounge</fullName>
+                <default>false</default>
+                <label>Lounge</label>
+            </value>
+            <value>
+                <fullName>Fast Lane</fullName>
+                <default>false</default>
+                <label>Fast Lane</label>
+            </value>
+            <value>
+                <fullName>Fast Track</fullName>
+                <default>false</default>
+                <label>Fast Track</label>
+            </value>
+            <value>
+                <fullName>Courtesy</fullName>
+                <default>false</default>
+                <label>Courtesy</label>
+            </value>
+            <value>
+                <fullName>Exempt Official Entity</fullName>
+                <default>false</default>
+                <label>Exempt Official Entity</label>
+            </value>
+            <value>
+                <fullName>ANA + Entities</fullName>
+                <default>false</default>
+                <label>ANA + Entities</label>
+            </value>
+            <value>
+                <fullName>Public</fullName>
+                <default>false</default>
+                <label>Public</label>
+            </value>
+            <value>
+                <fullName>RAC / Shuttle NL</fullName>
+                <default>false</default>
+                <label>RAC / Shuttle NL</label>
+            </value>
+            <value>
+                <fullName>Staff Company</fullName>
+                <default>false</default>
+                <label>Staff Company</label>
+            </value>
+            <value>
+                <fullName>Staff Individual</fullName>
+                <default>false</default>
+                <label>Staff Individual</label>
+            </value>
+            <value>
+                <fullName>Fast Track Plus</fullName>
+                <default>false</default>
+                <label>Fast Track Plus</label>
+            </value>
+            <value>
+                <fullName>Lounge Adult</fullName>
+                <default>false</default>
+                <label>Lounge Adult</label>
+            </value>
+            <value>
+                <fullName>Lounge Child</fullName>
+                <default>false</default>
+                <label>Lounge Child</label>
+            </value>
+            <value>
+                <fullName>Lounge Adult with shower</fullName>
+                <default>false</default>
+                <label>Lounge Adult with shower</label>
+            </value>
+            <value>
+                <fullName>Lounge Child with shower</fullName>
+                <default>false</default>
+                <label>Lounge Child with shower</label>
+            </value>
+            <value>
+                <fullName>Lounge Adult Schengen</fullName>
+                <default>false</default>
+                <label>Lounge Adult Schengen</label>
+            </value>
+            <value>
+                <fullName>Lounge Child Schengen</fullName>
+                <default>false</default>
+                <label>Lounge Child Schengen</label>
+            </value>
+            <value>
+                <fullName>Lounge Adult Non Schengen</fullName>
+                <default>false</default>
+                <label>Lounge Adult Non Schengen</label>
+            </value>
+            <value>
+                <fullName>Lounge Child Non Schengen</fullName>
+                <default>false</default>
+                <label>Lounge Child Non Schengen</label>
+            </value>
+            <value>
+                <fullName>Terminal</fullName>
+                <default>false</default>
+                <label>Terminal</label>
+            </value>
+            <value>
+                <fullName>Economy</fullName>
+                <default>false</default>
+                <label>Economy</label>
+            </value>
+            <value>
+                <fullName>Premium</fullName>
+                <default>false</default>
+                <label>Premium</label>
+            </value>
+            <value>
+                <fullName>Lounge Adult Non -Schengen</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Lounge Adult Non -Schengen</label>
+            </value>
+            <value>
+                <fullName>Lounge Child Non - Schengen</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Lounge Child Non - Schengen</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Fast Track</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Fast Lane</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fast Track</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Fast Track</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fast Track</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Fast Track Plus</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lounge</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Lounge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lounge</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Lounge Adult</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lounge</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Lounge Child</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lounge</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Lounge Adult with shower</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lounge</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Lounge Child with shower</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lounge</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Lounge Adult Schengen</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lounge</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Lounge Child Schengen</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lounge</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Lounge Adult Non Schengen</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lounge</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Lounge Child Non Schengen</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parking</controllingFieldValue>
+            <controllingFieldValue>Subscription</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Park</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parking</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Terminal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parking</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Economy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parking</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Premium</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Subscription</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Courtesy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Subscription</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Exempt Official Entity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Subscription</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>ANA + Entities</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Subscription</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Public</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Subscription</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>RAC / Shuttle NL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Subscription</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Staff Company</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Subscription</controllingFieldValue>
+            <controllingFieldValue>Bundle</controllingFieldValue>
+            <valueName>Staff Individual</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

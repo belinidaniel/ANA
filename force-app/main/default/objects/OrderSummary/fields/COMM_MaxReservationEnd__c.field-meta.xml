@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_MaxReservationEnd__c</fullName>
+    <description>Max Reservation End Date from all Products on the Order</description>
+    <label>Max Reservation End Date</label>
+    <summarizedField>OrderItemSummary.COMM_ReservationEnd__c</summarizedField>
+    <summaryFilterItems>
+        <field>OrderItemSummary.TypeCode</field>
+        <operation>equals</operation>
+        <value>Product</value>
+    </summaryFilterItems>
+    <summaryForeignKey>OrderItemSummary.OrderSummaryId</summaryForeignKey>
+    <summaryOperation>max</summaryOperation>
+    <type>Summary</type>
+</CustomField>

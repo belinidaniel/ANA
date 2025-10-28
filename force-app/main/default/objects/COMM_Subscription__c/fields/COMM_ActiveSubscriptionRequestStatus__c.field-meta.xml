@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_ActiveSubscriptionRequestStatus__c</fullName>
+    <description>Field used to display the current Status of the current active subscription request</description>
+    <externalId>false</externalId>
+    <formula>TEXT( COMM_ActiveSubscriptionRequest__r.Status )</formula>
+    <label>Active Subscription Request Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

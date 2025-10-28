@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_VerifyFirstPeriodStartDay</fullName>
+    <active>true</active>
+    <description>Validates if the first day registered is equal to 1</description>
+    <errorConditionFormula>AND(
+    ISPICKVAL(Product2.Family, &quot;Parking&quot;),
+    COMM_FirstPeriodStartDay__c &lt;&gt; 1
+)</errorConditionFormula>
+    <errorMessage>The First Period Start Day must be set to 1</errorMessage>
+</ValidationRule>

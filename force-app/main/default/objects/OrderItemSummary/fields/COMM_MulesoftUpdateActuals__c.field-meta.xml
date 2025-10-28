@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_MulesoftUpdateActuals__c</fullName>
+    <description>Mulesoft must update the actual start and end times</description>
+    <formula>(   (ISBLANK(COMM_ReservationActualStart__c) &amp;&amp; COMM_ReservationStart__c &lt;= NOW() &amp;&amp; (NOW() - COMM_ReservationStart__c) &lt; 5) 
+ || (ISBLANK(COMM_ReservationActualEnd__c) &amp;&amp; COMM_ReservationEnd__c &lt;= NOW() &amp;&amp; (NOW() - COMM_ReservationEnd__c) &lt; 5)
+)
+&amp;&amp; COMM_ReservationIdCPMS__c &lt;&gt; NULL
+&amp;&amp; ISPICKVAL(OriginalOrderItem.Product2.Family,&apos;Parking&apos;)
+&amp;&amp; !ISPICKVAL(Status,&apos;Returned&apos;)</formula>
+    <inlineHelpText>Mulesoft must update the actual start and end times</inlineHelpText>
+    <label>Mulesoft update actuals</label>
+    <type>Checkbox</type>
+</CustomField>

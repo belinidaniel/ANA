@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_EffectiveAccountId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Account that the Contact is using. Used to dynamically control Sharing in Community when using Account Switcher.</description>
+    <label>Effective Account</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Effective Contacts</relationshipLabel>
+    <relationshipName>EffectiveContacts</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Lookup</type>
+</CustomField>

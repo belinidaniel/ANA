@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Order Voucher Platform Event stating the voucher can be downloaded or published to external systems</description>
+    <eventType>HighVolume</eventType>
+    <label>Order Voucher</label>
+    <pluralLabel>Order Vouchers</pluralLabel>
+    <publishBehavior>PublishAfterCommit</publishBehavior>
+</CustomObject>

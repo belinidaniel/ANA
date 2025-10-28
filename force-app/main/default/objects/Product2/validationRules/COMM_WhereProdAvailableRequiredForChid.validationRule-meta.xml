@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_WhereProdAvailableRequiredForChid</fullName>
+    <active>true</active>
+    <description>Where Product is Available is Mandatory for Child Products</description>
+    <errorConditionFormula>AND(
+NOT(ISBLANK(COMM_ParentProduct__c)),
+ISBLANK(COMM_WhereProductAvailable__c))</errorConditionFormula>
+    <errorDisplayField>COMM_WhereProductAvailable__c</errorDisplayField>
+    <errorMessage>Please fill where the Product is available for purchase</errorMessage>
+</ValidationRule>

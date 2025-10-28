@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_RestrictNameChangeforPartnerUsers</fullName>
+    <active>true</active>
+    <description>This will prevent Partner users changing the Name field.</description>
+    <errorConditionFormula>AND(
+    OR(
+        ISCHANGED(Title),
+        ISCHANGED(Salutation),
+        ISCHANGED(FirstName),
+        ISCHANGED(MiddleName),
+        ISCHANGED(LastName),
+        ISCHANGED(Suffix)
+    ),
+    OR(
+        $Profile.Name = &quot;Customer Community Plus Login User&quot;,
+        $Profile.Name = &quot;Customer Community Plus User&quot;
+    )
+
+)</errorConditionFormula>
+    <errorMessage>You are not allowed to change the Name field as a Partner User. Please contact your administrator if you need assistance.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_VerifyAllowEdit</fullName>
+    <active>true</active>
+    <description>Validation to check that a Capacity is edited only if in a Status of &quot;Not Processed&quot;.</description>
+    <errorConditionFormula>AND(
+	AND(
+	NOT($Permission.COMM_CustomPermission_SuperAdminByPass),
+	NOT($Permission.COMM_CustomPermission_Can_edit_capacities)
+	),
+	OR(
+		TEXT(COMM_ProcessStatus__c) &lt;&gt; &apos;NOT PROCESSED&apos;,
+		AND(
+			$UserRole.DeveloperName = &apos;COMM_ANA_Admin&apos;,
+			OR(
+				ISCHANGED(COMM_ProcessStatus__c),
+				ISCHANGED(COMM_StatusMessage__c)
+			)
+		)
+	)
+)</errorConditionFormula>
+    <errorMessage>A Capacity cannot be edited with your profile, please contact your administrator.</errorMessage>
+</ValidationRule>

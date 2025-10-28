@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_AirportRelatedProducts</fullName>
+    <active>true</active>
+    <description>All products assigned to a Master product must be from the same airport</description>
+    <errorConditionFormula>TEXT(COMM_RelatedProduct__r.COMM_Airport__c) &lt;&gt;  TEXT(COMM_MasterProduct__r.COMM_Airport__c)</errorConditionFormula>
+    <errorDisplayField>COMM_RelatedProduct__c</errorDisplayField>
+    <errorMessage>It will not be possible to configure a bundle with products from different airports;</errorMessage>
+</ValidationRule>

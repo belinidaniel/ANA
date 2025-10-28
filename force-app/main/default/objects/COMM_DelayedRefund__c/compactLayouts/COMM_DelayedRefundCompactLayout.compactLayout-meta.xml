@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_DelayedRefundCompactLayout</fullName>
+    <fields>Name</fields>
+    <fields>COMM_OrderSummary__c</fields>
+    <fields>COMM_CreditMemo__c</fields>
+    <fields>COMM_ProcessStatus__c</fields>
+    <label>Delayed Refund Compact Layout</label>
+</CompactLayout>

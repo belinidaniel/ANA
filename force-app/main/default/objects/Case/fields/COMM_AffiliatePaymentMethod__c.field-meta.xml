@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_AffiliatePaymentMethod__c</fullName>
+    <description>Field with Payment Methods of Affiliate Account related on a Case Affiliate registration request.</description>
+    <label>Affiliate Payment Method</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>COMM_PaymentType</valueSetName>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

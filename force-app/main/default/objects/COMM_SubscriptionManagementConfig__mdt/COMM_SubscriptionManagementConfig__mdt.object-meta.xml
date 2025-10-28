@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Metadata to store configuration related to Subscription Management REST service</description>
+    <label>Subscription Management Configuration</label>
+    <pluralLabel>Subscription Management Configurations</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

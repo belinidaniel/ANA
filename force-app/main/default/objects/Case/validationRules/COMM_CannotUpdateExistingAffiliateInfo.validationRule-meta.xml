@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_CannotUpdateExistingAffiliateInfo</fullName>
+    <active>true</active>
+    <description>Validation to check if fields related on existing related Affiliate Account are updated.</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;COMM_AffiliateRequest&apos;,
+NOT(ISNEW()),
+OR(
+ISCHANGED(COMM_AffiliateCategory__c),
+ISCHANGED(COMM_CompanyVATNumber__c),
+ISCHANGED(COMM_PaymentMethod__c),
+ISCHANGED(COMM_CompanyEmail__c),
+ISCHANGED(COMM_Address__City__s),
+ISCHANGED(COMM_Address__CountryCode__s),
+ISCHANGED(COMM_Address__PostalCode__s),
+ISCHANGED(COMM_Address__Street__s)
+),
+NOT(ISBLANK(COMM_ExistingAffiliateAccount__c))
+)</errorConditionFormula>
+    <errorMessage>The fields related to the Affiliate Account cannot be changed if there is already a related Affiliate Account.</errorMessage>
+</ValidationRule>

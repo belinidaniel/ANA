@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_CPMS__c</fullName>
+    <description>Which CPMS provider is associated with park where the reservation was done</description>
+    <label>Parking System Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>COMM_CPMS</valueSetName>
+    </valueSet>
+</CustomField>

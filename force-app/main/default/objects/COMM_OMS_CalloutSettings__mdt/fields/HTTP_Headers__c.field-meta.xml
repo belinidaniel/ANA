@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HTTP_Headers__c</fullName>
+    <description>Contains the map of the HTPP Headers (HeaderKey=&gt;HeaderValue) separated by semicolons following: 
+HeaderKey=&gt;HeaderValue;HeaderKey=&gt;HeaderValue</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Contains the map of the HTPP Headers (HeaderKey=&gt;HeaderValue) separated by semicolons following: 
+HeaderKey=&gt;HeaderValue;HeaderKey=&gt;HeaderValue</inlineHelpText>
+    <label>HTTP Headers</label>
+    <required>false</required>
+    <type>TextArea</type>
+</CustomField>

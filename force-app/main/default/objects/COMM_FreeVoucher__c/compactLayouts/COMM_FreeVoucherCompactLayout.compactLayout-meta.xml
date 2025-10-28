@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_FreeVoucherCompactLayout</fullName>
+    <fields>Name</fields>
+    <fields>COMM_Status__c</fields>
+    <fields>COMM_StartDate__c</fields>
+    <label>Free Voucher Compact Layout</label>
+</CompactLayout>

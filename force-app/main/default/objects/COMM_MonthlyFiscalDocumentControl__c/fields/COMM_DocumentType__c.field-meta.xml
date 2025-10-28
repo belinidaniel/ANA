@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_DocumentType__c</fullName>
+    <defaultValue>&quot;Invoice&quot;</defaultValue>
+    <description>The type of Fiscal Document that is sent to SAP (Invoice or Credit Memo)</description>
+    <label>Document Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Invoice</fullName>
+                <default>true</default>
+                <label>Invoice</label>
+            </value>
+            <value>
+                <fullName>CreditMemo</fullName>
+                <default>false</default>
+                <label>Credit Memo</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

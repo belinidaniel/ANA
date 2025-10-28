@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_CalculatedCapacity__c</fullName>
+    <description>Field to calculate the used Capacity. For non-subscription Products, the Capacity will be value on the manual capacity field. If a Subscription Product, the capacity will be the result of applying the multiplier to the Parking Spaces.</description>
+    <externalId>false</externalId>
+    <formula>IF(RecordType.DeveloperName = &apos;COMM_Subscription&apos;, FLOOR(COMM_ParkingSpaces__c * COMM_Multiplier__c), COMM_Capacity__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Calculated Capacity</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

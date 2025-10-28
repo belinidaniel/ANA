@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_OrderItemSummaryCPMSData</fullName>
+    <fields>Product2Id</fields>
+    <fields>Status</fields>
+    <fields>TotalAmtWithTax</fields>
+    <fields>COMM_CPMSStatus__c</fields>
+    <fields>COMM_LicensePlate__c</fields>
+    <fields>COMM_SecondaryLicensePlate__c</fields>
+    <fields>COMM_ReservationName__c</fields>
+    <fields>COMM_ReservationStart__c</fields>
+    <fields>COMM_ReservationEnd__c</fields>
+    <label>CPMS Data</label>
+</CompactLayout>

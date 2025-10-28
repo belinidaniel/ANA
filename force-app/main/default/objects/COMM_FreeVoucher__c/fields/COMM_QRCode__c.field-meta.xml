@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_QRCode__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>The text value of the QR Code of the Voucher</description>
+    <externalId>false</externalId>
+    <label>QR Code</label>
+    <length>30</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

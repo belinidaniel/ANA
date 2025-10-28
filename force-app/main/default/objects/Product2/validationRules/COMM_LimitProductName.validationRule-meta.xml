@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_LimitProductName</fullName>
+    <active>true</active>
+    <description>Ensures the product name does not exceed 40 characters</description>
+    <errorConditionFormula>LEN(Name) &gt; 40</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>Product Name must be 40 characters or less</errorMessage>
+</ValidationRule>

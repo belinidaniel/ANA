@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_CheckPartnerVisibility__c</fullName>
+    <formula>OR(IF(
+ISBLANK($User.COMM_EffectiveAccountId__c),
+$User.COMM_AccountId__c = Account.Id &amp;&amp; CONTAINS($User.COMM_ContactAirports__c, TEXT(Product.COMM_Airport__c)),
+CONTAINS($User.COMM_EffectiveAccountId__c,Account.Id) &amp;&amp; CONTAINS($User.COMM_ContactAirports__c, TEXT(Product.COMM_Airport__c))),
+OR($UserRole.DeveloperName =&apos;COMM_ANA_Admin&apos;,$UserRole.DeveloperName =&apos;COMM_Platform_Administrator&apos;,$UserRole.DeveloperName =&apos;COMM_SABA&apos;))</formula>
+    <label>Check Partner Visibility</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

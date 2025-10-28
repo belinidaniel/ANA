@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderSummaryHeader</fullName>
+    <fields>OrderNumber</fields>
+    <fields>AccountId</fields>
+    <fields>OrderedDate</fields>
+    <fields>Status</fields>
+    <fields>SalesChannelId</fields>
+    <fields>COMM_CPMSStatusFormula__c</fields>
+    <fields>BillingAddress</fields>
+    <label>OrderSummaryHeader</label>
+</CompactLayout>

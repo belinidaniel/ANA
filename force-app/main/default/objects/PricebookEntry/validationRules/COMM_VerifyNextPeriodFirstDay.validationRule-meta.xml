@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_VerifyNextPeriodFirstDay</fullName>
+    <active>true</active>
+    <description>Validate if the start day of the next Period is the end day of the previous period plus 1</description>
+    <errorConditionFormula>AND(
+	ISPICKVAL(Product2.Family, &quot;Parking&quot;), 
+	OR(
+		NOT(ISBLANK(COMM_SecondPeriodStartDay__c)) &amp;&amp; (COMM_SecondPeriodStartDay__c &lt;&gt; COMM_FirstPeriodEndDay__c + 1),
+		NOT(ISBLANK(COMM_ThirdPeriodStartDay__c)) &amp;&amp; (COMM_ThirdPeriodStartDay__c &lt;&gt; COMM_SecondPeriodEndDay__c + 1),
+		NOT(ISBLANK(COMM_FourthPeriodStartDay__c)) &amp;&amp; (COMM_FourthPeriodStartDay__c &lt;&gt; COMM_ThirdPeriodEndDay__c + 1)
+	)
+)</errorConditionFormula>
+    <errorMessage>The Start day of the next Period should be the End day of the previous period plus 1</errorMessage>
+</ValidationRule>

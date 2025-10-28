@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_SubcategoryRequiredForSubOrLounge</fullName>
+    <active>true</active>
+    <description>When the Product&apos;s Category is Subscription or Lounge, the sub-category should be selected</description>
+    <errorConditionFormula>AND(
+    OR(
+        ISPICKVAL(Family, &apos;Lounge&apos;),
+        ISPICKVAL(Family, &apos;Subscription&apos;)
+    ),
+    ISPICKVAL(COMM_SubCategory__c, &apos;&apos;)
+)</errorConditionFormula>
+    <errorDisplayField>COMM_SubCategory__c</errorDisplayField>
+    <errorMessage>Please fill the sub-category</errorMessage>
+</ValidationRule>

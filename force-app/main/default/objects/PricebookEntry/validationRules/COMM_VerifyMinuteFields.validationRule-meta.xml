@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_VerifyMinuteFields</fullName>
+    <active>true</active>
+    <description>Validate that for a Parking product all Minute fields are set to activate the record</description>
+    <errorConditionFormula>AND(
+    IsActive,
+    ISPICKVAL(Product2.Family, &quot;Parking&quot;), 
+    OR(
+	ISBLANK(COMM_First15MinuteUnit__c),
+	ISBLANK(COMM_Second15MinuteUnit__c),
+	ISBLANK(COMM_Third15MinuteUnit__c),
+	ISBLANK(COMM_Remaining15MinuteUnit__c)
+    )
+)</errorConditionFormula>
+    <errorMessage>To set as active, all Minute fields are Required for a Parking product</errorMessage>
+</ValidationRule>

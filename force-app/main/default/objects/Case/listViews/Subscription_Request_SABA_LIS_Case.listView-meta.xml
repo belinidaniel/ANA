@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subscription_Request_SABA_LIS_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Subscription Request - SABA - LIS</label>
+    <queue>Subscription_Request_SABA_LIS</queue>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_MonthlyFiscalDocumentControl__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lookup to the monthly fiscal document control record responsible for sending invoice to SAP</description>
+    <label>Monthly Fiscal Document Control</label>
+    <referenceTo>COMM_MonthlyFiscalDocumentControl__c</referenceTo>
+    <relationshipLabel>Subscription Invoices</relationshipLabel>
+    <relationshipName>SubscriptionInvoices</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_SalesforceOrderId__c</fullName>
+    <description>Mulesoft identifier generated between Reseller Id (Account.COMM_ResellerId__c) concatenated with Order Id (OriginalOrderId), separated by “-”.</description>
+    <externalId>false</externalId>
+    <formula>Account.COMM_ResellerId__c + &apos;-&apos; + CASESAFEID(OriginalOrderId)</formula>
+    <label>Salesforce Order External Id</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

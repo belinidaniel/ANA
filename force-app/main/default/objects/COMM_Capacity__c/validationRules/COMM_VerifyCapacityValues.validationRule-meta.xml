@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_VerifyCapacityValues</fullName>
+    <active>true</active>
+    <description>Capacity can only have positives values or 0</description>
+    <errorConditionFormula>COMM_Capacity__c &lt; 0</errorConditionFormula>
+    <errorDisplayField>COMM_Capacity__c</errorDisplayField>
+    <errorMessage>Negative values are not allowed</errorMessage>
+</ValidationRule>

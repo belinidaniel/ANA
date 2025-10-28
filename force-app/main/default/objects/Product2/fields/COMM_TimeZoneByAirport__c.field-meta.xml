@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_TimeZoneByAirport__c</fullName>
+    <description>Formula field used to discover product Timezone based on the Airport.</description>
+    <externalId>false</externalId>
+    <formula>IF( OR( ISPICKVAL(COMM_Airport__c, &apos;LIS&apos;), ISPICKVAL(COMM_Airport__c, &apos;OPO&apos;), ISPICKVAL(COMM_Airport__c, &apos;FAO&apos;)),
+ &apos;Europe/Lisbon&apos;,
+ IF( ISPICKVAL(COMM_Airport__c, &apos;FNC&apos;),
+  &apos;Atlantic/Madeira&apos;,
+   IF( ISPICKVAL(COMM_Airport__c, &apos;PDL&apos;),
+    &apos;Atlantic/Azores&apos;,
+    &apos;&apos;
+  )
+ )
+)</formula>
+    <label>Time Zone by Airport</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_ChangeSubscriptionPeriodicity__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Field used to store the new Product of a Periodicity Change.</description>
+    <label>Change of Subscription Periodicity</label>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>Subscriptions (Change of Subscription Periodicity)</relationshipLabel>
+    <relationshipName>Subscriptions1</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

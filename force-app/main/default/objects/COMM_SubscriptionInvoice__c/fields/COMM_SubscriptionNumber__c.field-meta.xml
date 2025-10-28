@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_SubscriptionNumber__c</fullName>
+    <description>Formula Field to show Subscription Number associated to invoice</description>
+    <externalId>false</externalId>
+    <formula>COMM_Subscripton__r.COMM_SubscriptionNumber__c</formula>
+    <label>Subscription Number</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
