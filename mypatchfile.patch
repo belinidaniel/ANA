@@ -1,0 +1,332 @@
+diff --git a/force-app/main/default/classes/COMM_DO_CustomerSyncMapping.cls b/force-app/main/default/classes/COMM_DO_CustomerSyncMapping.cls
+index aa63e44..43ed905 100644
+--- a/force-app/main/default/classes/COMM_DO_CustomerSyncMapping.cls
++++ b/force-app/main/default/classes/COMM_DO_CustomerSyncMapping.cls
+@@ -40,18 +40,34 @@ public inherited sharing class COMM_DO_CustomerSyncMapping implements COMM_IDO_C
+     public void mapJsonFromSObject(SObject sobjRecord, Map<String, Object> jsonMap, Boolean isB2C) {
+         String sobjectName = String.valueOf(sobjRecord.getSObjectType()) + isB2C;
+         Map<String, COMM_CustomerSynchronizationMapping__mdt> fieldSyncMap = customerSyncMap.get(sobjectName);
+-        for (String salesforceField : fieldSyncMap.keySet()) {
+-            String commerceField = fieldSyncMap.get(salesforceField).COMM_CommerceApiFieldName__c;
+-            String addressField = fieldSyncMap.get(salesforceField).COMM_AddressMapping__c;
++        if (fieldSyncMap == null) {
++            return;
++        }
++        Set<String> innerAddressKeys = new Set<String>();
++        Map<String, Map<String, Object>> innerAddressMapReference = new Map<String, Map<String, Object>>();
++        for (COMM_CustomerSynchronizationMapping__mdt mdtValue : fieldSyncMap.values()) {
++            String commerceField = mdtValue.COMM_CommerceApiFieldName__c;
++            String addressField = mdtValue.COMM_AddressMapping__c;
++            String salesforceField = mdtValue.COMM_CoreApiFieldName__c;
++
+             if (String.isBlank(addressField)) {
+                 jsonMap.put(commerceField, sobjRecord.get(salesforceField));
+             } else {
+                 if (!jsonMap.containsKey(addressField)) {
+                     jsonMap.put(addressField, new Map<String, Object>());
+                 }
+-                ((Map<String, Object>) jsonMap.get(addressField)).put(commerceField, sobjRecord.get(salesforceField));
++                Map<String, Object> addressMap = (Map<String, Object>) jsonMap.get(addressField);
++                addressMap.put(commerceField, sobjRecord.get(salesforceField));
++                innerAddressMapReference.put(addressField, addressMap);
++                if (Boolean.valueOf(mdtValue.COMM_IsObjectField__c)) {
++                    innerAddressKeys.add(addressField);
++                }
+             }
+         }
++        for (String addressKey : innerAddressMapReference.keySet()) {
++            Object addressValue = innerAddressMapReference.get(addressKey);
++            jsonMap.put(addressKey, innerAddressKeys.contains(addressKey) ? JSON.serialize(addressValue) : addressValue);
++        }
+     }
+ 
+     /**
+@@ -71,4 +87,4 @@ public inherited sharing class COMM_DO_CustomerSyncMapping implements COMM_IDO_C
+         }
+         return mappingMap;
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountPrimaryVehicleBrand.md-meta.xml b/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountPrimaryVehicleBrand.md-meta.xml
+new file mode 100644
+index 0000000..db5e2da
+--- /dev/null
++++ b/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountPrimaryVehicleBrand.md-meta.xml
+@@ -0,0 +1,29 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
++    <label>Person Account Primary Vehicle Brand</label>
++    <protected>false</protected>
++    <values>
++        <field>COMM_AddressMapping__c</field>
++        <value xsi:type="xsd:string">c_primaryVehicle</value>
++    </values>
++    <values>
++        <field>COMM_IsObjectField__c</field>
++        <value xsi:type="xsd:boolean">true</value>
++    </values>
++    <values>
++        <field>COMM_CommerceApiFieldName__c</field>
++        <value xsi:type="xsd:string">vehicleBrand</value>
++    </values>
++    <values>
++        <field>COMM_CoreApiFieldName__c</field>
++        <value xsi:type="xsd:string">COMM_VehicleBrand__c</value>
++    </values>
++    <values>
++        <field>COMM_CoreApiObjectName__c</field>
++        <value xsi:type="xsd:string">Account</value>
++    </values>
++    <values>
++        <field>COMM_MappingForB2C__c</field>
++        <value xsi:type="xsd:boolean">true</value>
++    </values>
++</CustomMetadata>
+diff --git a/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountPrimaryVehicleModel.md-meta.xml b/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountPrimaryVehicleModel.md-meta.xml
+new file mode 100644
+index 0000000..dcc4c98
+--- /dev/null
++++ b/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountPrimaryVehicleModel.md-meta.xml
+@@ -0,0 +1,29 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
++    <label>Person Account Primary Vehicle Model</label>
++    <protected>false</protected>
++    <values>
++        <field>COMM_AddressMapping__c</field>
++        <value xsi:type="xsd:string">c_primaryVehicle</value>
++    </values>
++    <values>
++        <field>COMM_IsObjectField__c</field>
++        <value xsi:type="xsd:boolean">true</value>
++    </values>
++    <values>
++        <field>COMM_CommerceApiFieldName__c</field>
++        <value xsi:type="xsd:string">vehicleModel</value>
++    </values>
++    <values>
++        <field>COMM_CoreApiFieldName__c</field>
++        <value xsi:type="xsd:string">COMM_VehicleModel__c</value>
++    </values>
++    <values>
++        <field>COMM_CoreApiObjectName__c</field>
++        <value xsi:type="xsd:string">Account</value>
++    </values>
++    <values>
++        <field>COMM_MappingForB2C__c</field>
++        <value xsi:type="xsd:boolean">true</value>
++    </values>
++</CustomMetadata>
+diff --git a/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountPrimaryVehicleNumber.md-meta.xml b/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountPrimaryVehicleNumber.md-meta.xml
+new file mode 100644
+index 0000000..39e37d6
+--- /dev/null
++++ b/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountPrimaryVehicleNumber.md-meta.xml
+@@ -0,0 +1,29 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
++    <label>Person Account Primary Vehicle Number</label>
++    <protected>false</protected>
++    <values>
++        <field>COMM_AddressMapping__c</field>
++        <value xsi:type="xsd:string">c_primaryVehicle</value>
++    </values>
++    <values>
++        <field>COMM_IsObjectField__c</field>
++        <value xsi:type="xsd:boolean">true</value>
++    </values>
++    <values>
++        <field>COMM_CommerceApiFieldName__c</field>
++        <value xsi:type="xsd:string">vehicleNumber</value>
++    </values>
++    <values>
++        <field>COMM_CoreApiFieldName__c</field>
++        <value xsi:type="xsd:string">COMM_LicensePlate__c</value>
++    </values>
++    <values>
++        <field>COMM_CoreApiObjectName__c</field>
++        <value xsi:type="xsd:string">Account</value>
++    </values>
++    <values>
++        <field>COMM_MappingForB2C__c</field>
++        <value xsi:type="xsd:boolean">true</value>
++    </values>
++</CustomMetadata>
+diff --git a/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountSecondaryVehicleBrand.md-meta.xml b/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountSecondaryVehicleBrand.md-meta.xml
+new file mode 100644
+index 0000000..a8bc55b
+--- /dev/null
++++ b/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountSecondaryVehicleBrand.md-meta.xml
+@@ -0,0 +1,29 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
++    <label>Person Account Secondary Vehicle Brand</label>
++    <protected>false</protected>
++    <values>
++        <field>COMM_AddressMapping__c</field>
++        <value xsi:type="xsd:string">c_secondaryVehicle</value>
++    </values>
++    <values>
++        <field>COMM_IsObjectField__c</field>
++        <value xsi:type="xsd:boolean">true</value>
++    </values>
++    <values>
++        <field>COMM_CommerceApiFieldName__c</field>
++        <value xsi:type="xsd:string">vehicleBrand</value>
++    </values>
++    <values>
++        <field>COMM_CoreApiFieldName__c</field>
++        <value xsi:type="xsd:string">SecondaryVehicleBrand__c</value>
++    </values>
++    <values>
++        <field>COMM_CoreApiObjectName__c</field>
++        <value xsi:type="xsd:string">Account</value>
++    </values>
++    <values>
++        <field>COMM_MappingForB2C__c</field>
++        <value xsi:type="xsd:boolean">true</value>
++    </values>
++</CustomMetadata>
+diff --git a/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountSecondaryVehicleModel.md-meta.xml b/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountSecondaryVehicleModel.md-meta.xml
+new file mode 100644
+index 0000000..3c0333f
+--- /dev/null
++++ b/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountSecondaryVehicleModel.md-meta.xml
+@@ -0,0 +1,29 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
++    <label>Person Account Secondary Vehicle Model</label>
++    <protected>false</protected>
++    <values>
++        <field>COMM_AddressMapping__c</field>
++        <value xsi:type="xsd:string">c_secondaryVehicle</value>
++    </values>
++    <values>
++        <field>COMM_IsObjectField__c</field>
++        <value xsi:type="xsd:boolean">true</value>
++    </values>
++    <values>
++        <field>COMM_CommerceApiFieldName__c</field>
++        <value xsi:type="xsd:string">vehicleModel</value>
++    </values>
++    <values>
++        <field>COMM_CoreApiFieldName__c</field>
++        <value xsi:type="xsd:string">Secondary_Vehicle_Model__c</value>
++    </values>
++    <values>
++        <field>COMM_CoreApiObjectName__c</field>
++        <value xsi:type="xsd:string">Account</value>
++    </values>
++    <values>
++        <field>COMM_MappingForB2C__c</field>
++        <value xsi:type="xsd:boolean">true</value>
++    </values>
++</CustomMetadata>
+diff --git a/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountSecondaryVehicleNumber.md-meta.xml b/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountSecondaryVehicleNumber.md-meta.xml
+new file mode 100644
+index 0000000..33de238
+--- /dev/null
++++ b/force-app/main/default/customMetadata/COMM_CustomerSynchronizationMapping.PersonAccountSecondaryVehicleNumber.md-meta.xml
+@@ -0,0 +1,29 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
++    <label>Person Account Secondary Vehicle Number</label>
++    <protected>false</protected>
++    <values>
++        <field>COMM_AddressMapping__c</field>
++        <value xsi:type="xsd:string">c_secondaryVehicle</value>
++    </values>
++    <values>
++        <field>COMM_IsObjectField__c</field>
++        <value xsi:type="xsd:boolean">true</value>
++    </values>
++    <values>
++        <field>COMM_CommerceApiFieldName__c</field>
++        <value xsi:type="xsd:string">vehicleNumber</value>
++    </values>
++    <values>
++        <field>COMM_CoreApiFieldName__c</field>
++        <value xsi:type="xsd:string">COMM_SecondaryLicensePlate__c</value>
++    </values>
++    <values>
++        <field>COMM_CoreApiObjectName__c</field>
++        <value xsi:type="xsd:string">Account</value>
++    </values>
++    <values>
++        <field>COMM_MappingForB2C__c</field>
++        <value xsi:type="xsd:boolean">true</value>
++    </values>
++</CustomMetadata>
+diff --git a/force-app/main/default/flows/COMM_FLW_Case_ApprovedRequest.flow-meta.xml b/force-app/main/default/flows/COMM_FLW_Case_ApprovedRequest.flow-meta.xml
+index 7fc194e..4060816 100644
+--- a/force-app/main/default/flows/COMM_FLW_Case_ApprovedRequest.flow-meta.xml
++++ b/force-app/main/default/flows/COMM_FLW_Case_ApprovedRequest.flow-meta.xml
+@@ -389,7 +389,7 @@
+             </value>
+         </inputAssignments>
+         <inputAssignments>
+-            <field>PersonMobilePhone</field>
++            <field>PersonMobilePhone</field> 
+             <value>
+                 <elementReference>$Record.COMM_PhoneNumber__c</elementReference>
+             </value>
+diff --git a/force-app/main/default/objects/COMM_CustomerSynchronizationMapping__mdt/fields/COMM_AddressMapping__c.field-meta.xml b/force-app/main/default/objects/COMM_CustomerSynchronizationMapping__mdt/fields/COMM_AddressMapping__c.field-meta.xml
+new file mode 100644
+index 0000000..76c5d77
+--- /dev/null
++++ b/force-app/main/default/objects/COMM_CustomerSynchronizationMapping__mdt/fields/COMM_AddressMapping__c.field-meta.xml
+@@ -0,0 +1,35 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
++    <fullName>COMM_AddressMapping__c</fullName>
++    <description>Indicates if mapping if for a field in an address (inner object in request)</description>
++    <fieldManageability>DeveloperControlled</fieldManageability>
++    <label>Address Mapping</label>
++    <required>false</required>
++    <type>Picklist</type>
++    <valueSet>
++        <restricted>true</restricted>
++        <valueSetDefinition>
++            <sorted>false</sorted>
++            <value>
++                <fullName>COMM_BILLING</fullName>
++                <default>true</default>
++                <label>COMM_BILLING</label>
++            </value>
++            <value>
++                <fullName>COMM_BILLING_COMPANY</fullName>
++                <default>false</default>
++                <label>COMM_BILLING_COMPANY</label>
++            </value>
++            <value>
++                <fullName>c_primaryVehicle</fullName>
++                <default>false</default>
++                <label>c_primaryVehicle</label>
++            </value>
++            <value>
++                <fullName>c_secondaryVehicle</fullName>
++                <default>false</default>
++                <label>c_secondaryVehicle</label>
++            </value>
++        </valueSetDefinition>
++    </valueSet>
++</CustomField>
+diff --git a/force-app/main/default/objects/COMM_CustomerSynchronizationMapping__mdt/fields/COMM_IsObjectField__c.field-meta.xml b/force-app/main/default/objects/COMM_CustomerSynchronizationMapping__mdt/fields/COMM_IsObjectField__c.field-meta.xml
+new file mode 100644
+index 0000000..279e2c0
+--- /dev/null
++++ b/force-app/main/default/objects/COMM_CustomerSynchronizationMapping__mdt/fields/COMM_IsObjectField__c.field-meta.xml
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
++    <fullName>COMM_IsObjectField__c</fullName>
++    <defaultValue>false</defaultValue>
++    <description>Flag to indicate that mapped field belongs to an inner JSON object and must be
++        serialized.</description>
++    <fieldManageability>DeveloperControlled</fieldManageability>
++    <inlineHelpText>Check if mapping corresponds to fields inside a JSON inner object.</inlineHelpText>
++    <label>Is Object Field</label>
++    <type>Checkbox</type>
++</CustomField>
+\ No newline at end of file
