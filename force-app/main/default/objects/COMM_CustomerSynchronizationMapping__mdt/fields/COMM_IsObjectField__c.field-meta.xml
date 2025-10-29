@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_IsObjectField__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Flag to indicate that mapped field belongs to an inner JSON object and must be
+        serialized.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Check if mapping corresponds to fields inside a JSON inner object.</inlineHelpText>
+    <label>Is Object Field</label>
+    <type>Checkbox</type>
+</CustomField>

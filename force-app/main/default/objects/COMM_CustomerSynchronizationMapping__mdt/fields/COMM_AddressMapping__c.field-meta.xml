@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMM_AddressMapping__c</fullName>
+    <description>Indicates if mapping if for a field in an address (inner object in request)</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Address Mapping</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>COMM_BILLING</fullName>
+                <default>true</default>
+                <label>COMM_BILLING</label>
+            </value>
+            <value>
+                <fullName>COMM_BILLING_COMPANY</fullName>
+                <default>false</default>
+                <label>COMM_BILLING_COMPANY</label>
+            </value>
+            <value>
+                <fullName>c_primaryVehicle</fullName>
+                <default>false</default>
+                <label>c_primaryVehicle</label>
+            </value>
+            <value>
+                <fullName>c_secondaryVehicle</fullName>
+                <default>false</default>
+                <label>c_secondaryVehicle</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

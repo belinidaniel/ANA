@@ -40,17 +40,33 @@ public inherited sharing class COMM_DO_CustomerSyncMapping implements COMM_IDO_C
     public void mapJsonFromSObject(SObject sobjRecord, Map<String, Object> jsonMap, Boolean isB2C) {
         String sobjectName = String.valueOf(sobjRecord.getSObjectType()) + isB2C;
         Map<String, COMM_CustomerSynchronizationMapping__mdt> fieldSyncMap = customerSyncMap.get(sobjectName);
-        for (String salesforceField : fieldSyncMap.keySet()) {
-            String commerceField = fieldSyncMap.get(salesforceField).COMM_CommerceApiFieldName__c;
-            String addressField = fieldSyncMap.get(salesforceField).COMM_AddressMapping__c;
+        if (fieldSyncMap == null) {
+            return;
+        }
+        Set<String> innerAddressKeys = new Set<String>();
+        Map<String, Map<String, Object>> innerAddressMapReference = new Map<String, Map<String, Object>>();
+        for (COMM_CustomerSynchronizationMapping__mdt mdtValue : fieldSyncMap.values()) {
+            String commerceField = mdtValue.COMM_CommerceApiFieldName__c;
+            String addressField = mdtValue.COMM_AddressMapping__c;
+            String salesforceField = mdtValue.COMM_CoreApiFieldName__c;
+
             if (String.isBlank(addressField)) {
                 jsonMap.put(commerceField, sobjRecord.get(salesforceField));
             } else {
                 if (!jsonMap.containsKey(addressField)) {
                     jsonMap.put(addressField, new Map<String, Object>());
                 }
-                ((Map<String, Object>) jsonMap.get(addressField)).put(commerceField, sobjRecord.get(salesforceField));
+                Map<String, Object> addressMap = (Map<String, Object>) jsonMap.get(addressField);
+                addressMap.put(commerceField, sobjRecord.get(salesforceField));
+                innerAddressMapReference.put(addressField, addressMap);
+                if (Boolean.valueOf(mdtValue.COMM_IsObjectField__c)) {
+                    innerAddressKeys.add(addressField);
+                }
             }
+        }
+        for (String addressKey : innerAddressMapReference.keySet()) {
+            Object addressValue = innerAddressMapReference.get(addressKey);
+            jsonMap.put(addressKey, innerAddressKeys.contains(addressKey) ? JSON.serialize(addressValue) : addressValue);
         }
     }
 

@@ -389,7 +389,7 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>PersonMobilePhone</field>
+            <field>PersonMobilePhone</field> 
             <value>
                 <elementReference>$Record.COMM_PhoneNumber__c</elementReference>
             </value>
