@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Card Product --></label>
+    <lookupFilter>
+        <errorMessage><!-- The Card Product must be Category=card --></errorMessage>
+    </lookupFilter>
+    <name>COMM_CardProduct__c</name>
+    <relationshipLabel><!-- Subscription Invoices (Card) --></relationshipLabel>
+</CustomFieldTranslation>

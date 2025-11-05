@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Imposto</label>
+    <name>COMM_Tax__c</name>
+    <picklistValues>
+        <masterLabel>Azores</masterLabel>
+        <translation>Açores</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Continent</masterLabel>
+        <translation>Continente</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Exempt</masterLabel>
+        <translation>Isento</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Madeira</masterLabel>
+        <translation>Madeira</translation>
+    </picklistValues>
+</CustomFieldTranslation>

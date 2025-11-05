@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <layouts>
+        <layout>Affiliate Registration Request Layout</layout>
+        <sections>
+            <label>Información de solicitud de afiliación</label>
+            <section>Affiliate Request Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Contact Us Case Layout</layout>
+        <sections>
+            <label><!-- Web Information --></label>
+            <section>Web Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Individual Staff Request Layout</layout>
+        <sections>
+            <label>Información del cliente</label>
+            <section>Client Information</section>
+        </sections>
+        <sections>
+            <label>Consentimiento</label>
+            <section>Consents</section>
+        </sections>
+        <sections>
+            <label>Información del solicitud</label>
+            <section>Request Information</section>
+        </sections>
+        <sections>
+            <label>Información del vehículo</label>
+            <section>Vehicle Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Partner Registration Request Layout</layout>
+        <sections>
+            <label>Información del solicitud</label>
+            <section>Request Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Public Subscription Request Layout</layout>
+        <sections>
+            <label><!-- Client Information --></label>
+            <section>Client Information</section>
+        </sections>
+        <sections>
+            <label><!-- Consents --></label>
+            <section>Consents</section>
+        </sections>
+        <sections>
+            <label><!-- Subscription Details --></label>
+            <section>Subscription Details</section>
+        </sections>
+        <sections>
+            <label><!-- Vehicle Information --></label>
+            <section>Vehicle Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Subscription Request Layout</layout>
+        <sections>
+            <label>Información del cliente</label>
+            <section>Client Information</section>
+        </sections>
+        <sections>
+            <label>Consentimiento</label>
+            <section>Consents</section>
+        </sections>
+        <sections>
+            <label>Detalles de suscripción</label>
+            <section>Subscription Details</section>
+        </sections>
+        <sections>
+            <label>Información del vehículo</label>
+            <section>Vehicle Information</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- Send Form Email to End User --></label>
+        <name>COMM_Case_SendFormEmailToEndUser</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Conclude Process --></label>
+        <name>COMM_ConcludeProcess</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Conclude Process --></label>
+        <name>COMM_ConcludePublicSubscriptionProcess</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Create Affiliate --></label>
+        <name>COMM_CreateAffiliate</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Email to Finance --></label>
+        <name>COMM_EmailToFinance</name>
+    </quickActions>
+    <quickActions>
+        <aspect>Master</aspect>
+        <label>Volver a Airport Admin</label>
+        <name>COMM_ReturnToAirportAdmin</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Return to SABA --></label>
+        <name>COMM_Return_to_SABA</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Cancel Case --></label>
+        <name>Cancel_Case</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Change Priority --></label>
+        <name>Change_Priority</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- CloseCaseLightning --></label>
+        <name>CloseCaseLightning</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Close the Case --></label>
+        <name>Close_the_Case</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewChildCase --></label>
+        <name>NewChildCase</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Email --></label>
+        <name>SendEmail</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- SocialPublisher --></label>
+        <name>SocialPublisher</name>
+    </quickActions>
+    <recordTypes>
+        <description><!-- Case to request a creation of a Affiliate --></description>
+        <label><!-- Affiliate Request --></label>
+        <name>COMM_AffiliateRequest</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record Type for Cancel Public Subscriptions --></description>
+        <label><!-- Cancel Public Subscription --></label>
+        <name>COMM_CancelPublicSubscription</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Case for a request to cancel a subscription --></description>
+        <label>Solicitud de anulación</label>
+        <name>COMM_CancelationRequest</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Case for a request to change the ownership of a subscription --></description>
+        <label>Cambiar Propiedad</label>
+        <name>COMM_ChangeOwnership</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Case for a request to change the payment periodicity of a subscription --></description>
+        <label>Cambiar Periodicidad de Pago</label>
+        <name>COMM_ChangePaymentPeriodicity</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Case for a request to change the user information of a subscription --></description>
+        <label>Cambiar Información de Suscripción</label>
+        <name>COMM_ChangeSubscriptionInformation</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Case to request user information --></description>
+        <label>Cambiar Información de Usuario</label>
+        <name>COMM_ChangeUserInformation</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Case to submit a a request for information --></description>
+        <label><!-- Contact Us --></label>
+        <name>COMM_ContactUs</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Case to request individual staff attribute --></description>
+        <label><!-- Individual Staff Request --></label>
+        <name>COMM_IndividualStaffRequest</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Manual Renewal Record Type --></description>
+        <label>Renovación manual</label>
+        <name>COMM_ManualRenewal</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Case to request a new card for a subscription --></description>
+        <label>Tarjeta Nueva Debido a Daño/Pérdida</label>
+        <name>COMM_NewCardDueToDamageLoss</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record Type for New Public Subscriptions. --></description>
+        <label><!-- New Public Subscription --></label>
+        <name>COMM_NewPublicSubscription</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Case to renew a subscription manually --></description>
+        <label>Nueva suscripción</label>
+        <name>COMM_NewSubscription</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Case to request a creation of a partner --></description>
+        <label><!-- Partner Request --></label>
+        <name>COMM_PartnerRequest</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record Type for Recurring Public Subscriptions. --></description>
+        <label><!-- Recurring Public Subscription --></label>
+        <name>COMM_RecurringPublicSubscription</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage>Los campos relacionados con la Cuenta de Afiliado no pueden ser modificados si ya existe una Cuenta de Afiliado relacionada.</errorMessage>
+        <name>COMM_CannotUpdateExistingAffiliateInfo</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please provide a reason for rejecting the Case --></errorMessage>
+        <name>COMM_RejectingPartnerRequiresReason</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Subscription Number is Required --></errorMessage>
+        <name>COMM_SubscriptionNumberRequired</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- When the Case is in Process Concluded or Request Denied status, you cannot change the status --></errorMessage>
+        <name>COMM_VerifyApprovedRejectedStatus</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>
+            <!-- Record cannot be edited as long as it belongs to a queue
+Please assign to your self -->
+        </errorMessage>
+        <name>COMM_VerifyOwnerIsQueue</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>El Número de Teléfono debe estar precedido por un prefijo de Código de País válido seguido de un espacio.</errorMessage>
+        <name>COMM_VerifyPhoneNumber</name>
+    </validationRules>
+</CustomObjectTranslation>

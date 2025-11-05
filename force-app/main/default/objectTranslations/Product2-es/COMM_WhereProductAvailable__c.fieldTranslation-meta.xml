@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Dónde está disponible el producto?</label>
+    <name>COMM_WhereProductAvailable__c</name>
+    <picklistValues>
+        <masterLabel>Subscriptions Portal</masterLabel>
+        <translation><!-- Subscriptions Portal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>eCommerce</masterLabel>
+        <translation><!-- eCommerce --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

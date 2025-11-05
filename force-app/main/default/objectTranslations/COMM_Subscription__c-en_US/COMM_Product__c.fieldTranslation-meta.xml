@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Product --></label>
+    <lookupFilter>
+        <errorMessage><!-- Subscription can only be associated with a Subscription Product --></errorMessage>
+    </lookupFilter>
+    <name>COMM_Product__c</name>
+    <relationshipLabel><!-- Subscriptions --></relationshipLabel>
+</CustomFieldTranslation>

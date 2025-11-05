@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Address Mapping --></label>
+    <name>COMM_AddressMapping__c</name>
+    <picklistValues>
+        <masterLabel>COMM_BILLING</masterLabel>
+        <translation><!-- COMM_BILLING --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>COMM_BILLING_COMPANY</masterLabel>
+        <translation><!-- COMM_BILLING_COMPANY --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>c_primaryVehicle</masterLabel>
+        <translation><!-- c_primaryVehicle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>c_secondaryVehicle</masterLabel>
+        <translation><!-- c_secondaryVehicle --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

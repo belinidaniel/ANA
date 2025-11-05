@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>
+        <!-- The Affiliates can pay by cash or credit
+Partners can pay by cash, credit or/and courtesy
+B2C can only pay by cash -->
+    </help>
+    <label>Forma de pago</label>
+    <name>COMM_PaymentMethod__c</name>
+    <picklistValues>
+        <masterLabel>Courtesy</masterLabel>
+        <translation>Cortesía</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Credit</masterLabel>
+        <translation>Crédito</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>VD</masterLabel>
+        <translation>VD</translation>
+    </picklistValues>
+</CustomFieldTranslation>

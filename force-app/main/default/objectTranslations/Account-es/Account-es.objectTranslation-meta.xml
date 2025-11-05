@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <layouts>
+        <layout>Collective Layout</layout>
+        <sections>
+            <label>Información de Dirección</label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label>Consentimiento</label>
+            <section>Consents</section>
+        </sections>
+        <sections>
+            <label>Formas de pago</label>
+            <section>Payment Methods</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Individual Layout</layout>
+        <layoutType>PersonAccount</layoutType>
+        <sections>
+            <label>Información de la empresa</label>
+            <section>Company Information</section>
+        </sections>
+        <sections>
+            <label>Consentimiento</label>
+            <section>Consent</section>
+        </sections>
+        <sections>
+            <label>Contactos</label>
+            <section>Contacts</section>
+        </sections>
+        <sections>
+            <label>Formas de pago</label>
+            <section>Payment Methods</section>
+        </sections>
+        <sections>
+            <label><!-- Vehicle information --></label>
+            <section>Vehicle information</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- Child Account --></label>
+        <name>Child_Account</name>
+    </quickActions>
+    <recordTypes>
+        <description><!-- Record Type for Collective / Partner Accounts. --></description>
+        <label><!-- Collective/Partner --></label>
+        <name>COMM_CollectivePartner</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage>El valor del ratio no está en el formato correcto (X/Y)</errorMessage>
+        <name>COMM_OfficialEntityRatioFormat</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>El ID de Revendedor debe especificarse en las cuentas de Revendedor!</errorMessage>
+        <name>COMM_ResellerIdValidation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You are not allowed to change the Name field as a Partner User. Please contact your administrator if you need assistance. --></errorMessage>
+        <name>COMM_RestrictNameChangeforPartnerUsers</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>El valor del ratio no está en el formato correcto (X/Y)</errorMessage>
+        <name>COMM_StaffCompanyRatioFormat</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Fill in the Affiliate Category and Payment Method fields --></errorMessage>
+        <name>COMM_VerifyAffiliateFields</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Affiliates can only pay by VD or credit --></errorMessage>
+        <name>COMM_VerifyAffiliatePaymentMethods</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- B2C can only pay by VD --></errorMessage>
+        <name>COMM_VerifyB2CPaymentMethods</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Fill in the Email, Payment Method and Airport fields and check if type is Partner. --></errorMessage>
+        <name>COMM_VerifyPartnerFields</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Partner can only pay by courtesy or credit --></errorMessage>
+        <name>COMM_VerifyPartnerPaymentMethods</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please check in the &quot;Is Partner?&quot; checkbox. --></errorMessage>
+        <name>COMM_VerifyPartnerType</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- When Preferred Contact field = Phone or Email , Phone or Email field must have a value on it and cannot be blank. --></errorMessage>
+        <name>COMM_VerifyPreferredFields</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Rellene el número de IVA y la dirección de facturación del socio/afiliado</errorMessage>
+        <name>COMM_VerifyRequiredBilling</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- GoogleMaps --></label>
+        <name>GoogleMaps</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- GoogleNews --></label>
+        <name>GoogleNews</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- GoogleSearch --></label>
+        <name>GoogleSearch</name>
+    </webLinks>
+</CustomObjectTranslation>

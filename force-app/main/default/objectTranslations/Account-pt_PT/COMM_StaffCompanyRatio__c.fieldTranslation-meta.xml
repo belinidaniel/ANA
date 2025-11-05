@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>X/Y - Por cada Y avenças faturadas, X avenças serão faturadas pelo preço total.</help>
+    <label>Rácio para a empresa do pessoal</label>
+    <name>COMM_StaffCompanyRatio__c</name>
+</CustomFieldTranslation>

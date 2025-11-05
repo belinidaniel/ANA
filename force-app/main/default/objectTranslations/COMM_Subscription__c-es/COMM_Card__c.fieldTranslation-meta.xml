@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Tarjeta</label>
+    <lookupFilter>
+        <errorMessage><!-- Associated Product can only be a Card --></errorMessage>
+    </lookupFilter>
+    <name>COMM_Card__c</name>
+    <relationshipLabel>Suscripciones (Tarjeta)</relationshipLabel>
+</CustomFieldTranslation>

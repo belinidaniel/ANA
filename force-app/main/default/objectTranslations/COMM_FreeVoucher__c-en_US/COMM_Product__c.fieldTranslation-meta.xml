@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Product --></label>
+    <lookupFilter>
+        <errorMessage><!-- Only Fast Track and Lounge Products that are Child can be associated with a Free Voucher. --></errorMessage>
+    </lookupFilter>
+    <name>COMM_Product__c</name>
+    <relationshipLabel><!-- Free Vouchers --></relationshipLabel>
+</CustomFieldTranslation>

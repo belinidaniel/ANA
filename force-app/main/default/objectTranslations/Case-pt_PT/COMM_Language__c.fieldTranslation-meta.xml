@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Linguagem</label>
+    <name>COMM_Language__c</name>
+    <picklistValues>
+        <masterLabel>English</masterLabel>
+        <translation>Inglês</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Portuguese (European)</masterLabel>
+        <translation>Português (Europeu)</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Spanish</masterLabel>
+        <translation>Espanhol</translation>
+    </picklistValues>
+</CustomFieldTranslation>

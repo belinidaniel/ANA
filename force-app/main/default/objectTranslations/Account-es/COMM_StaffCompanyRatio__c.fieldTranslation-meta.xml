@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>X/Y - Por cada Y Suscripciones facturadas, X Suscripciones se facturarán a precio completo.</help>
+    <label>Ratio para Personal Empresa</label>
+    <name>COMM_StaffCompanyRatio__c</name>
+</CustomFieldTranslation>

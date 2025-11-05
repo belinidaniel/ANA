@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Category --></label>
+    <name>Category__c</name>
+    <picklistValues>
+        <masterLabel>Apex Batch</masterLabel>
+        <translation><!-- Apex Batch --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Apex Class</masterLabel>
+        <translation><!-- Apex Class --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Apex Trigger</masterLabel>
+        <translation><!-- Apex Trigger --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HTTP Callout</masterLabel>
+        <translation><!-- HTTP Callout --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HTTP Inbound</masterLabel>
+        <translation><!-- HTTP Inbound --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Log</masterLabel>
+        <translation><!-- Log --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Platform Event</masterLabel>
+        <translation><!-- Platform Event --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Process Builder</masterLabel>
+        <translation><!-- Process Builder --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

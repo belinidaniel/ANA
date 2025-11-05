@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Capacity</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Capacities</value>
+    </caseValues>
+    <layouts>
+        <layout>Capacity Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Subscription Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <description><!-- Record Type for Capacity used in Non-Subscription Products --></description>
+        <label><!-- Capacity --></label>
+        <name>COMM_Capacity</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record Type for Capacity used in Subscription Products --></description>
+        <label><!-- Subscription --></label>
+        <name>COMM_Subscription</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- A Capacity cannot be edited with your profile, please contact your administrator. --></errorMessage>
+        <name>COMM_VerifyAllowEdit</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Negative values are not allowed --></errorMessage>
+        <name>COMM_VerifyCapacityValues</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Expired Capacities cannot be changed --></errorMessage>
+        <name>COMM_VerifyExpiredDate</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Multiplier should greater or equal than 1 and can only have the decimal number .0 or .5 --></errorMessage>
+        <name>COMM_VerifyMultiplier</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Negative values are not allowed --></errorMessage>
+        <name>COMM_VerifyParkingSpaces</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Capacities cannot be set in the past --></errorMessage>
+        <name>COMM_VerifyPastDates</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Capacity can only be created for parent products --></errorMessage>
+        <name>COMM_VerifyProductFamilly</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Valid To cannot be set before Valid From --></errorMessage>
+        <name>COMM_VerifyRangeDates</name>
+    </validationRules>
+</CustomObjectTranslation>

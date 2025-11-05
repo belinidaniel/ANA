@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Migration Create External User --></label>
+    <name>COMM_MigrationCreateExternalUser__c</name>
+    <picklistValues>
+        <masterLabel>PROCESSED</masterLabel>
+        <translation><!-- PROCESSED --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>TO PROCESS</masterLabel>
+        <translation><!-- TO PROCESS --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

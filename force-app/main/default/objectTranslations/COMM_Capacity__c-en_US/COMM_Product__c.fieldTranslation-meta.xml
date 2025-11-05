@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Product --></label>
+    <lookupFilter>
+        <errorMessage>
+            <!-- For Subscription, product must also be subscription.
+For Capacity, product must also be a non-subscription -->
+        </errorMessage>
+    </lookupFilter>
+    <name>COMM_Product__c</name>
+    <relationshipLabel><!-- Capacities --></relationshipLabel>
+</CustomFieldTranslation>

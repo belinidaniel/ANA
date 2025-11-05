@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Sub-Categoria</label>
+    <name>COMM_SubCategory__c</name>
+    <picklistValues>
+        <masterLabel>ANA + Entities</masterLabel>
+        <translation><!-- ANA + Entities --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Courtesy</masterLabel>
+        <translation><!-- Courtesy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Economy</masterLabel>
+        <translation><!-- Economy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Exempt Official Entity</masterLabel>
+        <translation><!-- Exempt Official Entity --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fast Lane</masterLabel>
+        <translation><!-- Fast Lane --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fast Track</masterLabel>
+        <translation><!-- Fast Track --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fast Track Plus</masterLabel>
+        <translation><!-- Fast Track Plus --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lounge</masterLabel>
+        <translation><!-- Lounge --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lounge Adult</masterLabel>
+        <translation><!-- Lounge Adult --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lounge Adult Non Schengen</masterLabel>
+        <translation><!-- Lounge Adult Non Schengen --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lounge Adult Schengen</masterLabel>
+        <translation><!-- Lounge Adult Schengen --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lounge Adult with shower</masterLabel>
+        <translation><!-- Lounge Adult with shower --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lounge Child</masterLabel>
+        <translation><!-- Lounge Child --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lounge Child Non Schengen</masterLabel>
+        <translation><!-- Lounge Child Non Schengen --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lounge Child Schengen</masterLabel>
+        <translation><!-- Lounge Child Schengen --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lounge Child with shower</masterLabel>
+        <translation><!-- Lounge Child with shower --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Park</masterLabel>
+        <translation><!-- Park --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Premium</masterLabel>
+        <translation><!-- Premium --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Public</masterLabel>
+        <translation><!-- Public --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RAC / Shuttle NL</masterLabel>
+        <translation><!-- RAC / Shuttle NL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Staff Company</masterLabel>
+        <translation><!-- Staff Company --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Staff Individual</masterLabel>
+        <translation><!-- Staff Individual --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Terminal</masterLabel>
+        <translation><!-- Terminal --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

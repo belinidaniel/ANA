@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Producto</label>
+    <lookupFilter>
+        <errorMessage>Sólo los productos Fast Track y Lounge que sean Child pueden asociarse a un vale gratuito.</errorMessage>
+    </lookupFilter>
+    <name>COMM_Product__c</name>
+    <relationshipLabel>Vales Gratuitos</relationshipLabel>
+</CustomFieldTranslation>

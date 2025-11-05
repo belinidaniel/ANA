@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Apply this rule when none of the others can be applied. The VATNumberValidation classes use the country code to find the rule to be applied. If the country code was not provided, use this rule. --></help>
+    <label><!-- Is Default --></label>
+    <name>COMM_IsDefault__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Motivo</label>
+    <name>COMM_Motive__c</name>
+    <picklistValues>
+        <masterLabel>Damage</masterLabel>
+        <translation>Dano</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Loss</masterLabel>
+        <translation>Perdido</translation>
+    </picklistValues>
+</CustomFieldTranslation>

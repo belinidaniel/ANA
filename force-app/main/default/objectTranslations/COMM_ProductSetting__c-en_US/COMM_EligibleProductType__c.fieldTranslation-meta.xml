@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Eligible Product Type --></label>
+    <name>COMM_EligibleProductType__c</name>
+    <picklistValues>
+        <masterLabel>Fast Track</masterLabel>
+        <translation><!-- Fast Track --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lounge</masterLabel>
+        <translation><!-- Lounge --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Parking</masterLabel>
+        <translation><!-- Parking --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Subscription</masterLabel>
+        <translation><!-- Subscription --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

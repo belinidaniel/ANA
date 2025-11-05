@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Status --></label>
+    <name>Status__c</name>
+    <picklistValues>
+        <masterLabel>Cancelled</masterLabel>
+        <translation><!-- Cancelled --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Finished</masterLabel>
+        <translation><!-- Finished --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Finished with Errors</masterLabel>
+        <translation><!-- Finished with Errors --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>New</masterLabel>
+        <translation><!-- New --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Scheduled</masterLabel>
+        <translation><!-- Scheduled --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Started</masterLabel>
+        <translation><!-- Started --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

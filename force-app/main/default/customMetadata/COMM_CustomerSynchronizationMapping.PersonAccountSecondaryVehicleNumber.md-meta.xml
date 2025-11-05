@@ -7,10 +7,6 @@
         <value xsi:type="xsd:string">c_secondaryVehicle</value>
     </values>
     <values>
-        <field>COMM_IsObjectField__c</field>
-        <value xsi:type="xsd:boolean">true</value>
-    </values>
-    <values>
         <field>COMM_CommerceApiFieldName__c</field>
         <value xsi:type="xsd:string">vehicleNumber</value>
     </values>
@@ -21,6 +17,10 @@
     <values>
         <field>COMM_CoreApiObjectName__c</field>
         <value xsi:type="xsd:string">Account</value>
+    </values>
+    <values>
+        <field>COMM_IsObjectField__c</field>
+        <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
         <field>COMM_MappingForB2C__c</field>

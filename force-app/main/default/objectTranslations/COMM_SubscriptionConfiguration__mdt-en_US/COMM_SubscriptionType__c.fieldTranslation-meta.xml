@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Subscription Type --></label>
+    <name>COMM_SubscriptionType__c</name>
+    <picklistValues>
+        <masterLabel>Commerce</masterLabel>
+        <translation><!-- Commerce --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Portal</masterLabel>
+        <translation><!-- Portal --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Split Permission Sets API Names with comma (,) --></help>
+    <label><!-- Permission Set List --></label>
+    <name>COMM_PermissionSetList__c</name>
+</CustomFieldTranslation>

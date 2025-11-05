@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Status --></label>
+    <name>COMM_Status__c</name>
+    <picklistValues>
+        <masterLabel>Archieved</masterLabel>
+        <translation><!-- Archieved --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Expired</masterLabel>
+        <translation><!-- Expired --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>In Approval</masterLabel>
+        <translation><!-- In Approval --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Process Concluded</masterLabel>
+        <translation><!-- Process Concluded --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Request Denied</masterLabel>
+        <translation><!-- Request Denied --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Waiting Conclusion</masterLabel>
+        <translation><!-- Waiting Conclusion --></translation>
+    </picklistValues>
+</CustomFieldTranslation>
