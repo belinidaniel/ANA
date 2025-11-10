@@ -20,16 +20,6 @@
                 <default>false</default>
                 <label>COMM_BILLING_COMPANY</label>
             </value>
-            <value>
-                <fullName>c_primaryVehicle</fullName>
-                <default>false</default>
-                <label>c_primaryVehicle</label>
-            </value>
-            <value>
-                <fullName>c_secondaryVehicle</fullName>
-                <default>false</default>
-                <label>c_secondaryVehicle</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

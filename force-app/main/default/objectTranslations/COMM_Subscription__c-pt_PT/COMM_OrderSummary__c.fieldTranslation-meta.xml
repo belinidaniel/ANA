@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Order Summary --></label>
+    <label>Resumo da reserva</label>
     <name>COMM_OrderSummary__c</name>
-    <relationshipLabel><!-- Subscriptions --></relationshipLabel>
+    <relationshipLabel>Avenças</relationshipLabel>
 </CustomFieldTranslation>

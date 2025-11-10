@@ -3,11 +3,12 @@
  * @description Batch class to communicate with SAP in order to generate the required
  * Subscription Invoice Fiscal Document.
  *
- * Modification Log
+ * Modification Log 
  * ------------------------------------------------------------------------------------
  * Developer                Date            Description
  * -----------------------------------------------------------------------------------
  * Daniel Lascas            15/04/2024		ECOMM-194: Original version
+ * André Luna               27/10/2025		TICKET-261964: Courtesy Subscriptions should not be sent to SAP
  **/
 public with sharing class COMM_Async_SAPSendSubInvoice extends FW_AsyncHandler implements Database.Batchable<SObject>, Database.Stateful, Database.AllowsCallouts {
     //REP and SL Classes
@@ -155,7 +156,7 @@ public with sharing class COMM_Async_SAPSendSubInvoice extends FW_AsyncHandler i
     public void execute(Database.BatchableContext bc, List<COMM_MonthlyFiscalDocumentControl__c> controllerList) {
         //Map with Control Records where Key is the Account associated with the Controller
         Map<Id, List<COMM_MonthlyFiscalDocumentControl__c>> controlMap = new Map<Id, List<COMM_MonthlyFiscalDocumentControl__c>>();
-
+        
         String dateClause = COMM_SL_SAPSendInvoiceHelper.buildWhereClause(controllerList, controlMap);
 
         List<COMM_SubscriptionInvoice__c> invoiceToUpdateList = new List<COMM_SubscriptionInvoice__c>();
@@ -171,26 +172,48 @@ public with sharing class COMM_Async_SAPSendSubInvoice extends FW_AsyncHandler i
                             1
                         )
                         .addDays(-1);
-                    List<COMM_SubscriptionInvoice__c> invoiceToSendList = COMM_SL_SAPSendInvoiceHelper.obtainInvoiceForMonthList(
+                   List<COMM_SubscriptionInvoice__c> invoiceToSendList = COMM_SL_SAPSendInvoiceHelper.obtainInvoiceForMonthList(
                         controlDate,
                         controlRecord.Id,
-                        accRecord.SubscriptionInvoices__r,
+                        accRecord.SubscriptionInvoices__r, 
                         accRecord.COMM_StaffCompanyRatio__c,
                         accRecord.COMM_OfficialEntityRatio__c
                     );
 
-                    //Call SL to make call to SAP to generate financial document then verify result
-                    COMM_SL_SAPDocumentResponse documentResponse = sapDocumentSl.createFinancialDocument(
-                        accRecord.IsPersonAccount ? accRecord.PersonEmail : accRecord.COMM_Email__c,
-                        controlRecord,
-                        accRecord,
-                        controlDate,
-                        paymentDays,
-                        invoiceToSendList
-                    );
-                    COMM_SL_SAPSendInvoiceHelper.verifySAPResponse(invoiceToSendList, documentResponse, controlRecord, invoiceToUpdateList);
+                    // Check if there are any invoices to actually send to SAP
+                    if (!invoiceToSendList.isEmpty()) {
+
+                        //Call SL to make call to SAP to generate financial document then verify result
+                        COMM_SL_SAPDocumentResponse documentResponse = sapDocumentSl.createFinancialDocument(
+                            accRecord.IsPersonAccount ? accRecord.PersonEmail : accRecord.COMM_Email__c,
+                            controlRecord,
+                            accRecord,
+                            controlDate,
+                            paymentDays,
+                            invoiceToSendList
+                        );
+                        COMM_SL_SAPSendInvoiceHelper.verifySAPResponse(invoiceToSendList, documentResponse, controlRecord, invoiceToUpdateList);
+
+                    } else {
+                        // --- Scenario 2: No invoices to send to SAP ---
+                        controlRecord.COMM_ProcessStatus__c = COMM_DO_MonthlyFiscalDocumentControl.PROCESSED_STATUS;
+                        controlRecord.COMM_StatusMessage__c = 'Processed: No invoices eligible for SAP submission found.';
+                    }
+
+                    // Iterate the original list to find invoices marked as exempt by the helper for this control record
+                    for (COMM_SubscriptionInvoice__c originalInvoice : accRecord.SubscriptionInvoices__r) {
+                        if (controlRecord.Id.equals(originalInvoice.COMM_MonthlyFiscalDocumentControl__c) && originalInvoice.COMM_ExemptPayment__c == true && COMM_DO_Subscription.PAYMENT_COURTESY.equals(originalInvoice.COMM_Subscripton__r.COMM_PaymentMethod__c)) 
+                            {
+                                invoiceToUpdateList.add(new COMM_SubscriptionInvoice__c(
+                                    Id = originalInvoice.Id,
+                                    COMM_ExemptPayment__c = true
+                                ));
+                            }
+                       }
                     controllersToUpdateList.add(controlRecord);
                 }
+            } else {
+                System.debug('No invoices found for Account ' + accRecord.Id + ' matching date clause: ' + dateClause + '.');
             }
         }
         //Update Subscription Invoice Records if any are set for Update
@@ -201,7 +224,7 @@ public with sharing class COMM_Async_SAPSendSubInvoice extends FW_AsyncHandler i
         if (!controllersToUpdateList.isEmpty()) {
             docControlRep.updateSObjects(controllersToUpdateList);
         }
-    }
+    } 
 
     /**
      * @description Batch Finish Method. Initiates the Framework batch finished process.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Email Validation Changed Address --></label>
+    <label>Validação de email alterado</label>
     <name>COMM_EmailValidationChangedAddress__c</name>
 </CustomFieldTranslation>

@@ -6,7 +6,7 @@
         <name>Has_Cron_Trigger_Id</name>
         <label>Has Cron Trigger Id ?</label>
         <locationX>182</locationX>
-        <locationY>158</locationY>
+        <locationY>134</locationY>
         <defaultConnector>
             <targetReference>screen_NoCronTriggerId</targetReference>
         </defaultConnector>
@@ -54,7 +54,7 @@
         <name>Get_Cron_Trigger_Details</name>
         <label>Get Cron Trigger Details</label>
         <locationX>50</locationX>
-        <locationY>278</locationY>
+        <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>screen_CronTriggerDetails</targetReference>
@@ -71,11 +71,12 @@
         <object>CronTrigger</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
         <name>screen_CronTriggerDetails</name>
         <label>screen_CronTriggerDetails</label>
         <locationX>50</locationX>
-        <locationY>398</locationY>
+        <locationY>350</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -213,7 +214,7 @@
         <name>screen_NoCronTriggerId</name>
         <label>screen_NoCronTriggerId</label>
         <locationX>314</locationX>
-        <locationY>278</locationY>
+        <locationY>242</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>

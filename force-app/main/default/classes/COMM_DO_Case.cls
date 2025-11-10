@@ -66,6 +66,8 @@ public inherited sharing class COMM_DO_Case implements COMM_IDO_Case {
         caseToCreate.COMM_StartDate__c = setCaseStartDate(subscription, oItemSummaryBySubscriptionNbrMap, isRecurring);
         caseToCreate.COMM_EndDate__c = setCaseEndDate(subscription, oItemSummaryBySubscriptionNbrMap, isRecurring);
         caseToCreate.COMM_LicensePlate__c = subscription.COMM_LicensePlate__c;
+        caseToCreate.COMM_SecondaryLicensePlate__c = subscription.COMM_SecondaryLicensePlate__c;
+        caseToCreate.COMM_AffiliateNumber__c = subscription.COMM_AffiliateNumber__c;
         caseToCreate.COMM_Periodicity__c = subscription.COMM_Periodicity__c;
         caseToCreate.COMM_FirstName__c = subscription.COMM_FirstName__c;
         caseToCreate.COMM_LastName__c = subscription.COMM_LastName__c;

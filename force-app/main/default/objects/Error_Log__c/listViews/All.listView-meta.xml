@@ -3,12 +3,16 @@
     <fullName>All</fullName>
     <columns>NAME</columns>
     <columns>Category__c</columns>
-    <columns>COMM_OriginFormula__c</columns>
     <columns>Error_Message__c</columns>
     <columns>CREATED_DATE</columns>
     <columns>Actor_Name__c</columns>
     <columns>Job_Execution__c</columns>
     <columns>Job_Scope__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>Actor_Id__c</field>
+        <operation>notEqual</operation>
+        <value>0055t000005FM7kAAG</value>
+    </filters>
     <label>All</label>
 </ListView>

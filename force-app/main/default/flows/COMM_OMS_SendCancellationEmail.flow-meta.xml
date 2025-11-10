@@ -47,7 +47,6 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Change to ANA Automation USer</description>
     <environments>Default</environments>
     <interviewLabel>Send Cancellation Email {!$Flow.CurrentDateTime}</interviewLabel>
     <label>OMS Send Cancellation Email</label>

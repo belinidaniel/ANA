@@ -1,143 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <layouts>
-        <layout>Affiliate Registration Request Layout</layout>
-        <sections>
-            <label>Información de solicitud de afiliación</label>
-            <section>Affiliate Request Information</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Contact Us Case Layout</layout>
-        <sections>
-            <label><!-- Web Information --></label>
-            <section>Web Information</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Individual Staff Request Layout</layout>
-        <sections>
-            <label>Información del cliente</label>
-            <section>Client Information</section>
-        </sections>
-        <sections>
-            <label>Consentimiento</label>
-            <section>Consents</section>
-        </sections>
-        <sections>
-            <label>Información del solicitud</label>
-            <section>Request Information</section>
-        </sections>
-        <sections>
-            <label>Información del vehículo</label>
-            <section>Vehicle Information</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Partner Registration Request Layout</layout>
-        <sections>
-            <label>Información del solicitud</label>
-            <section>Request Information</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Public Subscription Request Layout</layout>
-        <sections>
-            <label><!-- Client Information --></label>
-            <section>Client Information</section>
-        </sections>
-        <sections>
-            <label><!-- Consents --></label>
-            <section>Consents</section>
-        </sections>
-        <sections>
-            <label><!-- Subscription Details --></label>
-            <section>Subscription Details</section>
-        </sections>
-        <sections>
-            <label><!-- Vehicle Information --></label>
-            <section>Vehicle Information</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Subscription Request Layout</layout>
-        <sections>
-            <label>Información del cliente</label>
-            <section>Client Information</section>
-        </sections>
-        <sections>
-            <label>Consentimiento</label>
-            <section>Consents</section>
-        </sections>
-        <sections>
-            <label>Detalles de suscripción</label>
-            <section>Subscription Details</section>
-        </sections>
-        <sections>
-            <label>Información del vehículo</label>
-            <section>Vehicle Information</section>
-        </sections>
-    </layouts>
-    <quickActions>
-        <label><!-- Send Form Email to End User --></label>
-        <name>COMM_Case_SendFormEmailToEndUser</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- Conclude Process --></label>
-        <name>COMM_ConcludeProcess</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- Conclude Process --></label>
-        <name>COMM_ConcludePublicSubscriptionProcess</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- Create Affiliate --></label>
-        <name>COMM_CreateAffiliate</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- Email to Finance --></label>
-        <name>COMM_EmailToFinance</name>
-    </quickActions>
-    <quickActions>
-        <aspect>Master</aspect>
-        <label>Volver a Airport Admin</label>
-        <name>COMM_ReturnToAirportAdmin</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- Return to SABA --></label>
-        <name>COMM_Return_to_SABA</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- Cancel Case --></label>
-        <name>Cancel_Case</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- Change Priority --></label>
-        <name>Change_Priority</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- CloseCaseLightning --></label>
-        <name>CloseCaseLightning</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- Close the Case --></label>
-        <name>Close_the_Case</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- NewChildCase --></label>
-        <name>NewChildCase</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- Email --></label>
-        <name>SendEmail</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- SocialPublisher --></label>
-        <name>SocialPublisher</name>
-    </quickActions>
     <recordTypes>
-        <description><!-- Case to request a creation of a Affiliate --></description>
-        <label><!-- Affiliate Request --></label>
+        <description>Caso para solicitar la creación de un Afiliado</description>
+        <label>Solicitud de Afiliado</label>
         <name>COMM_AffiliateRequest</name>
     </recordTypes>
     <recordTypes>
@@ -171,13 +36,13 @@
         <name>COMM_ChangeUserInformation</name>
     </recordTypes>
     <recordTypes>
-        <description><!-- Case to submit a a request for information --></description>
-        <label><!-- Contact Us --></label>
+        <description>Caso para presentar una solicitud de información</description>
+        <label>Póngase en contacto con nosotros</label>
         <name>COMM_ContactUs</name>
     </recordTypes>
     <recordTypes>
-        <description><!-- Case to request individual staff attribute --></description>
-        <label><!-- Individual Staff Request --></label>
+        <description>Caso para solicitar un atributo individual del personal</description>
+        <label>Solicitud individual de personal</label>
         <name>COMM_IndividualStaffRequest</name>
     </recordTypes>
     <recordTypes>
@@ -201,8 +66,8 @@
         <name>COMM_NewSubscription</name>
     </recordTypes>
     <recordTypes>
-        <description><!-- Case to request a creation of a partner --></description>
-        <label><!-- Partner Request --></label>
+        <description>Caso para solicitar la creación de un socio</description>
+        <label>Solicitud de socio</label>
         <name>COMM_PartnerRequest</name>
     </recordTypes>
     <recordTypes>
@@ -215,22 +80,20 @@
         <name>COMM_CannotUpdateExistingAffiliateInfo</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Please provide a reason for rejecting the Case --></errorMessage>
+        <errorMessage>Por favor, indique una razón para rechazar el Caso</errorMessage>
         <name>COMM_RejectingPartnerRequiresReason</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Subscription Number is Required --></errorMessage>
+        <errorMessage>El Número de Suscripción es Requerido</errorMessage>
         <name>COMM_SubscriptionNumberRequired</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- When the Case is in Process Concluded or Request Denied status, you cannot change the status --></errorMessage>
+        <errorMessage>Cuando el Caso está en estado Proceso Concluido o Solicitud Denegada, no puede cambiar el estado</errorMessage>
         <name>COMM_VerifyApprovedRejectedStatus</name>
     </validationRules>
     <validationRules>
-        <errorMessage>
-            <!-- Record cannot be edited as long as it belongs to a queue
-Please assign to your self -->
-        </errorMessage>
+        <errorMessage>&quot;El registro no puede editarse mientras pertenezca a una cola
+Asignar a uno mismo&quot;</errorMessage>
         <name>COMM_VerifyOwnerIsQueue</name>
     </validationRules>
     <validationRules>

@@ -4,7 +4,7 @@
     <name>COMM_PreferredContact__c</name>
     <picklistValues>
         <masterLabel>E-Mail</masterLabel>
-        <translation><!-- E-Mail --></translation>
+        <translation>Email</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Phone</masterLabel>

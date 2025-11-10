@@ -99,6 +99,38 @@ public with sharing class COMM_LCC_IndividualStaffRegistration {
     }
 
     /**
+     * @description LWC Accessible method to get user info data
+     *
+     * @param userId User Id
+     **/
+    @AuraEnabled(cacheable=true)
+    public static User getUserInfo(Id userId) {
+        if (String.isBlank(userId)) {
+            return null;
+        }
+
+        return [
+            SELECT Id,
+                   FirstName,
+                   LastName,
+                   ContactId,
+                   Contact.FirstName,
+                   Contact.LastName,
+                   Email,
+                   Contact.Account.COMM_VATNumberWithCode__c,
+                   Contact.Account.PersonMobilePhone,
+                   Contact.Account.BillingPostalCode,
+                   Contact.Account.BillingStreet,
+                   Contact.Account.BillingCountry,
+                   Contact.Account.BillingCountryCode,
+                   Contact.Account.BillingCity
+            FROM User
+            WHERE Id = :userId
+            LIMIT 1
+        ];
+    }
+
+    /**
      * @description Method to create Case based on data provided by the User on the Component
      * Attaches User uploaded file to Case after creation
      *

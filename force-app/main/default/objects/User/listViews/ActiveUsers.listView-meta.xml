@@ -7,6 +7,7 @@
     <columns>CORE.USERS.LAST_LOGIN</columns>
     <columns>CORE.USER_ROLE.NAME</columns>
     <columns>CORE.PROFILE.NAME</columns>
+    <columns>CORE.USERS.ACTIVE</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>CORE.USERS.ACTIVE</field>
@@ -14,4 +15,5 @@
         <value>1</value>
     </filters>
     <label>Active Users</label>
+    <language>en_US</language>
 </ListView>

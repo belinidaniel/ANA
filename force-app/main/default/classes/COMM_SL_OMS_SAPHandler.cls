@@ -664,7 +664,8 @@ public without sharing class COMM_SL_OMS_SAPHandler {
             os.BillingPostalCode = input.postalCode;
             os.BillingCity = input.city;
             os.BillingCountry = input.country;
-            os.BillingCountryCode = input.countryCode; 
+           // os.BillingCountryCode = input.countryCode; 
+            //system.debug('input.countryCode ' +)
             os.COMM_BillingVATNumber__c = input.vatNumber;
             update os;
             invoices[0].COMM_SAPDocumentId2__c = invoices[0].COMM_SAPDocumentId__c;

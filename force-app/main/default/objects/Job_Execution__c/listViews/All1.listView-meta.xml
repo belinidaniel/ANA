@@ -4,12 +4,11 @@
     <columns>NAME</columns>
     <columns>Batch_Definition_Name__c</columns>
     <columns>Scheduled_Execution_DateTime__c</columns>
+    <columns>CREATEDBY_USER</columns>
     <columns>Batch_Start__c</columns>
     <columns>Batch_Finish__c</columns>
     <columns>Status__c</columns>
     <columns>Queried_Records__c</columns>
-    <columns>CREATED_DATE</columns>
-    <columns>CREATEDBY_USER</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

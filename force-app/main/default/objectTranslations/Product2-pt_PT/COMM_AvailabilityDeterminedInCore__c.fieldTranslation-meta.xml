@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Availability determined in Core --></label>
+    <label>Disponibilidade determinda no core</label>
     <name>COMM_AvailabilityDeterminedInCore__c</name>
 </CustomFieldTranslation>

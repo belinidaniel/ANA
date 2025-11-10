@@ -9,6 +9,7 @@
  * Diogo Gonçalves    08/04/2024     ECOMM-105: Original version
  * Diogo Gonçalves    10/05/2024     ECOMM-105: Error handling and create Process Exceptions
  * Jose Passos        05/07/2024     ECOMM-1639: Fix Missing targetObjectId
+ * Miguel Justo       08/01/2025     ECOMM-2437: Force Sender Email to be the No Reply Configured
  **/
 
 public inherited sharing class COMM_SL_SendVouchersEmail {
@@ -63,13 +64,19 @@ public inherited sharing class COMM_SL_SendVouchersEmail {
     private static List<Messaging.SingleEmailMessage> getVoucherSingleEmailMessages(List<OrderSummary> orderSummaries) {
         List<Messaging.SingleEmailMessage> emailMessages = new List<Messaging.SingleEmailMessage>();
         COMM_IREP_ReservationEmailBCCMdt bccAddressesRepo = new COMM_REP_ReservationEmailBCCMdt();
+        COMM_IREP_OrgWideEmailAddress orgWideAddressRep = new COMM_REP_OrgWideEmailAddress();
         Map<Id, Id> orderSummaryToTemplateMap = getOrderSummaryToTemplateMap(orderSummaries);
         List<String> bccAddresses = bccAddressesRepo.getAllEmails();
         List<ProcessException> exceptions = new List<ProcessException>();
+
+        //Check for Default No-Reply Email Address (to send email)
+        List<OrgWideEmailAddress> orgWideAddresses = orgWideAddressRep.getDefaultNoReplyAddress();
+        Id orgWideAddressId = !orgWideAddresses.isEmpty() ? orgWideAddresses[0].Id : null;
+
         for (OrderSummary orderSummary : orderSummaries) {
             Id templateId = orderSummaryToTemplateMap.get(orderSummary.Id);
             try {
-                emailMessages.add(getVoucherSingleEmailMessage(orderSummary, templateId, bccAddresses));
+                emailMessages.add(getVoucherSingleEmailMessage(orderSummary, templateId, bccAddresses, orgWideAddressId));
             } catch (Exception e) {
                 String errorMessage = e.getMessage() + '; COMM_SL_SendVouchersEmail: line: ' + e.getLineNumber();
                 exceptions.add(createProcessException(e.getMessage(), orderSummary.Id));
@@ -86,9 +93,15 @@ public inherited sharing class COMM_SL_SendVouchersEmail {
      * @description Get the SingleEmailMessage with the PDF attached for the given orderSummary
      * @param {OrderSummary} orderSummary
      * @param {Id} templateId
+     * @param orgWideAddressId Id of the Org-Wide Email Address to be set as the sender.
      * @return {Messaging.SingleEmailMessage}
      */
-    private static Messaging.SingleEmailMessage getVoucherSingleEmailMessage(OrderSummary orderSummary, Id templateId, List<String> bccAddresses) {
+    private static Messaging.SingleEmailMessage getVoucherSingleEmailMessage(
+        OrderSummary orderSummary,
+        Id templateId,
+        List<String> bccAddresses,
+        Id orgWideAddressId
+    ) {
         if (templateId == null) {
             throw new COMM_SL_SendVoucherEmailException(VOUCHER_NO_TEMPLATE_MESSAGE);
         }
@@ -100,6 +113,9 @@ public inherited sharing class COMM_SL_SendVouchersEmail {
         mail.setTemplateId(templateId);
         mail.setToAddresses(new List<String>{ orderSummary.OrderDeliveryGroupSummaries[0].EmailAddress });
         mail.setFileAttachments(new List<Messaging.EmailFileAttachment>{ pdfAttachment });
+        if (String.isNotBlank(orgWideAddressId)) {
+            mail.setOrgWideEmailAddressId(orgWideAddressId);
+        }
         return mail;
     }
 

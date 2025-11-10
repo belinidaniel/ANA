@@ -4,10 +4,6 @@
     <description>Change payment periodicity support process.</description>
     <isActive>true</isActive>
     <values>
-        <fullName>Canceled</fullName>
-        <default>false</default>
-    </values>
-    <values>
         <fullName>In Approval</fullName>
         <default>true</default>
     </values>

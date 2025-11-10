@@ -10,6 +10,7 @@
  * Rui Salgado      19/04/2024       Added method getAllInvoiceBasedOnStatus
  * Daniel Reto      03/06/2024       New method: getForSAPInvoice
  * Daniel Reto      08/07/2024       New fields added on getByIds method
+ * Hugo Manera      28/05/2025       New method: getForSearchInvoice
  **/
 public inherited sharing class COMM_REP_Invoice extends FW_SobjectRep implements COMM_IREP_Invoice {
     /**
@@ -182,5 +183,87 @@ public inherited sharing class COMM_REP_Invoice extends FW_SobjectRep implements
                 dateClause.replaceAll('CreatedDate', 'DueDate') +
                 ' WITH SECURITY_ENFORCED'
         );
+    }
+
+    public List<Invoice> getForSearchInvoice(COMM_WS_SearchInvoicesInput inputRequest, String invoiceExtraFilter) {
+        FW_QueryBuilder invoiceLineQuery = new FW_QueryBuilder(InvoiceLine.SObjectType)
+            .selectFields(new List<SObjectField>{ InvoiceLine.Name })
+            .selectParentFields(InvoiceLine.Product2Id, new List<SObjectField>{ Product2.COMM_Airport__c });
+
+        FW_QueryBuilder invoiceQuery = new FW_QueryBuilder(Invoice.SObjectType)
+            .selectFields(
+                new List<SObjectField>{
+                    Invoice.id,
+                    Invoice.Status,
+                    Invoice.DocumentNumber,
+                    Invoice.InvoiceDate,
+                    Invoice.DueDate,
+                    Invoice.TotalAmountWithTax,
+                    Invoice.COMM_SAPDocumentId__c
+                }
+            )
+            .selectParentFields(Invoice.BillingAccountId, new List<SObjectField>{ Account.PersonEmail, Account.Name });
+
+        // Add extra filter first (base filter)
+        if (String.isNotBlank(invoiceExtraFilter)) {
+            invoiceQuery.setWhere(invoiceExtraFilter);
+        }
+
+        // Apply date filters using consistent pattern with proper null checks and formatting
+        if (inputRequest.invoiceStartDate != null && inputRequest.invoiceEndDate != null) {
+            String dateFilter =
+                'InvoiceDate >= ' +
+                String.valueOf(inputRequest.invoiceStartDate) +
+                ' AND InvoiceDate <= ' +
+                String.valueOf(inputRequest.invoiceEndDate.addDays(1));
+
+            if (String.isNotBlank(invoiceExtraFilter)) {
+                invoiceQuery.setWhere(invoiceExtraFilter + ' AND ' + dateFilter);
+            } else {
+                invoiceQuery.setWhere(dateFilter);
+            }
+        }
+
+        // Apply individual field filters using proper query builder methods
+        if (String.isNotBlank(inputRequest.sapDocumentId)) {
+            invoiceQuery.whereEquals('COMM_SAPDocumentId__c', String.escapeSingleQuotes(inputRequest.sapDocumentId));
+        }
+
+        if (inputRequest.status != null && !inputRequest.status.isEmpty()) {
+            // Sanitize status values to prevent injection
+            List<String> sanitizedStatus = new List<String>();
+            for (String status : inputRequest.status) {
+                if (String.isNotBlank(status)) {
+                    sanitizedStatus.add(String.escapeSingleQuotes(status));
+                }
+            }
+            if (!sanitizedStatus.isEmpty()) {
+                invoiceQuery.whereIn('Status', sanitizedStatus);
+            }
+        }
+
+        invoiceQuery.orderByDesc(Invoice.InvoiceDate);
+        invoiceQuery.orderByAsc(Invoice.Status);
+
+        // Build final query with proper escaping and validation
+        String baseQuery = invoiceQuery.getQuery();
+        String subQuery = invoiceLineQuery.getQuery();
+
+        // Validate query components before string manipulation
+        if (String.isBlank(baseQuery) || String.isBlank(subQuery)) {
+            throw new QueryException('Invalid query construction: base or sub query is empty');
+        }
+        subQuery = subQuery.replace('FROM', ', TYPEOF ReferenceEntityItem WHEN OrderItemSummary THEN COMM_AffiliateNumber__c END FROM');
+        String query = baseQuery.replace(' FROM', ', TYPEOF ReferenceEntity WHEN OrderSummary THEN OrderNumber END, (' + subQuery + ') FROM');
+        query = query.replaceAll('\\bInvoiceLine\\b', 'InvoiceLines');
+        query = query.replace('ORDER BY', 'WITH SECURITY_ENFORCED ORDER BY');
+
+        return Database.query(query);
+    }
+
+    /**
+     * @description Custom exception for query validation errors
+     */
+    public class QueryException extends Exception {
     }
 }

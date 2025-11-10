@@ -7,6 +7,7 @@
  * Developer        Date             Description
  * -----------------------------------------------------------------------------------
  * Daniel Reto      09/04/2024       ECOMM-192: Original version
+ * Sofia Silva      17/10/2025       TICKET-280170: Add payment method to Public Subscription creation (always VD)
  **/
 public inherited sharing class COMM_DO_Subscription implements COMM_IDO_Subscription {
     //Subscription Record Type Values
@@ -22,6 +23,8 @@ public inherited sharing class COMM_DO_Subscription implements COMM_IDO_Subscrip
     public final static string PERIODICITY_HALF_YEARLY = 'Half Yearly';
     public final static string PERIODICITY_YEARLY = 'Yearly';
     //Subscription Payment Method
+    public final static string PAYMENT_VD = 'VD';
+    public final static string PAYMENT_CREDIT = 'Credit';
     public final static string PAYMENT_COURTESY = 'Courtesy';
 
     /**
@@ -46,6 +49,8 @@ public inherited sharing class COMM_DO_Subscription implements COMM_IDO_Subscrip
         subscriptionToCreate.COMM_StartDate__c = orderItemSummary.OriginalOrderItem.COMM_ReservationStart__c?.date();
         subscriptionToCreate.COMM_EndDate__c = orderItemSummary.OriginalOrderItem.COMM_ReservationEnd__c?.date();
         subscriptionToCreate.COMM_LicensePlate__c = orderItemSummary.OriginalOrderItem.COMM_LicensePlate__c;
+        subscriptionToCreate.COMM_SecondaryLicensePlate__c = orderItemSummary.OriginalOrderItem.COMM_SecondaryLicensePlate__c;
+        subscriptionToCreate.COMM_AffiliateNumber__c = orderItemSummary.OriginalOrderItem.COMM_AffiliateNumber__c;
         subscriptionToCreate.COMM_Periodicity__c = orderItemSummary.OriginalOrderItem.Product2.COMM_Periodicity__c;
         subscriptionToCreate.COMM_FirstName__c = orderItemSummary.OriginalOrderItem.Order.Account.COMM_BillingFirstName__c;
         subscriptionToCreate.COMM_LastName__c = orderItemSummary.OriginalOrderItem.Order.Account.COMM_BillingLastName__c;
@@ -59,6 +64,7 @@ public inherited sharing class COMM_DO_Subscription implements COMM_IDO_Subscrip
         subscriptionToCreate.COMM_Address__City__s = orderItemSummary.OriginalOrderItem.Order.Account.BillingCity;
         subscriptionToCreate.COMM_Address__CountryCode__s = orderItemSummary.OriginalOrderItem.Order.Account.BillingCountryCode;
         subscriptionToCreate.COMM_Address__PostalCode__s = orderItemSummary.OriginalOrderItem.Order.Account.BillingPostalCode;
+        subscriptionToCreate.COMM_PaymentMethod__c = PAYMENT_VD;
 
         return subscriptionToCreate;
     }

@@ -8,12 +8,5 @@
         <plural>true</plural>
         <value>SAP Mappings</value>
     </caseValues>
-    <layouts>
-        <layout>SAP Mapping Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

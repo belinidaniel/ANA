@@ -9,24 +9,10 @@
         <value><!-- Product Variation --></value>
     </caseValues>
     <gender><!-- Feminine --></gender>
-    <layouts>
-        <layout>Product Variation Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Master Product --></label>
-            <section>Master Product</section>
-        </sections>
-        <sections>
-            <label><!-- Related Product --></label>
-            <section>Related Product</section>
-        </sections>
-    </layouts>
     <nameFieldLabel><!-- Variation Assignment Number --></nameFieldLabel>
     <validationRules>
-        <errorMessage><!-- It will not be possible to configure a bundle with products from different airports; --></errorMessage>
+        <errorMessage>Não será possível configurar um pacote com produtos de diferentes
+                    aeroportos;</errorMessage>
         <name>COMM_AirportRelatedProducts</name>
     </validationRules>
 </CustomObjectTranslation>

@@ -9,6 +9,7 @@
  * Rui Salgado      01/04/2024       Original version
  * Rui Salgado      19/04/2024       Added method getAllInvoiceBasedOnStatus
  * Daniel Reto      03/06/2024       New method: getForSAPInvoice
+ * Hugo Manera      28/05/2025       New method: getForSearchInvoice
  **/
 public interface COMM_IREP_Invoice extends FW_ISObjectRep {
     /**
@@ -37,4 +38,12 @@ public interface COMM_IREP_Invoice extends FW_ISObjectRep {
      * @return List of Invoice
      **/
     List<Invoice> getForSAPInvoice(Set<Id> invoiceIds, String dateClause);
+
+    /**
+     * @description Retrieves the invoice records to to send for Commerce side while doing a Search Invoice
+     * @param COMM_WS_SearchInvoicesInput inputRequest
+     * @param String invoiceExtraFilter : request key matched with Salesforce Field to add on Invoice query filter
+     * @return {List<Invoice>}
+     */
+    List<Invoice> getForSearchInvoice(COMM_WS_SearchInvoicesInput inputRequest, String invoiceExtraFilter);
 }

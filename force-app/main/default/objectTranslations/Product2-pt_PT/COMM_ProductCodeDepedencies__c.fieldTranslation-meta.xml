@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help><!-- Use comma &quot;,&quot; to separate different product codes --></help>
-    <label><!-- Product Code Depedent? --></label>
+    <help>Utilizar vírgula “,” para separar diferentes códigos de produto</help>
+    <label>Código do produto dependente?</label>
     <name>COMM_ProductCodeDepedencies__c</name>
 </CustomFieldTranslation>

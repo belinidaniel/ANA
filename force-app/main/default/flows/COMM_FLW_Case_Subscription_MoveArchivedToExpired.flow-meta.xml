@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Release_Reservations</name>
         <label>Release Reservations</label>
-        <locationX>308</locationX>
-        <locationY>600</locationY>
+        <locationX>242</locationX>
+        <locationY>708</locationY>
         <actionName>COMM_SL_ClearProductReservations</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -30,14 +30,15 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_ClearProductReservations</nameSegment>
+        <offset>0</offset>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
         <name>COMM_Assignmnet_SetProductCodes</name>
         <label>Set Product Codes</label>
-        <locationX>308</locationX>
-        <locationY>492</locationY>
+        <locationX>242</locationX>
+        <locationY>600</locationY>
         <assignmentItems>
             <assignToReference>ProductCodeList</assignToReference>
             <operator>Add</operator>
@@ -49,6 +50,47 @@
             <targetReference>Release_Reservations</targetReference>
         </connector>
     </assignments>
+    <decisions>
+        <description>we should only expire certain subscriptions based on the request issued
+https://jira.ana.pt/browse/TICKET-239519</description>
+        <name>check_for_subscriptions_to_expire</name>
+        <label>check for subscriptions to expire</label>
+        <locationX>374</locationX>
+        <locationY>276</locationY>
+        <defaultConnector>
+            <targetReference>Update_Case_to_Expired</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>subscription_should_expire</name>
+            <conditionLogic>NOT(1 AND 2 AND 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Change Payment Periodicity</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Change Ownership</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Card due To Damage/Loss</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_to_Expired</targetReference>
+            </connector>
+            <label>subscription should expire</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <formulas>
         <name>StartDate</name>
@@ -79,8 +121,8 @@
     <recordLookups>
         <name>Get_Capacity</name>
         <label>Get Capacity</label>
-        <locationX>308</locationX>
-        <locationY>384</locationY>
+        <locationX>242</locationX>
+        <locationY>492</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>COMM_Assignmnet_SetProductCodes</targetReference>
@@ -100,10 +142,24 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
+        <description>Update only the Case to Expired</description>
+        <name>Update_Case_to_Expired</name>
+        <label>Update to Expired</label>
+        <locationX>506</locationX>
+        <locationY>384</locationY>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Expired</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
         <name>Update_Related_Subscriptions</name>
         <label>Update Related Subscriptions</label>
-        <locationX>308</locationX>
-        <locationY>708</locationY>
+        <locationX>242</locationX>
+        <locationY>816</locationY>
         <inputAssignments>
             <field>COMM_Status__c</field>
             <value>
@@ -115,8 +171,8 @@
     <recordUpdates>
         <name>Update_to_Expired</name>
         <label>Update to Expired</label>
-        <locationX>308</locationX>
-        <locationY>276</locationY>
+        <locationX>242</locationX>
+        <locationY>384</locationY>
         <connector>
             <targetReference>Get_Capacity</targetReference>
         </connector>
@@ -141,7 +197,7 @@ ISPICKVAL({!$Record.Status}, &apos;Archived&apos;)
         <scheduledPaths>
             <name>X15_Days_After</name>
             <connector>
-                <targetReference>Update_to_Expired</targetReference>
+                <targetReference>check_for_subscriptions_to_expire</targetReference>
             </connector>
             <label>15 Days After</label>
             <offsetNumber>15</offsetNumber>

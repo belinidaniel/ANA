@@ -19,10 +19,6 @@
         <value xsi:type="xsd:string">Account</value>
     </values>
     <values>
-        <field>COMM_IsObjectField__c</field>
-        <value xsi:type="xsd:boolean">false</value>
-    </values>
-    <values>
         <field>COMM_MappingForB2C__c</field>
         <value xsi:type="xsd:boolean">false</value>
     </values>

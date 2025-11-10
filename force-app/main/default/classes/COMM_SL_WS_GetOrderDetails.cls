@@ -85,7 +85,9 @@ public inherited sharing class COMM_SL_WS_GetOrderDetails {
             for (OrderItemSummary orderItemSummaryRecord : orderSummaryRecord.OrderItemSummaries) {
                 COMM_WS_OrderDetailOutput.PassengerDetails passengerDetailsRecord = new COMM_WS_OrderDetailOutput.PassengerDetails();
                 passengerDetailsRecord.licensePlate = orderItemSummaryRecord.COMM_LicensePlate__c;
+                passengerDetailsRecord.secondaryLicensePlate = orderItemSummaryRecord.COMM_SecondaryLicensePlate__c;
                 passengerDetailsRecord.name = orderItemSummaryRecord.COMM_ReservationName__c;
+                passengerDetailsRecord.affiliateNumber = orderItemSummaryRecord.COMM_AffiliateNumber__c;
 
                 COMM_WS_OrderDetailOutput.OrderProducts orderProductRecord = new COMM_WS_OrderDetailOutput.OrderProducts();
                 orderProductRecord.productCode = orderItemSummaryRecord.Product2?.ProductCode;

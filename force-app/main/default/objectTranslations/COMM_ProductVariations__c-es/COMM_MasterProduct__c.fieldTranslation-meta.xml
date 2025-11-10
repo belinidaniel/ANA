@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Master Product --></label>
+    <label>Producto principal</label>
     <lookupFilter>
-        <errorMessage><!-- The Master Product must be Type=bundle --></errorMessage>
+        <errorMessage>El Producto principal debe ser Type=bundle</errorMessage>
     </lookupFilter>
     <name>COMM_MasterProduct__c</name>
-    <relationshipLabel><!-- Product Variations --></relationshipLabel>
+    <relationshipLabel>Variaciones del producto</relationshipLabel>
 </CustomFieldTranslation>

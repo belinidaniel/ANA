@@ -4,10 +4,10 @@
     <protected>true</protected>
     <values>
         <field>COMM_Buffer__c</field>
-        <value xsi:type="xsd:double">5.0</value>
+        <value xsi:type="xsd:double">10.0</value>
     </values>
     <values>
         <field>COMM_Value__c</field>
-        <value xsi:type="xsd:string">76uuKBry4pAfzqxZ2VE7tTpRLWA0s772NxAUTGEuApw=</value>
+        <value xsi:type="xsd:string">n3ETYb0twX3hCsum9XeWd0ufEdo8YYQHAWVoaZJWRmQ</value>
     </values>
 </CustomMetadata>

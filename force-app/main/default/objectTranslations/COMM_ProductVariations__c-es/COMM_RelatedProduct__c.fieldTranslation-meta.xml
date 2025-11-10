@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Related Product --></label>
+    <label>Productos relacionados</label>
     <lookupFilter>
-        <errorMessage><!-- The Related Product must be Type=single --></errorMessage>
+        <errorMessage>El producto relacionado debe ser Type=single</errorMessage>
     </lookupFilter>
     <name>COMM_RelatedProduct__c</name>
-    <relationshipLabel><!-- Product Variations (Related Product) --></relationshipLabel>
+    <relationshipLabel>Variaciones del producto (Producto relacionado)</relationshipLabel>
 </CustomFieldTranslation>

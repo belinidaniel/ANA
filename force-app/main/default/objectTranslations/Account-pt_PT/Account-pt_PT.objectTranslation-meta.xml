@@ -1,48 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <layouts>
-        <layout>Collective Layout</layout>
-        <sections>
-            <label>Informação sobre Endereços</label>
-            <section>Address Information</section>
-        </sections>
-        <sections>
-            <label>Consentimentos</label>
-            <section>Consents</section>
-        </sections>
-        <sections>
-            <label>Métodos de Pagamento</label>
-            <section>Payment Methods</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Individual Layout</layout>
-        <layoutType>PersonAccount</layoutType>
-        <sections>
-            <label>Informação da Empresa</label>
-            <section>Company Information</section>
-        </sections>
-        <sections>
-            <label>Consentimentos</label>
-            <section>Consent</section>
-        </sections>
-        <sections>
-            <label>Contactos</label>
-            <section>Contacts</section>
-        </sections>
-        <sections>
-            <label>Métodos de Pagamento</label>
-            <section>Payment Methods</section>
-        </sections>
-        <sections>
-            <label><!-- Vehicle information --></label>
-            <section>Vehicle information</section>
-        </sections>
-    </layouts>
-    <quickActions>
-        <label><!-- Child Account --></label>
-        <name>Child_Account</name>
-    </quickActions>
     <recordTypes>
         <description><!-- Record Type for Collective / Partner Accounts. --></description>
         <label><!-- Collective/Partner --></label>
@@ -65,31 +22,33 @@
         <name>COMM_StaffCompanyRatioFormat</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Fill in the Affiliate Category and Payment Method fields --></errorMessage>
+        <errorMessage>Preencha os campos Categoria do afiliado e Método de pagamento</errorMessage>
         <name>COMM_VerifyAffiliateFields</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Affiliates can only pay by VD or credit --></errorMessage>
+        <errorMessage>Os afiliados só podem pagar em dinheiro ou crédito</errorMessage>
         <name>COMM_VerifyAffiliatePaymentMethods</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- B2C can only pay by VD --></errorMessage>
+        <errorMessage>B2C só pode pagar em dinheiro</errorMessage>
         <name>COMM_VerifyB2CPaymentMethods</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Fill in the Email, Payment Method and Airport fields and check if type is Partner. --></errorMessage>
+        <errorMessage>Preencha os campos Método de pagamento e Aeroporto e verifique se o tipo é
+                    Parceiro.</errorMessage>
         <name>COMM_VerifyPartnerFields</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Partner can only pay by courtesy or credit --></errorMessage>
+        <errorMessage>O parceiro só pode pagar por cortesia ou crédito</errorMessage>
         <name>COMM_VerifyPartnerPaymentMethods</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Please check in the &quot;Is Partner?&quot; checkbox. --></errorMessage>
+        <errorMessage>Assinale a caixa de verificação “É parceiro?”.</errorMessage>
         <name>COMM_VerifyPartnerType</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- When Preferred Contact field = Phone or Email , Phone or Email field must have a value on it and cannot be blank. --></errorMessage>
+        <errorMessage>Quando o campo Contacto preferencial = Telefone ou E-mail, o campo Telefone
+                    ou E-mail tem de ter um valor e não pode estar em branco.</errorMessage>
         <name>COMM_VerifyPreferredFields</name>
     </validationRules>
     <validationRules>

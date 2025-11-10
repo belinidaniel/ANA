@@ -8,12 +8,5 @@
         <plural>true</plural>
         <value>Contact Us Email Mappings</value>
     </caseValues>
-    <layouts>
-        <layout>Contact Us Case Email Mapping Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

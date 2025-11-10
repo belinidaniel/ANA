@@ -20,11 +20,6 @@
         <operation>notEqual</operation>
         <value>Request Denied,Archived,Expired</value>
     </filters>
-    <filters>
-        <field>COMM_CheckPartnerVisibility__c</field>
-        <operation>equals</operation>
-        <value>1</value>
-    </filters>
     <label>All Open Cases</label>
     <sharedTo>
         <allInternalUsers></allInternalUsers>

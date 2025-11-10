@@ -8,21 +8,6 @@
         <plural>true</plural>
         <value>Product Variations</value>
     </caseValues>
-    <layouts>
-        <layout>Product Variation Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Master Product --></label>
-            <section>Master Product</section>
-        </sections>
-        <sections>
-            <label><!-- Related Product --></label>
-            <section>Related Product</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
     <validationRules>
         <errorMessage><!-- It will not be possible to configure a bundle with products from different airports; --></errorMessage>

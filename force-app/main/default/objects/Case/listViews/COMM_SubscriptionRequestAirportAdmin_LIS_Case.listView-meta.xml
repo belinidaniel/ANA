@@ -8,6 +8,7 @@
     <columns>CASES.PRIORITY</columns>
     <columns>CASES.CREATED_DATE</columns>
     <columns>CORE.USERS.ALIAS</columns>
+    <columns>CASES.RECORDTYPE</columns>
     <filterScope>Queue</filterScope>
     <label>Subscription Request - Airport Admin LIS</label>
     <queue>COMM_SubscriptionRequestAirportAdmin_LIS</queue>

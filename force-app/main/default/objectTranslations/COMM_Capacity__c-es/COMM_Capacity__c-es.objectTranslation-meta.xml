@@ -9,29 +9,15 @@
         <value><!-- Capacity --></value>
     </caseValues>
     <gender><!-- Feminine --></gender>
-    <layouts>
-        <layout>Capacity Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Subscription Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <nameFieldLabel><!-- Capacity Name --></nameFieldLabel>
     <recordTypes>
-        <description><!-- Record Type for Capacity used in Non-Subscription Products --></description>
-        <label><!-- Capacity --></label>
+        <description>Tipo de registro para la capacidad utilizada en productos no suscritos</description>
+        <label>Capacidad</label>
         <name>COMM_Capacity</name>
     </recordTypes>
     <recordTypes>
-        <description><!-- Record Type for Capacity used in Subscription Products --></description>
-        <label><!-- Subscription --></label>
+        <description>Tipo de registro para la capacidad utilizada en productos de suscripción</description>
+        <label>Suscripción</label>
         <name>COMM_Subscription</name>
     </recordTypes>
     <validationRules>
@@ -39,31 +25,31 @@
         <name>COMM_VerifyAllowEdit</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Negative values are not allowed --></errorMessage>
+        <errorMessage>No se permiten valores negativos</errorMessage>
         <name>COMM_VerifyCapacityValues</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Expired Capacities cannot be changed --></errorMessage>
+        <errorMessage>Las capacidades caducadas no pueden modificarse</errorMessage>
         <name>COMM_VerifyExpiredDate</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Multiplier should greater or equal than 1 and can only have the decimal number .0 or .5 --></errorMessage>
+        <errorMessage>El multiplicador debe ser mayor o igual que 1 y sólo puede tener el número decimal .0 o .5</errorMessage>
         <name>COMM_VerifyMultiplier</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Negative values are not allowed --></errorMessage>
+        <errorMessage>No se permiten valores negativos</errorMessage>
         <name>COMM_VerifyParkingSpaces</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Capacities cannot be set in the past --></errorMessage>
+        <errorMessage>Las capacidades no pueden establecerse en el pasado</errorMessage>
         <name>COMM_VerifyPastDates</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Capacity can only be created for parent products --></errorMessage>
+        <errorMessage>Las capacidades sólo pueden crearse para productos de nivel superior</errorMessage>
         <name>COMM_VerifyProductFamilly</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Valid To cannot be set before Valid From --></errorMessage>
+        <errorMessage>La fecha de inicio de validez no puede ser anterior a la fecha de inicio de validez</errorMessage>
         <name>COMM_VerifyRangeDates</name>
     </validationRules>
 </CustomObjectTranslation>

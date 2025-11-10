@@ -76,6 +76,8 @@ global class COMM_WS_OrderDetailOutput {
 
     global class PassengerDetails {
         global String licensePlate;
+        global String secondaryLicensePlate;
+        global String affiliateNumber;
         global String name;
     }
 

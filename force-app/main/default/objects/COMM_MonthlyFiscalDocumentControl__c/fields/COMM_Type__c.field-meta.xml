@@ -21,12 +21,6 @@
                 <default>false</default>
                 <label>Reservations</label>
             </value>
-            <value>
-                <fullName>Reservation</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Reservation</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

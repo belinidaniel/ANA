@@ -98,6 +98,7 @@ public with sharing class COMM_SL_SAPFinancialDocument {
 
         HttpResponse response = sapWs.getFinancialDocument(requestMap);
         Map<String, String> responseMap = (Map<String, String>) JSON.deserialize(response.getBody(), Map<String, String>.class);
+        System.debug(responseMap);
 
         //If File wasn't returned, log error and throw error message to User informing an error occured
         if (!responseMap.containsKey(FILE_CONTENT)) {
