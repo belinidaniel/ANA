@@ -337,14 +337,8 @@ public without sharing class COMM_SL_OMS_CPMSHandler {
             request.cpmsReservationId = orderItemSummary.COMM_ReservationIdCPMS__c;
             request.aeroportId = invoiceLine.Product2.COMM_Airport__c.toUpperCase();
             request.carParkId = invoiceLine.Product2.COMM_Park__c;
-            //Convert UTC DateTime to local datetime
-            //request.validFrom = String.isBlank(orderItemSummary.COMM_TimeZoneByAirport__c) ? orderItemSummary.COMM_ReservationStart__c : convertUTCToTimezone(orderItemSummary.COMM_ReservationStart__c, orderItemSummary.COMM_TimeZoneByAirport__c);
-            //request.validTo = String.isBlank(orderItemSummary.COMM_TimeZoneByAirport__c) ? orderItemSummary.COMM_ReservationEnd__c : convertUTCToTimezone(orderItemSummary.COMM_ReservationEnd__c, orderItemSummary.COMM_TimeZoneByAirport__c);
-            
-            String dateTimeForamat = 'yyyy-MM-dd\'T\'HH:mm:ssXXX';
-            request.validFrom = String.isBlank(orderItemSummary.COMM_TimeZoneByAirport__c) ? orderItemSummary.COMM_ReservationStart__c.format(dateTimeForamat) : orderItemSummary.COMM_ReservationStart__c.format(dateTimeForamat, orderItemSummary.COMM_TimeZoneByAirport__c);
-            request.validTo = String.isBlank(orderItemSummary.COMM_TimeZoneByAirport__c) ? orderItemSummary.COMM_ReservationEnd__c.format(dateTimeForamat) : orderItemSummary.COMM_ReservationEnd__c.format(dateTimeForamat, orderItemSummary.COMM_TimeZoneByAirport__c);
-            
+            request.validFrom = orderItemSummary.COMM_ReservationStart__c;
+            request.validTo = orderItemSummary.COMM_ReservationEnd__c;
             request.barcodeType = orderItemSummary.COMM_BarcodeType__c;
             request.barcodeString = orderItemSummary.COMM_Barcode__c;
             COMM_OMS_CPMSReservationRequest.Contact contact = new COMM_OMS_CPMSReservationRequest.Contact();
@@ -391,12 +385,5 @@ public without sharing class COMM_SL_OMS_CPMSHandler {
             }
         }
         return allRequests;
-    }
-
-    public static DateTime convertUTCToTimezone (DateTime datetimeValue, String timezoneName) {
-        TimeZone target = TimeZone.getTimeZone(timezoneName);
-        Integer offsetAtUTC = target.getOffset(datetimeValue);
-
-        return datetimeValue.addSeconds(offsetAtUTC / 1000);
     }
 }

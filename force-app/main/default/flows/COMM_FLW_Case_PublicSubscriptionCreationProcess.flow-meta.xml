@@ -5,7 +5,7 @@
         <name>COMM_SendEmailToCustomer</name>
         <label>Send Email to Customer</label>
         <locationX>1106</locationX>
-        <locationY>924</locationY>
+        <locationY>816</locationY>
         <actionName>COMM_SL_SendEmail</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -40,7 +40,6 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_SendEmail</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
@@ -49,7 +48,7 @@
         <name>COMM_SetEmailRecipients</name>
         <label>Set Email Recipients</label>
         <locationX>1238</locationX>
-        <locationY>492</locationY>
+        <locationY>384</locationY>
         <assignmentItems>
             <assignToReference>COMM_RecipientEmails</assignToReference>
             <operator>Add</operator>
@@ -66,13 +65,13 @@
         <name>COMM_IsSubscriptionInConditions</name>
         <label>Is Subscription In Conditions?</label>
         <locationX>1436</locationX>
-        <locationY>384</locationY>
+        <locationY>276</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
             <name>Yes_COMM_IsSubscriptionInConditions</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>COMM_XDaysFromToday</leftValueReference>
+                <leftValueReference>COMM_20DaysFromToday</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <elementReference>$Record.COMM_EndDate__c</elementReference>
@@ -156,7 +155,7 @@
         <name>COMM_RecipientDefined</name>
         <label>Recipient defined?</label>
         <locationX>1238</locationX>
-        <locationY>600</locationY>
+        <locationY>492</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
             <name>Yes_COMM_RecipientDefined</name>
@@ -177,24 +176,15 @@
     <description>Flow to handle Public Subscription Case creation related processes.</description>
     <environments>Default</environments>
     <formulas>
-        <description>Formula to retrieve Subscription&apos;s Airport. If Value Field is empty retrieve airport from Subscription&apos;s Product</description>
-        <name>COMM_SubscriptionAirportFormula</name>
-        <dataType>String</dataType>
-        <expression>IF(ISPICKVAL({!$Record.COMM_Subscription__r.COMM_AirportValue__c}, &quot;&quot;), TEXT({!$Record.COMM_Subscription__r.COMM_Product__r.COMM_Airport__c}), TEXT({!$Record.COMM_Subscription__r.COMM_AirportValue__c}))</expression>
-    </formulas>
-    <formulas>
-        <description>Formula for the Airport Admin Queue Name based on Subscription Location. If Airport value is missing add to ANA Admin Queue.</description>
-        <name>COMM_SubscriptionRequestAirportAdminQueueNameFormula</name>
-        <dataType>String</dataType>
-        <expression>IF(ISBLANK({!COMM_SubscriptionAirportFormula}),
- &quot;COMM_SubscriptionRequestANAAdmin&quot;,
- &quot;Subscription_Request_SABA_&quot; + {!COMM_SubscriptionAirportFormula})</expression>
-    </formulas>
-    <formulas>
-        <description>Formula to calculate X days counting actual date.</description>
-        <name>COMM_XDaysFromToday</name>
+        <description>Formula to calculate 20 days counting actual date.</description>
+        <name>COMM_20DaysFromToday</name>
         <dataType>Date</dataType>
-        <expression>TODAY()+{!Get_days_before_end.COMM_DaysBeforeRenewalNotification__c}</expression>
+        <expression>TODAY()+20</expression>
+    </formulas>
+    <formulas>
+        <name>TEST</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()+20</expression>
     </formulas>
     <interviewLabel>Case Public Subscription Creation Process {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Case Public Subscription Creation Process</label>
@@ -238,7 +228,7 @@
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>COMM_SubscriptionRequestAirportAdminQueueNameFormula</elementReference>
+                <stringValue>COMM_SubscriptionRequestSABA</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -253,7 +243,7 @@
         <locationY>384</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Assign_to_SABA_Queue</targetReference>
+            <targetReference>COMM_GetNewPendingRequestCustomNotification</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -267,7 +257,7 @@
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>COMM_SubscriptionRequestAirportAdminQueueNameFormula</elementReference>
+                <stringValue>COMM_SubscriptionRequestSABA</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -280,7 +270,7 @@
         <name>COMM_GetNewPendingRequestCustomNotification</name>
         <label>Get New Pending Request Custom Notification</label>
         <locationX>50</locationX>
-        <locationY>600</locationY>
+        <locationY>492</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>COMM_SendNotificationToSABAUsers</targetReference>
@@ -302,7 +292,7 @@
         <name>COMM_GetOrganizationWideAddress</name>
         <label>Get Organization Wide Address</label>
         <locationX>1106</locationX>
-        <locationY>708</locationY>
+        <locationY>600</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>COMM_GetEmailTemplate</targetReference>
@@ -341,49 +331,13 @@
         <object>CustomNotificationType</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <recordLookups>
-        <name>Get_days_before_end</name>
-        <label>Get days before end</label>
-        <locationX>1436</locationX>
-        <locationY>276</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>COMM_IsSubscriptionInConditions</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>QualifiedApiName</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Subscription_Configuration</stringValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>COMM_SubscriptionConfiguration__mdt</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordUpdates>
-        <name>Assign_to_SABA_Queue</name>
-        <label>Assign to SABA Queue</label>
-        <locationX>50</locationX>
-        <locationY>492</locationY>
-        <connector>
-            <targetReference>COMM_GetNewPendingRequestCustomNotification</targetReference>
-        </connector>
-        <inputAssignments>
-            <field>OwnerId</field>
-            <value>
-                <elementReference>COMM_Get_SABAQueue_RunImmediately.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputReference>$Record</inputReference>
-    </recordUpdates>
     <start>
         <locationX>683</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>COMM_IsTheSubscriptionStatusInWaitingConclusionImmediatetly</targetReference>
         </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
         <filterFormula>OR(
 	{!$Record.RecordType.DeveloperName} = &apos;COMM_NewPublicSubscription&apos;,
 	{!$Record.RecordType.DeveloperName} = &apos;COMM_RecurringPublicSubscription&apos;,
@@ -402,14 +356,14 @@
             <timeSource>RecordTriggerEvent</timeSource>
         </scheduledPaths>
         <scheduledPaths>
-            <name>COMM_XDaysBeforeEnd</name>
+            <name>COMM_20DaysBeforeEnd</name>
             <connector>
-                <targetReference>Get_days_before_end</targetReference>
+                <targetReference>COMM_IsSubscriptionInConditions</targetReference>
             </connector>
-            <label>X Days Before End</label>
-            <offsetNumber>0</offsetNumber>
-            <offsetUnit>Hours</offsetUnit>
-            <recordField>Renewal_Notification_Date__c</recordField>
+            <label>20 Days Before End</label>
+            <offsetNumber>-20</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>COMM_EndDate__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>
@@ -420,7 +374,7 @@
         <name>COMM_GetEmailTemplate</name>
         <label>Get Email Template</label>
         <locationX>1106</locationX>
-        <locationY>816</locationY>
+        <locationY>708</locationY>
         <connector>
             <targetReference>COMM_SendEmailToCustomer</targetReference>
         </connector>
@@ -444,7 +398,7 @@
         <name>COMM_SendNotificationToSABAUsers</name>
         <label>Send Notification To SABA Users</label>
         <locationX>50</locationX>
-        <locationY>708</locationY>
+        <locationY>600</locationY>
         <connector>
             <targetReference>COMM_Subflow_SendEmailToSABAQueue_RunImmediately</targetReference>
         </connector>
@@ -500,7 +454,7 @@
         <inputAssignments>
             <name>QueueDeveloperName</name>
             <value>
-                <elementReference>COMM_SubscriptionRequestAirportAdminQueueNameFormula</elementReference>
+                <stringValue>COMM_SubscriptionRequestSaba</stringValue>
             </value>
         </inputAssignments>
     </subflows>
@@ -565,7 +519,7 @@
         <inputAssignments>
             <name>QueueDeveloperName</name>
             <value>
-                <elementReference>COMM_SubscriptionRequestAirportAdminQueueNameFormula</elementReference>
+                <stringValue>COMM_SubscriptionRequestSaba</stringValue>
             </value>
         </inputAssignments>
     </subflows>
@@ -584,7 +538,7 @@
         <inputAssignments>
             <name>COMM_Variable_QueueDeveloperName</name>
             <value>
-                <elementReference>COMM_SubscriptionRequestAirportAdminQueueNameFormula</elementReference>
+                <stringValue>COMM_SubscriptionRequestSABA</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -610,7 +564,7 @@
         <name>COMM_Subflow_SendEmailToSABAQueue_RunImmediately</name>
         <label>Send Email to SABA Queue</label>
         <locationX>50</locationX>
-        <locationY>816</locationY>
+        <locationY>708</locationY>
         <flowName>COMM_FLW_Utilities_SendEmailToQueueMembers</flowName>
         <inputAssignments>
             <name>COMM_Variable_EmailTemplateName</name>
@@ -621,7 +575,7 @@
         <inputAssignments>
             <name>COMM_Variable_QueueDeveloperName</name>
             <value>
-                <elementReference>COMM_SubscriptionRequestAirportAdminQueueNameFormula</elementReference>
+                <stringValue>COMM_SubscriptionRequestSABA</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>

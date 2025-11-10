@@ -598,8 +598,8 @@ public class COMM_OMS_TestDataFactory {
             Id = standardPriceBookId,
             IsActive = true,
             Type__c = 'Public',
-            COMM_ValidFrom__c = DateTime.newInstance(currentYear, 1, 1, 21, 0, 0),
-            COMM_ValidTo__c = DateTime.newInstance(currentYear, 12, 31, 20, 59, 0)
+            COMM_ValidFrom__c = DateTime.newInstance(currentYear, 1, 1, 0, 0, 0),
+            COMM_ValidTo__c = DateTime.newInstance(currentYear, 12, 31, 23, 59, 0)
         );
 
         return standardPricebook;

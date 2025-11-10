@@ -11,7 +11,7 @@
  * Jose Passos      25/06/2024       ECOMM-1523: Get Billing VAT and Name from Order instead of the Account and use COMM_Email__c or PersonEmail
  * Jose Passos      25/06/2024       ECOMM-1566: Use OrderSummary.BillingEmailAddress for VD orders
  * Daniel Reto      08/07/2024       New field to be populated on handleResponseGeneric and both handleResponse methods
- * Tiago Santos		25/07/2025		 Ctredit Memo Edit Invoice
+ * Tiago Santos		25/07/2025		 Credit Memo Edit Invoice
  **/
 @SuppressWarnings('PMD.ExcessiveClassLength')
 public without sharing class COMM_SL_OMS_SAPHandler {
@@ -581,18 +581,20 @@ public without sharing class COMM_SL_OMS_SAPHandler {
 
         return errorMessage;
     }
-    
-    public void createCreditMemo(OrderSummary os, COMM_WS_EditInvoiceInput input) {
-        String billingName = input.firstName + ' ' + input.lastName;
-        String email = os.BillingEmailAddress;
-        String street = input.address;
-        String zipCode = input.postalCode;
-        String city = input.city;
-        String country = 'Portugal';
-        String countryCode = input.country; 
-        String nif = input.vatNumber;
+    @future(callout=true)
+    public static void createCreditMemoFuture(String inputJson) {
+        COMM_WS_EditInvoiceInput input = (COMM_WS_EditInvoiceInput)JSON.deserialize(inputJson, COMM_WS_EditInvoiceInput.class);
+        COMM_IREP_OrderSummary orderSummaryRep = new COMM_REP_OrderSummary();
+        List<OrderSummary> orderSummaryList = orderSummaryRep.getOrderSummaryByOrderNumber(input.orderNumber);
+        
+        createCreditMemo(orderSummaryList[0], input);
+    }
+
+    public static void createCreditMemo(OrderSummary os, COMM_WS_EditInvoiceInput input) {
         List<ProcessException> processExceptionsList = new List<ProcessException>();
-        List<Invoice> invoices = [Select Id, COMM_SAPDocumentId2__c, COMM_SAPDocumentId__c, COMM_CreditMemoSAPId__c from Invoice where ReferenceEntityId =: os.Id];
+        List<Invoice> invoices = [Select Id, COMM_SAPDocumentId2__c, COMM_SAPDocumentId__c, COMM_CreditMemoSAPId__c, COMM_SAPIntegrationDate__c, 
+                                  COMM_SAPCount__c, COMM_PreviousDocDate__c, COMM_PreviousName__c, COMM_InvoiceEditCount__c 
+                                  from Invoice where ReferenceEntityId =: os.Id];
         List<Id> invoicesId = new List<Id>();
         invoicesId.add(invoices[0].Id);
         Invoice invoiceRecord = invoiceRep.getForSAPInvoice(invoicesId)[0]; 
@@ -605,11 +607,14 @@ public without sharing class COMM_SL_OMS_SAPHandler {
             creditMemoRequest,
             Boolean.valueOf(setting.COMM_Value__c)
         );
+        System.debug(responseCreditMemo);
         
         COMM_SL_SAPDocumentResponse responseInvoice = COMM_SL_GenerateSAPDoc.makeCallout(
             InvoiceRequest,
             Boolean.valueOf(setting.COMM_Value__c)
         );
+        System.debug(responseInvoice);
+        
         
         String errorMessage;
         if(responseInvoice != null) {
@@ -638,21 +643,33 @@ public without sharing class COMM_SL_OMS_SAPHandler {
                         COMM_DO_ProcessExceptions.NEW_S
                     )
                 );
+                return;
             }
+            // Save Previious Billing Information
+            invoices[0].COMM_PreviousName__c = os.COMM_BillingName__c;
+            invoices[0].COMM_PreviousAddress__c = os.BillingStreet;
+            invoices[0].COMM_PreviousCity__c = os.BillingCity;
+            invoices[0].COMM_PreviousVATNumber__c = os.COMM_BillingVATNumber__c;
+            invoices[0].COMM_PreviousZipCode__c = os.BillingPostalCode;
+            invoices[0].COMM_PreviousCountryCode__c = os.BillingCountryCode;
+            invoices[0].COMM_PreviousDocDate__c = invoiceRecord.COMM_SAPIntegrationDate__c;
+            invoices[0].COMM_SAPIntegrationDate__c = System.now();
+            invoices[0].COMM_SAPCount__c = invoices[0].COMM_SAPCount__c + 1;
+            invoices[0].COMM_InvoiceEditCount__c = invoices[0].COMM_InvoiceEditCount__c == null ? 1 : invoices[0].COMM_InvoiceEditCount__c + 1;
+            
             // Update Billing Address
-            os.COMM_BillingName__c = billingName;
-            os.BillingEmailAddress = email;
-            os.BillingStreet = street;
-            os.BillingPostalCode = zipCode;
-            os.BillingCity = city;
-            os.BillingCountry = country;
-            os.BillingCountryCode = countryCode; 
-            os.COMM_BillingVATNumber__c = nif;
+            os.COMM_BillingName__c = input.firstName + ' ' + input.lastName;
+            os.BillingEmailAddress = os.BillingEmailAddress;
+            os.BillingStreet = input.address;
+            os.BillingPostalCode = input.postalCode;
+            os.BillingCity = input.city;
+            os.BillingCountry = input.country;
+            os.BillingCountryCode = input.countryCode; 
+            os.COMM_BillingVATNumber__c = input.vatNumber;
             update os;
             invoices[0].COMM_SAPDocumentId2__c = invoices[0].COMM_SAPDocumentId__c;
             invoices[0].COMM_SAPDocumentId__c = responseInvoice.documentId;
         }
-        
         
         if (responseCreditMemo != null) {
             errorMessage = handleResponse(invoiceRecord, responseCreditMemo);
@@ -699,8 +716,11 @@ public without sharing class COMM_SL_OMS_SAPHandler {
                         new List<String>{ COMM_DO_ProcessExceptions.NEW_S, COMM_DO_ProcessExceptions.TRIAGED },
                         COMM_DO_ProcessExceptions.RESOLVED
                     )
-                );
+                );  
+                System.debug('Credit Memo');
                 invoices[0].COMM_CreditMemoSAPId__c = responseCreditMemo.documentId;
+                invoices[0].COMM_CreditMemoSAP_Date__c = System.today();
+                System.debug(invoices[0]);
                 update invoices;
             }
         } else {
@@ -875,6 +895,30 @@ public without sharing class COMM_SL_OMS_SAPHandler {
         OrderSummary os,
         Invoice invoice
     ) {
+        Set<Id> orderItemSummaryIdSet = new Set<Id>();
+        //For Promotion Line Items retrieve Order Item Summary Id to obtain Promotion Id
+        for (InvoiceLine invoiceLine : invoice.InvoiceLines) {
+            if (invoiceLine.Type.equalsIgnoreCase('Adjustment')) {
+                Id orderItemSummaryId = ((OrderItemSummary) invoiceLine.ReferenceEntityItem).Id;
+                orderItemSummaryIdSet.add(orderItemSummaryId);
+            }
+        }
+        
+        Map<String, String> promotionNameByOrderItemSummaryMap = new Map<String, String>();
+        if (!orderItemSummaryIdSet.isEmpty()) {
+            //Query for Promotion Id. Since several promotion can be applied to the same product use promotion price as additional key.
+            for (
+                OrderItemAdjustmentLineSummary summaryRecord : orderItemAdjustmentRep.getOrderItemAdjustLineSumByOrderItemSummaryIds(
+                    orderItemSummaryIdSet
+                )
+            ) {
+                promotionNameByOrderItemSummaryMap.put(
+                    summaryRecord.OrderItemSummaryId + String.valueOf(summaryRecord.OriginalOrderItemAdjustmentLineItem.Amount),
+                    ((Promotion) summaryRecord.AdjustmentCause)?.Name
+                );
+            }
+        }
+        
         COMM_SL_SAPDocumentRequest request = new COMM_SL_SAPDocumentRequest();
         
         request.paymentMode = 'Prepaid';
@@ -906,6 +950,26 @@ public without sharing class COMM_SL_OMS_SAPHandler {
         verifyName(os.COMM_BillingName__c, request);
 
         request.orderItems = new List<COMM_SL_SAPDocumentRequest.OrderItems>();
+        //Build Map with all Promotion Lines in Invoice
+        Map<String, List<InvoiceLine>> mapPromotionLines = new Map<String, List<InvoiceLine>>();
+        for (InvoiceLine invoiceLine : invoice.InvoiceLines) {
+            //Process Invoice Line that is Adjustment (Promotion) and Amount is different from zero
+            if (invoiceLine.Type.equalsIgnoreCase('Adjustment') && invoiceLine.LineAmount != 0.00) {
+                if (!mapPromotionLines.containsKey(invoiceLine.RelatedLineId)) {
+                    mapPromotionLines.put(invoiceLine.RelatedLineId, new List<InvoiceLine>());
+                }
+                mapPromotionLines.get(invoiceLine.RelatedLineId).add(invoiceLine);
+            }
+        }
+        
+        //Retrieve Tax Lines Amount
+        Map<Id, Decimal> taxMap = new Map<Id, Decimal>();
+        for (InvoiceLine invoiceLine : invoice.InvoiceLines) {
+            //If Line is Tax then store value (to associate with Line)
+            if (invoiceLine.Type.equalsIgnoreCase('Tax')) {
+                taxMap.put(invoiceLine.RelatedLineId, invoiceLine.LineAmount);
+            }
+        }
         
         String clientType = '';
         if (os.BillingCountryCode.equalsIgnoreCase('pt')) {
@@ -916,25 +980,61 @@ public without sharing class COMM_SL_OMS_SAPHandler {
             clientType = 'OT';
         }
         
-        List<OrderItemSummary> orderItems = new COMM_REP_OrderItemSummary().getOrderItemSummariesByOrderSummaryId(os.Id);
-        
-        for (OrderItemSummary orderItem : orderItems) {
-            if (
-                orderItem.Type.equalsIgnoreCase('Delivery Charge')
-            ) {
+        for (InvoiceLine invoiceLine : invoice.InvoiceLines) {
+            if (!invoiceLine.Type.equalsIgnoreCase('Charge') || invoiceLine.ReferenceEntityItemType.equalsIgnoreCase('Delivery Charge')) {
                 continue;
             }
             COMM_SL_SAPDocumentRequest.OrderItems line = new COMM_SL_SAPDocumentRequest.OrderItems();
-            line.location = orderItem.Product2.COMM_SAPLocation__c;
-            line.productId = orderItem.Product2.StockKeepingUnit;
-            String taxCode = orderItem.Product2.COMM_Tax__c == null ? 'Continent' : orderItem.Product2.COMM_Tax__c;
-            line.taxCode = COMM_REP_SapTaxCodesMapMdt.getSapTaxCodesMap('NC', taxCode, clientType);
-            line.quantity = 1;
-            line.description = orderItem.Description;
-            line.totalNetAmount = orderItem.TotalLineAmount ;
-            line.totalVatAmount = orderItem.TotalTaxAmount;
+            line.location = invoiceLine.Product2.COMM_SAPLocation__c;
+            line.productId = invoiceLine.Product2.StockKeepingUnit;
+            String taxCode = invoiceLine.Product2.COMM_Tax__c == null ? 'Continent' : invoiceLine.Product2.COMM_Tax__c;
+            line.taxCode = COMM_REP_SapTaxCodesMapMdt.getSapTaxCodesMap('FT', taxCode, clientType);
+            line.quantity = invoiceLine.Quantity;
+            line.description = ((OrderItemSummary) invoiceLine.ReferenceEntityItem).Description;
+            line.totalNetAmount = invoiceLine.LineAmount;
+            line.totalVatAmount = taxMap.get(invoiceLine.Id);
             line.itemReference = invoice.COMM_SAPDocumentId__c;
-            request.orderItems.add(line);                        
+            request.orderItems.add(line);
+            // check if there are promotion lines
+            List<InvoiceLine> promoInvoiceLineList = mapPromotionLines.get(invoiceLine.Id);
+            if (promoInvoiceLineList != null && !promoInvoiceLineList.isEmpty() && invoiceLine.Type.equalsIgnoreCase('Charge')) {
+                for (InvoiceLine promoInvoiceLine : promoInvoiceLineList) {
+                    COMM_SL_SAPDocumentRequest.OrderItems promoLine = line.clone();
+
+                    //Set Promotion Id as Item Reference
+                    Id orderItemSummaryId = ((OrderItemSummary) invoiceLine.ReferenceEntityItem).Id;
+                    String promotionId = promotionNameByOrderItemSummaryMap?.get(orderItemSummaryId + String.valueOf(promoInvoiceLine.LineAmount));
+                    promoLine.itemReference = promotionId?.left(ITEM_REFERENCE_LIMIT);
+
+                    //Add Amount of Promotion Lines
+                    promoLine.totalNetAmount = promoInvoiceLine.LineAmount;
+                    promoLine.totalVatAmount = taxMap.get(promoInvoiceLine.Id);
+                    //Add Promotion Line to Item List
+                    request.orderItems.add(promoLine);
+                }
+            }
+        }
+        
+        // Get GiftCard Payments
+        List<Invoice> invoices = new List<Invoice>();
+        invoices.add(invoice);
+        Map<String, List<Payment>> invoicePaymentsMap = getInvoiceGiftCardPayments(invoices);
+        List<Payment> paymentsList = invoicePaymentsMap.get(invoice.id);
+        if (paymentsList != null && !paymentsList.isEmpty()) {
+            getGiftCardPaymentDefaultProduct();
+            for (Payment payment : paymentsList) {
+                COMM_SL_SAPDocumentRequest.OrderItems giftCardPaymentLine = new COMM_SL_SAPDocumentRequest.OrderItems();
+                giftCardPaymentLine.location = defaultGiftCardPaymentProduct.COMM_SAPLocation__c;
+                giftCardPaymentLine.productId = defaultGiftCardPaymentProduct.ProductCode;
+                String taxCode = defaultGiftCardPaymentProduct.COMM_Tax__c == null ? 'Continent' : defaultGiftCardPaymentProduct.COMM_Tax__c;
+                giftCardPaymentLine.taxCode = COMM_REP_SapTaxCodesMapMdt.getSapTaxCodesMap('FT', taxCode, clientType);
+                giftCardPaymentLine.quantity = 1;
+                giftCardPaymentLine.description = defaultGiftCardPaymentProduct.Name;
+                giftCardPaymentLine.totalNetAmount = -payment.Amount;
+                giftCardPaymentLine.totalVatAmount = 0;
+                giftCardPaymentLine.itemReference = null;
+                request.orderItems.add(giftCardPaymentLine);
+            }
         }
         return request;
     }
@@ -951,6 +1051,30 @@ public without sharing class COMM_SL_OMS_SAPHandler {
         Invoice invoice,
         COMM_WS_EditInvoiceInput input
     ) {
+        Set<Id> orderItemSummaryIdSet = new Set<Id>();
+        //For Promotion Line Items retrieve Order Item Summary Id to obtain Promotion Id
+        for (InvoiceLine invoiceLine : invoice.InvoiceLines) {
+            if (invoiceLine.Type.equalsIgnoreCase('Adjustment')) {
+                Id orderItemSummaryId = ((OrderItemSummary) invoiceLine.ReferenceEntityItem).Id;
+                orderItemSummaryIdSet.add(orderItemSummaryId);
+            }
+        }
+        
+        Map<String, String> promotionNameByOrderItemSummaryMap = new Map<String, String>();
+        if (!orderItemSummaryIdSet.isEmpty()) {
+            //Query for Promotion Id. Since several promotion can be applied to the same product use promotion price as additional key.
+            for (
+                OrderItemAdjustmentLineSummary summaryRecord : orderItemAdjustmentRep.getOrderItemAdjustLineSumByOrderItemSummaryIds(
+                    orderItemSummaryIdSet
+                )
+            ) {
+                promotionNameByOrderItemSummaryMap.put(
+                    summaryRecord.OrderItemSummaryId + String.valueOf(summaryRecord.OriginalOrderItemAdjustmentLineItem.Amount),
+                    ((Promotion) summaryRecord.AdjustmentCause)?.Name
+                );
+            }
+        }
+        
         COMM_SL_SAPDocumentRequest request = new COMM_SL_SAPDocumentRequest();
         
         request.paymentMode = 'Prepaid';
@@ -975,13 +1099,34 @@ public without sharing class COMM_SL_OMS_SAPHandler {
         request.billingAddress = input.address;
         request.billingPostalCode = input.postalCode;
         request.billingCity = input.city;
-        request.billingVat = (String.isEmpty(os.COMM_BillingVATNumber__c) ? defaultVATNumber : (input.countryCode + input.vatNumber));
-        request.billingCountry = os.BillingCountryCode;
+        request.billingVat = (String.isEmpty(input.vatNumber) ? defaultVATNumber : (input.countryCode + input.vatNumber));
+        request.billingCountry = input.countryCode;
         request.creditMemoPay = '';
         
-        verifyName(os.COMM_BillingName__c, request);
+        verifyName(input.firstName + ' ' + input.lastName, request);
 
         request.orderItems = new List<COMM_SL_SAPDocumentRequest.OrderItems>();
+        
+        //Build Map with all Promotion Lines in Invoice
+        Map<String, List<InvoiceLine>> mapPromotionLines = new Map<String, List<InvoiceLine>>();
+        for (InvoiceLine invoiceLine : invoice.InvoiceLines) {
+            //Process Invoice Line that is Adjustment (Promotion) and Amount is different from zero
+            if (invoiceLine.Type.equalsIgnoreCase('Adjustment') && invoiceLine.LineAmount != 0.00) {
+                if (!mapPromotionLines.containsKey(invoiceLine.RelatedLineId)) {
+                    mapPromotionLines.put(invoiceLine.RelatedLineId, new List<InvoiceLine>());
+                }
+                mapPromotionLines.get(invoiceLine.RelatedLineId).add(invoiceLine);
+            }
+        }
+        
+        //Retrieve Tax Lines Amount
+        Map<Id, Decimal> taxMap = new Map<Id, Decimal>();
+        for (InvoiceLine invoiceLine : invoice.InvoiceLines) {
+            //If Line is Tax then store value (to associate with Line)
+            if (invoiceLine.Type.equalsIgnoreCase('Tax')) {
+                taxMap.put(invoiceLine.RelatedLineId, invoiceLine.LineAmount);
+            }
+        }
         
         String clientType = '';
         if (os.BillingCountryCode.equalsIgnoreCase('pt')) {
@@ -992,25 +1137,60 @@ public without sharing class COMM_SL_OMS_SAPHandler {
             clientType = 'OT';
         }
         
-        List<OrderItemSummary> orderItems = new COMM_REP_OrderItemSummary().getOrderItemSummariesByOrderSummaryId(os.Id);
-        
-        for (OrderItemSummary orderItem : orderItems) {
-            if (
-                orderItem.Type.equalsIgnoreCase('Delivery Charge')
-            ) {
+        for (InvoiceLine invoiceLine : invoice.InvoiceLines) {
+            if (!invoiceLine.Type.equalsIgnoreCase('Charge') || invoiceLine.ReferenceEntityItemType.equalsIgnoreCase('Delivery Charge')) {
                 continue;
             }
             COMM_SL_SAPDocumentRequest.OrderItems line = new COMM_SL_SAPDocumentRequest.OrderItems();
-            line.location = orderItem.Product2.COMM_SAPLocation__c;
-            line.productId = orderItem.Product2.StockKeepingUnit;
-            String taxCode = orderItem.Product2.COMM_Tax__c == null ? 'Continent' : orderItem.Product2.COMM_Tax__c;
-            line.taxCode = COMM_REP_SapTaxCodesMapMdt.getSapTaxCodesMap('NC', taxCode, clientType);
-            line.quantity = 1;
-            line.description = orderItem.Description;
-            line.totalNetAmount = orderItem.TotalLineAmount ;
-            line.totalVatAmount = orderItem.TotalTaxAmount;
-            line.itemReference = '';//invoice.COMM_SAPDocumentId__c;
-            request.orderItems.add(line);                        
+            line.location = invoiceLine.Product2.COMM_SAPLocation__c;
+            line.productId = invoiceLine.Product2.StockKeepingUnit;
+            String taxCode = invoiceLine.Product2.COMM_Tax__c == null ? 'Continent' : invoiceLine.Product2.COMM_Tax__c;
+            line.taxCode = COMM_REP_SapTaxCodesMapMdt.getSapTaxCodesMap('FT', taxCode, clientType);
+            line.quantity = invoiceLine.Quantity;
+            line.description = ((OrderItemSummary) invoiceLine.ReferenceEntityItem).Description;
+            line.totalNetAmount = invoiceLine.LineAmount;
+            line.totalVatAmount = taxMap.get(invoiceLine.Id);
+            request.orderItems.add(line);
+            // check if there are promotion lines
+            List<InvoiceLine> promoInvoiceLineList = mapPromotionLines.get(invoiceLine.Id);
+            if (promoInvoiceLineList != null && !promoInvoiceLineList.isEmpty() && invoiceLine.Type.equalsIgnoreCase('Charge')) {
+                for (InvoiceLine promoInvoiceLine : promoInvoiceLineList) {
+                    COMM_SL_SAPDocumentRequest.OrderItems promoLine = line.clone();
+
+                    //Set Promotion Id as Item Reference
+                    Id orderItemSummaryId = ((OrderItemSummary) invoiceLine.ReferenceEntityItem).Id;
+                    String promotionId = promotionNameByOrderItemSummaryMap?.get(orderItemSummaryId + String.valueOf(promoInvoiceLine.LineAmount));
+                    promoLine.itemReference = promotionId?.left(ITEM_REFERENCE_LIMIT);
+
+                    //Add Amount of Promotion Lines
+                    promoLine.totalNetAmount = promoInvoiceLine.LineAmount;
+                    promoLine.totalVatAmount = taxMap.get(promoInvoiceLine.Id);
+                    //Add Promotion Line to Item List
+                    request.orderItems.add(promoLine);
+                }
+            }
+        }
+        
+        // Get GiftCard Payments
+        List<Invoice> invoices = new List<Invoice>();
+        invoices.add(invoice);
+        Map<String, List<Payment>> invoicePaymentsMap = getInvoiceGiftCardPayments(invoices);
+        List<Payment> paymentsList = invoicePaymentsMap.get(invoice.id);
+        if (paymentsList != null && !paymentsList.isEmpty()) {
+            getGiftCardPaymentDefaultProduct();
+            for (Payment payment : paymentsList) {
+                COMM_SL_SAPDocumentRequest.OrderItems giftCardPaymentLine = new COMM_SL_SAPDocumentRequest.OrderItems();
+                giftCardPaymentLine.location = defaultGiftCardPaymentProduct.COMM_SAPLocation__c;
+                giftCardPaymentLine.productId = defaultGiftCardPaymentProduct.ProductCode;
+                String taxCode = defaultGiftCardPaymentProduct.COMM_Tax__c == null ? 'Continent' : defaultGiftCardPaymentProduct.COMM_Tax__c;
+                giftCardPaymentLine.taxCode = COMM_REP_SapTaxCodesMapMdt.getSapTaxCodesMap('FT', taxCode, clientType);
+                giftCardPaymentLine.quantity = 1;
+                giftCardPaymentLine.description = defaultGiftCardPaymentProduct.Name;
+                giftCardPaymentLine.totalNetAmount = -payment.Amount;
+                giftCardPaymentLine.totalVatAmount = 0;
+                giftCardPaymentLine.itemReference = null;
+                request.orderItems.add(giftCardPaymentLine);
+            }
         }
         return request;
     }
@@ -1309,6 +1489,7 @@ public without sharing class COMM_SL_OMS_SAPHandler {
      * @param orderItemsList List of Order Items
      * @return List<COMM_SL_SAPDocumentRequest.OrderItems>
      */
+    @TestVisible
     private static List<COMM_SL_SAPDocumentRequest.OrderItems> aggregateOrderItems(List<COMM_SL_SAPDocumentRequest.OrderItems> orderItemsList) {
         Map<String, COMM_SL_SAPDocumentRequest.OrderItems> aggregatedMap = new Map<String, COMM_SL_SAPDocumentRequest.OrderItems>();
         for (COMM_SL_SAPDocumentRequest.OrderItems item : orderItemsList) {
@@ -1515,6 +1696,7 @@ public without sharing class COMM_SL_OMS_SAPHandler {
      * @param billingName Billing Name to be added to request
      * @param request Request to be sent to SAP
      */
+    @TestVisible
     private static void verifyName(String billingName, COMM_SL_SAPDocumentRequest request) {
         if (String.isNotBlank(billingName)) {
             request.billingName = billingName.left(BILLING_NAME_LIMIT);
@@ -1553,6 +1735,7 @@ public without sharing class COMM_SL_OMS_SAPHandler {
     /**
      * @description Inner Class to represent Order that was sent to SAP
      */
+    @TestVisible
     private class SAPData {
         private String sapDocumentId { get; set; }
         private Datetime issuanceDate { get; set; }
@@ -1563,6 +1746,7 @@ public without sharing class COMM_SL_OMS_SAPHandler {
     /**
      * @description Inner Class to represent a Line Item's Amount
      */
+    @TestVisible
     private class AmountCalc {
         private Decimal amount { get; set; }
         private Decimal taxAmount { get; set; }

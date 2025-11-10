@@ -22,7 +22,6 @@ public inherited sharing class COMM_REP_Subscription extends FW_SobjectRep imple
         COMM_Subscription__c.COMM_ActiveSubscriptionRequestRecordType__c,
         COMM_Subscription__c.COMM_ActiveSubscriptionRequestStatus__c,
         COMM_Subscription__c.COMM_Address__c,
-        COMM_Subscription__c.COMM_AffiliateNumber__c,
         COMM_Subscription__c.COMM_Airport__c,
         COMM_Subscription__c.COMM_AutomaticRenewal__c,
         COMM_Subscription__c.COMM_CancellationDate__c,
@@ -119,7 +118,6 @@ public inherited sharing class COMM_REP_Subscription extends FW_SobjectRep imple
      * @param isActive Boolean indicating if Subscriptions to obtain are Active
      * @param licensePlate License Plate of the Vehicle associated with Subscriptions
      * @param secondaryLicensePlate Secondary License Plate of the Vehicle associated with Subscriptions
-     * @param affiliateNumber Customer's affiliate number associated with Subscriptions
      * @return List of Subscription Records found with provided filters
      */
     @SuppressWarnings('PMD.ExcessiveParameterList')
@@ -134,8 +132,7 @@ public inherited sharing class COMM_REP_Subscription extends FW_SobjectRep imple
         List<String> airportList,
         Boolean isActive,
         String licensePlate,
-        String secondaryLicensePlate,
-        String affiliateNumber
+        String secondaryLicensePlate
     ) {
         //Build Query using Framework's Query Builder for dinamic query
         FW_QueryBuilder queryBuilder = new FW_QueryBuilder(COMM_Subscription__c.sObjectType)
@@ -198,9 +195,6 @@ public inherited sharing class COMM_REP_Subscription extends FW_SobjectRep imple
         }
         if (String.isNotBlank(secondaryLicensePlate)) {
             queryBuilder.whereEquals(COMM_Subscription__c.COMM_SecondaryLicensePlate__c, secondaryLicensePlate);
-        }
-        if (String.isNotBlank(affiliateNumber)) {
-            queryBuilder.whereEquals(COMM_Subscription__c.COMM_AffiliateNumber__c, affiliateNumber);
         }
         //Add Account Id to Where clause
         String query = queryBuilder.whereEquals(COMM_Subscription__c.COMM_Account__c, accountId).getQuery();

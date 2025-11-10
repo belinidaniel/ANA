@@ -4,8 +4,8 @@
         <description>Send email to costumer informing its subscription is confirmed.</description>
         <name>COMM_SendEmailToCustomer</name>
         <label>Send Email to Customer</label>
-        <locationX>732</locationX>
-        <locationY>2522</locationY>
+        <locationX>754</locationX>
+        <locationY>2222</locationY>
         <actionName>COMM_SL_SendEmail</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>Automatic</flowTransactionModel>
@@ -40,14 +40,13 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_SendEmail</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <actionCalls>
         <description>Send email to costumer informing its subscription is confirmed.</description>
         <name>COMM_SendEmailToCustomer_2</name>
         <label>Send Email to Customer</label>
-        <locationX>72</locationX>
-        <locationY>1730</locationY>
+        <locationX>138</locationX>
+        <locationY>1622</locationY>
         <actionName>COMM_SL_SendEmail</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>Automatic</flowTransactionModel>
@@ -82,12 +81,11 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_SendEmail</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <actionCalls>
         <name>Release_Stock_on_OCI</name>
         <label>Release Stock on OCI</label>
-        <locationX>864</locationX>
+        <locationX>666</locationX>
         <locationY>1298</locationY>
         <actionName>COMM_SL_ClearProductReservations</actionName>
         <actionType>apex</actionType>
@@ -118,14 +116,13 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_ClearProductReservations</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
         <name>COMM_Assign_ProductCodeToRelease</name>
         <label>Set Product Code to Release</label>
-        <locationX>864</locationX>
+        <locationX>666</locationX>
         <locationY>1190</locationY>
         <assignmentItems>
             <assignToReference>ProductsToReleaseOnOCI</assignToReference>
@@ -141,7 +138,7 @@
     <assignments>
         <name>COMM_Assignment_SubscriptionNumberVariableSet</name>
         <label>Subscription Number Variable Set</label>
-        <locationX>732</locationX>
+        <locationX>622</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>COMM_Variable_SubscriptionNumber</assignToReference>
@@ -158,8 +155,8 @@
         <description>Set the email addresses to consider as recipients of the email to send.</description>
         <name>COMM_SetRecipientEmails</name>
         <label>Set Recipient Emails</label>
-        <locationX>864</locationX>
-        <locationY>2306</locationY>
+        <locationX>754</locationX>
+        <locationY>2114</locationY>
         <assignmentItems>
             <assignToReference>COMM_RecipientEmails</assignToReference>
             <operator>Add</operator>
@@ -168,14 +165,14 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Are_there_recipient_emails2</targetReference>
+            <targetReference>COMM_SendEmailToCustomer</targetReference>
         </connector>
     </assignments>
     <assignments>
         <description>Set the email addresses to consider as recipients of the email to send.</description>
         <name>COMM_SetRecipientEmails_2</name>
         <label>Set Recipient Emails</label>
-        <locationX>204</locationX>
+        <locationX>138</locationX>
         <locationY>1514</locationY>
         <assignmentItems>
             <assignToReference>COMM_RecipientEmails</assignToReference>
@@ -185,57 +182,13 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Are_there_recipient_emails1</targetReference>
+            <targetReference>COMM_SendEmailToCustomer_2</targetReference>
         </connector>
     </assignments>
     <decisions>
-        <name>Are_there_recipient_emails1</name>
-        <label>Are there recipient emails?</label>
-        <locationX>204</locationX>
-        <locationY>1622</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Yes_Are_there_recipient_emails1</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>COMM_RecipientEmails</leftValueReference>
-                <operator>IsEmpty</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>COMM_SendEmailToCustomer_2</targetReference>
-            </connector>
-            <label>Yes</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Are_there_recipient_emails2</name>
-        <label>Are there recipient emails?</label>
-        <locationX>864</locationX>
-        <locationY>2414</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Yes_Are_there_recipient_emails2</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>COMM_RecipientEmails</leftValueReference>
-                <operator>IsEmpty</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>COMM_SendEmailToCustomer</targetReference>
-            </connector>
-            <label>Yes</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>COMM_Decision_SubscriptionNumberVariableEmpty</name>
         <label>Is Subscription Number Variable Empty?</label>
-        <locationX>864</locationX>
+        <locationX>754</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>COMM_UpdateCaseRecord</targetReference>
@@ -261,7 +214,7 @@
         <description>Decision to check if a Case Subscription is recurring.</description>
         <name>COMM_IsCaseSubscriptionRecurring</name>
         <label>Is Case Subscription Recurring?</label>
-        <locationX>864</locationX>
+        <locationX>754</locationX>
         <locationY>1082</locationY>
         <defaultConnector>
             <targetReference>COMM_Update_Subscription</targetReference>
@@ -324,8 +277,7 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>version 1.0 - Flow to handle Public Subscription Case conclusion related processes.
-version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</description>
+    <description>Flow to handle Public Subscription Case conclusion related processes.</description>
     <environments>Default</environments>
     <formulas>
         <description>Datetime value to send on OCI start date request</description>
@@ -361,7 +313,7 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <description>Get Case Cancel Public Subscription Record Type details.</description>
         <name>COMM_Get_CaseCancelPublicSubscriptionRecordType</name>
         <label>Get Case cancel Public Subscription Record Type</label>
-        <locationX>864</locationX>
+        <locationX>754</locationX>
         <locationY>758</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -391,7 +343,7 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <description>Get Case Recurring Public Subscription Record Type details.</description>
         <name>COMM_Get_CaseRecurringPublicSubscriptionRecordType</name>
         <label>Get Case Recurring Public Subscription Record Type</label>
-        <locationX>864</locationX>
+        <locationX>754</locationX>
         <locationY>650</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -421,7 +373,7 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <description>Get Order Item Summary related record</description>
         <name>COMM_Get_OrderItemSummary</name>
         <label>Get Order Item Summary</label>
-        <locationX>1656</locationX>
+        <locationX>1458</locationX>
         <locationY>1406</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -444,7 +396,7 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <description>Get Org Wide Address email.</description>
         <name>COMM_GetOrgWideAddress</name>
         <label>Get Org Wide Address</label>
-        <locationX>864</locationX>
+        <locationX>754</locationX>
         <locationY>974</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -466,7 +418,7 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <description>Get Subscription record related on Case.</description>
         <name>COMM_GetSubscription</name>
         <label>Get Subscription</label>
-        <locationX>864</locationX>
+        <locationX>754</locationX>
         <locationY>866</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -488,14 +440,14 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <description>Rollback record updates if error occurs.</description>
         <name>COMM_RollbackRecordUpdatesOnError</name>
         <label>Rollback record updates on error.</label>
-        <locationX>2448</locationX>
+        <locationX>2250</locationX>
         <locationY>758</locationY>
     </recordRollbacks>
     <recordUpdates>
         <description>Update Subscription record.</description>
         <name>COMM_Update_CancelPublicSubscription</name>
         <label>Update Subscription</label>
-        <locationX>864</locationX>
+        <locationX>666</locationX>
         <locationY>1406</locationY>
         <faultConnector>
             <isGoTo>true</isGoTo>
@@ -545,7 +497,7 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <description>Update Order Item record related on Subscription.</description>
         <name>COMM_Update_OrderItem</name>
         <label>Update Order Item</label>
-        <locationX>1656</locationX>
+        <locationX>1458</locationX>
         <locationY>1298</locationY>
         <connector>
             <targetReference>COMM_Get_OrderItemSummary</targetReference>
@@ -573,7 +525,7 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
     <recordUpdates>
         <name>COMM_Update_OrderItemSummary</name>
         <label>Update Order Item Summary</label>
-        <locationX>1656</locationX>
+        <locationX>1458</locationX>
         <locationY>1514</locationY>
         <connector>
             <targetReference>COMM_GetEmailTemplate</targetReference>
@@ -598,7 +550,7 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <description>Update Subscription record.</description>
         <name>COMM_Update_Subscription</name>
         <label>Update Subscription</label>
-        <locationX>1656</locationX>
+        <locationX>1458</locationX>
         <locationY>1190</locationY>
         <connector>
             <targetReference>COMM_Update_OrderItem</targetReference>
@@ -642,7 +594,7 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <description>Update Case Record.</description>
         <name>COMM_UpdateCaseRecord</name>
         <label>Update Case Record</label>
-        <locationX>864</locationX>
+        <locationX>754</locationX>
         <locationY>542</locationY>
         <connector>
             <targetReference>COMM_Get_CaseRecurringPublicSubscriptionRecordType</targetReference>
@@ -721,7 +673,7 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <description>Screen component to show error message.</description>
         <name>COMM_ErrorMessageScreen</name>
         <label>Error Message Screen</label>
-        <locationX>2448</locationX>
+        <locationX>2250</locationX>
         <locationY>650</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -749,7 +701,7 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <description>Screen to User confirm that wants to conclude the Subscription Process.</description>
         <name>COMM_SubscriptionConclusionProcessScreen</name>
         <label>Subscription Conclusion Process Screen</label>
-        <locationX>864</locationX>
+        <locationX>754</locationX>
         <locationY>134</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -812,7 +764,7 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>738</locationX>
+        <locationX>628</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>COMM_SubscriptionConclusionProcessScreen</targetReference>
@@ -823,8 +775,8 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <description>Get Email Template by Language of recipient.</description>
         <name>COMM_GetEmailTemplate</name>
         <label>Get Email Template</label>
-        <locationX>864</locationX>
-        <locationY>2198</locationY>
+        <locationX>754</locationX>
+        <locationY>2006</locationY>
         <connector>
             <targetReference>COMM_SetRecipientEmails</targetReference>
         </connector>
@@ -847,7 +799,7 @@ version 1.1 - https://jira.ana.pt/projects/TICKET/queues/issue/TICKET-262901</de
         <description>Get Email Template by Language of recipient.</description>
         <name>COMM_GetEmailTemplate_2</name>
         <label>Get Email Template</label>
-        <locationX>204</locationX>
+        <locationX>138</locationX>
         <locationY>1406</locationY>
         <connector>
             <targetReference>COMM_SetRecipientEmails_2</targetReference>

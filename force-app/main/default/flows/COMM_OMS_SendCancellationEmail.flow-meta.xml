@@ -47,6 +47,7 @@
             <label>Yes</label>
         </rules>
     </decisions>
+    <description>Change to ANA Automation USer</description>
     <environments>Default</environments>
     <interviewLabel>Send Cancellation Email {!$Flow.CurrentDateTime}</interviewLabel>
     <label>OMS Send Cancellation Email</label>
@@ -99,7 +100,7 @@
         <connector>
             <targetReference>Get_Order_Summary</targetReference>
         </connector>
-        <flowRunAsUser>TriggeringUser</flowRunAsUser>
+        <flowRunAsUser>DefaultWorkflowUser</flowRunAsUser>
         <object>COMM_SendCancellationEmail__e</object>
         <triggerType>PlatformEvent</triggerType>
     </start>

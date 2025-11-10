@@ -10,7 +10,6 @@
  * Diogo Gonçalves      01/07/2024       ECOMM-1557: Added getForVoucherPDFService
  * Daniel Reto          03/07/2024       New Method: getOrderSummaryById
  * Daniel Reto          06/11/2024       ECOMM-327: New Method
- * Sofia Silva          29/07/2025       New Methods
  **/
 public interface COMM_IREP_OrderSummary extends FW_ISObjectRep {
     /**
@@ -49,16 +48,4 @@ public interface COMM_IREP_OrderSummary extends FW_ISObjectRep {
      * @return {List<OrderSummary>}
      */
     List<OrderSummary> getOrderSummaryByCOMMSalesforceOrderId(String resellerId, String salesforceOrderId);
-
-     /**
-     * @description Selects OrderSummary records based on possible errors on the reservation journey filtered on Order Product Summary fields
-     * @return List of OrderSummary
-     */
-    //List<OrderSummary> getForJourneyMonitoringOrderProdSumFilter();
-
-    /**
-     * @description Selects OrderSummary records based on possible errors on the reservation journey filtered by no related Invoices
-     * @return List of OrderSummary
-     */
-    //List<OrderSummary> getForJourneyMonitoringInvoiceFilter();
 }

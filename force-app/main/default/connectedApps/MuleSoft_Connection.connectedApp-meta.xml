@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>jopassos.external@ana.pt</contactEmail>
+    <label>MuleSoft Connection</label>
+    <oauthConfig>
+        <callbackUrl>http://localhost:8081/callback</callbackUrl>
+        <certificate>MIIEnzCCA4egAwIBAgIOAZhYv5Y8AAAAAHrg9dgwDQYJKoZIhvcNAQELBQAwgYwxJDAiBgNVBAMMG2FuYV9tdWxlc29mdF9wcm9kXzMwSnVsMjAyNTEYMBYGA1UECwwPMDBEN1IwMDAwMDVVbk1xMRcwFQYDVQQKDA5TYWxlc2ZvcmNlLmNvbTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzELMAkGA1UECAwCQ0ExDDAKBgNVBAYTA1VTQTAeFw0yNTA3MzAwMDMzMjdaFw0yNjA3MzAwMDAwMDBaMIGMMSQwIgYDVQQDDBthbmFfbXVsZXNvZnRfcHJvZF8zMEp1bDIwMjUxGDAWBgNVBAsMDzAwRDdSMDAwMDA1VW5NcTEXMBUGA1UECgwOU2FsZXNmb3JjZS5jb20xFjAUBgNVBAcMDVNhbiBGcmFuY2lzY28xCzAJBgNVBAgMAkNBMQwwCgYDVQQGEwNVU0EwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDQ3F3nBI3xkOZCOATi0X7hMsfzlfGIc7g4VOyT3kJ59Ctsmu1WBt786QE9YgHiAieyFGFJ0W7GzgfUHY2yq+q4JFBpN3uvNTChoxFEeRVOkdoIVED6Wq6Rj15BUdGl7Ej3M47/XCODIKYHLsOK977Y4VycIJwzUOr4DH3JmzQwRcO27FHTkcufwPRkDqQL3n5Aw4xFClrlmAVHOXoDnA6hMkXHM5GNe9DMe9d4JDbJifwXgzPn5XNbFWiOptodvv3s8iGkQHa/dHpjTKWM2v1dscIRt9EvBtH/AWsYg7VYGB4CZuuguwTbqBAJ+pbiFS1krKOD+L51sC9UleOKdxvPAgMBAAGjgfwwgfkwHQYDVR0OBBYEFEY0jTOeEF4P/lXPRv/oM/bXMtAyMA8GA1UdEwEB/wQFMAMBAf8wgcYGA1UdIwSBvjCBu4AURjSNM54QXg/+Vc9G/+gz9tcy0DKhgZKkgY8wgYwxJDAiBgNVBAMMG2FuYV9tdWxlc29mdF9wcm9kXzMwSnVsMjAyNTEYMBYGA1UECwwPMDBEN1IwMDAwMDVVbk1xMRcwFQYDVQQKDA5TYWxlc2ZvcmNlLmNvbTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzELMAkGA1UECAwCQ0ExDDAKBgNVBAYTA1VTQYIOAZhYv5Y8AAAAAHrg9dgwDQYJKoZIhvcNAQELBQADggEBAFB/cZzUe+ZVKrfbhesQXKQd9uLChCRuG37gm7N9uVNgaKsnAgwgTrLFMgTiAKsQ9N5Lvgs97ybnZVuMPF5Mio3KdtzIoAu8AXaiZzeFmJkv/rVrKoAgHo0lwYEjCBW2a3+HA49eUA2yydIQEy/AZ4Ml53yaWTwOh90XU9ykt0/Ev2HnUiawHSgCKSZlh7GuHUlHqoy1WT1l2mTo4/h+x31qxkTZJooZXttfYT1g9d5gylmWhaDCm82zOnORHYdAANELSo95KKSlbUPtrld8KrHCQn2SkpJ/rx/OaJy5swuK6xF3tfl74f8ks+VHcCZo5CbLawmOc3x1oUdFU+Bp+eY=</certificate>
+        <consumerKey>3MVG98Gq2O8Po4ZncPJ5DWhQVrNalD6ri8FkFf44Bu6MUlDZeHpSNe4qUokL_N3lpxvLLwuesN9OT_Cm5icBd</consumerKey>
+        <isAdminApproved>true</isAdminApproved>
+        <isClientCredentialEnabled>true</isClientCredentialEnabled>
+        <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
+        <isCodeCredentialPostOnly>false</isCodeCredentialPostOnly>
+        <isConsumerSecretOptional>false</isConsumerSecretOptional>
+        <isIntrospectAllTokens>false</isIntrospectAllTokens>
+        <isNamedUserJwtEnabled>false</isNamedUserJwtEnabled>
+        <isPkceRequired>false</isPkceRequired>
+        <isRefreshTokenRotationEnabled>false</isRefreshTokenRotationEnabled>
+        <isSecretRequiredForRefreshToken>true</isSecretRequiredForRefreshToken>
+        <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
+        <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
+        <oauthClientCredentialUser>mulesoft.integration@ana.pt</oauthClientCredentialUser>
+        <scopes>Basic</scopes>
+        <scopes>Api</scopes>
+        <scopes>RefreshToken</scopes>
+        <scopes>OpenID</scopes>
+    </oauthConfig>
+    <oauthPolicy>
+        <ipRelaxation>ENFORCE</ipRelaxation>
+        <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
+        <refreshTokenPolicy>infinite</refreshTokenPolicy>
+    </oauthPolicy>
+    <profileName>Salesforce API Only System Integrations</profileName>
+    <profileName>System Administrator</profileName>
+</ConnectedApp>

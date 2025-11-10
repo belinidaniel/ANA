@@ -21,7 +21,6 @@ public with sharing class COMM_SL_ProductIntegrationInCommerce {
 
     private static final String INTEGRATION_PRODUCT_TARGET = 'c_productTargetAudience';
     private static final String INTEGRATION_REQUIRES_STAFF = 'c_requiresAirportStaff';
-    private static final String INTEGRATION_REQUIRES_AFFILIATE = 'c_requiresAffiliate';
     private static final String INTEGRATION_PRODUCT_FEATURE = 'c_productFeature';
     private static final String INTEGRATION_TIME_TERMINAL = 'c_timeToTerminal';
     private static final String INTEGRATION_EXTERNAL_PRICING = 'c_externalPricing';
@@ -30,7 +29,6 @@ public with sharing class COMM_SL_ProductIntegrationInCommerce {
 
     private static final String INTEGRATION_TARGET_EVERYONE = 'everyone';
     private static final String INTEGRATION_TARGET_INDIVIDUAL_STAFF = 'individualStaff';
-    private static final String INTEGRATION_TARGET_AFFILIATE = 'affiliate';
     private static final String INTEGRATION_KEY_DEFAULT = 'default';
     private static final String INTEGRATION_FEATURE_LIST_SPLITTER = ';';
 
@@ -379,31 +377,15 @@ public with sharing class COMM_SL_ProductIntegrationInCommerce {
      * @param deserializedHttRequest Map with the request body to be sent to commerce
      */
     private void verifyConversion(Map<String, Object> deserializedHttRequest) {
-        //Verify if request has Required Individual Staff or Required Affiliate field.
-        // - If it has, add Product Target field whose values depends on individual staff/affiliate.
-        if (deserializedHttRequest.containsKey(INTEGRATION_REQUIRES_STAFF) || deserializedHttRequest.containsKey(INTEGRATION_REQUIRES_AFFILIATE)) {
+        //Verify if request has Required Individual Staff field. If it has add Product Target field whose values depends on individual staff.
+        if (deserializedHttRequest.containsKey(INTEGRATION_REQUIRES_STAFF)) {
             //Convert String value to Boolean
-            Boolean requiresStaff = Boolean.valueOf(deserializedHttRequest.get(INTEGRATION_REQUIRES_STAFF));
-            Boolean requiresAffiliate = Boolean.valueOf(deserializedHttRequest.get(INTEGRATION_REQUIRES_AFFILIATE));
+            deserializedHttRequest.put(INTEGRATION_REQUIRES_STAFF, Boolean.valueOf(deserializedHttRequest.get(INTEGRATION_REQUIRES_STAFF)));
 
-            // Determine product target value
-            String productTargetAudience = INTEGRATION_TARGET_EVERYONE;
-
-             if (requiresStaff) {
-                productTargetAudience = INTEGRATION_TARGET_INDIVIDUAL_STAFF;
-            } else if (requiresAffiliate) {
-                productTargetAudience = INTEGRATION_TARGET_AFFILIATE;
-            }
-
-            // Add flags to payload as needed
-            if (deserializedHttRequest.containsKey(INTEGRATION_REQUIRES_STAFF)) {
-                deserializedHttRequest.put(INTEGRATION_REQUIRES_STAFF, requiresStaff);
-            } else if (deserializedHttRequest.containsKey(INTEGRATION_REQUIRES_AFFILIATE)) {
-                deserializedHttRequest.put(INTEGRATION_REQUIRES_AFFILIATE, requiresAffiliate);
-            }
-
-            // Finally, add the product target value
-            deserializedHttRequest.put(INTEGRATION_PRODUCT_TARGET, productTargetAudience);
+            deserializedHttRequest.put(
+                INTEGRATION_PRODUCT_TARGET,
+                ((Boolean) deserializedHttRequest.get(INTEGRATION_REQUIRES_STAFF)) ? INTEGRATION_TARGET_INDIVIDUAL_STAFF : INTEGRATION_TARGET_EVERYONE
+            );
         }
 
         //Verify if request has External Availability field. If it has then convert String to Boolean

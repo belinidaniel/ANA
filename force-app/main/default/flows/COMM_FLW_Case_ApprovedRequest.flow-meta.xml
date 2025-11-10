@@ -24,7 +24,6 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_AddValueToMultiPicklist</nameSegment>
-        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
@@ -66,7 +65,6 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_SendEmail</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <actionCalls>
         <name>COMM_Action_SendEmailApprovedIndividualStaffRequest</name>
@@ -107,7 +105,6 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_SendEmail</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <apiVersion>59.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
@@ -317,36 +314,6 @@
             <targetReference>COMM_Action_SendEmailApprovedIndividualStaffRequest</targetReference>
         </connector>
         <inputAssignments>
-            <field>BillingCity</field>
-            <value>
-                <elementReference>$Record.COMM_Address__City__s</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BillingCountryCode</field>
-            <value>
-                <elementReference>$Record.COMM_Address__CountryCode__s</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BillingPostalCode</field>
-            <value>
-                <elementReference>$Record.COMM_Address__PostalCode__s</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BillingStateCode</field>
-            <value>
-                <elementReference>$Record.COMM_Address__StateCode__s</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BillingStreet</field>
-            <value>
-                <elementReference>$Record.COMM_Address__Street__s</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>COMM_Airport__c</field>
             <value>
                 <elementReference>COMM_Action_GetAirportValueAccount</elementReference>
@@ -356,54 +323,6 @@
             <field>COMM_IndividualStaff__c</field>
             <value>
                 <booleanValue>true</booleanValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>COMM_LicensePlate__c</field>
-            <value>
-                <elementReference>$Record.COMM_LicensePlate__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>COMM_SecondaryLicensePlate__c</field>
-            <value>
-                <elementReference>$Record.COMM_SecondaryLicensePlate__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>COMM_VATNumber__c</field>
-            <value>
-                <elementReference>$Record.COMM_VATNumber__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>COMM_VehicleBrand__c</field>
-            <value>
-                <elementReference>$Record.COMM_VehicleBrand__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>COMM_VehicleModel__c</field>
-            <value>
-                <elementReference>$Record.COMM_VehicleModel__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>PersonMobilePhone</field> 
-            <value>
-                <elementReference>$Record.COMM_PhoneNumber__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>SecondaryVehicleBrand__c</field>
-            <value>
-                <elementReference>$Record.COMM_SecondaryVehicleBrand__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Secondary_Vehicle_Model__c</field>
-            <value>
-                <elementReference>$Record.COMM_SecondaryVehicleModel__c</elementReference>
             </value>
         </inputAssignments>
         <inputReference>$Record.Account</inputReference>

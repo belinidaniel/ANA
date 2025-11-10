@@ -48,20 +48,6 @@
     </decisions>
     <description>Perform field updates and send notifications after ANA Admin approve case</description>
     <environments>Default</environments>
-    <formulas>
-        <description>Formula to retrieve Subscription&apos;s Airport. If Value Field is empty retrieve airport from Subscription&apos;s Product</description>
-        <name>COMM_SubscriptionAirportFormula</name>
-        <dataType>String</dataType>
-        <expression>IF(ISPICKVAL({!$Record.COMM_Subscription__r.COMM_AirportValue__c}, &quot;&quot;), TEXT({!$Record.COMM_Subscription__r.COMM_Product__r.COMM_Airport__c}), TEXT({!$Record.COMM_Subscription__r.COMM_AirportValue__c}))</expression>
-    </formulas>
-    <formulas>
-        <description>Formula for the Airport Admin Queue Name based on Subscription Location. If Airport value is missing add to ANA Admin Queue.</description>
-        <name>COMM_SubscriptionRequestAirportAdminQueueNameFormula</name>
-        <dataType>String</dataType>
-        <expression>IF(ISBLANK({!COMM_SubscriptionAirportFormula}),
- &quot;COMM_SubscriptionRequestANAAdmin&quot;,
- &quot;Subscription_Request_SABA_&quot; + {!COMM_SubscriptionAirportFormula})</expression>
-    </formulas>
     <interviewLabel>Case Subscription Post AP Conclusion Updates {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Case Subscription Post AP Conclusion Updates</label>
     <processMetadataValues>
@@ -171,7 +157,7 @@
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <subflows>
         <name>COMM_Send_SABA_Notification</name>
         <label>Send SABA Notification</label>
@@ -229,7 +215,7 @@
         <inputAssignments>
             <name>QueueDeveloperName</name>
             <value>
-                <elementReference>COMM_SubscriptionRequestAirportAdminQueueNameFormula</elementReference>
+                <stringValue>COMM_SubscriptionRequestSABA</stringValue>
             </value>
         </inputAssignments>
     </subflows>

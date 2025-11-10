@@ -14,25 +14,24 @@ global without sharing class COMM_WS_Invoice {
     @HttpPut
     global static void updateInvocie() {
         RestResponse res = RestContext.response;
+        res.addHeader('Content-Type', 'application/json');
+        Integer statusCode = 200;
         try 
         {
         	String requestBody = RestContext.request.requestBody.toString();
             requestBody = requestBody.replaceAll('""', 'null');
-            COMM_WS_EditInvoiceInput inputRequest = COMM_WS_EditInvoiceInput.parse(requestBody);
+            COMM_SL_OMS_SAPHandler.createCreditMemoFuture(requestBody);
             
-            COMM_IREP_OrderSummary orderSummaryRep = new COMM_REP_OrderSummary();
-            List<OrderSummary> orderSummaryList = orderSummaryRep.getOrderSummaryByOrderNumber(inputRequest.orderNumber);
-            
-            COMM_SL_OMS_SAPHandler handler = new COMM_SL_OMS_SAPHandler();
-            if (orderSummaryList.size() > 0) {
-            	handler.createCreditMemo(orderSummaryList[0], inputRequest);
-            }
+            res.statusCode = statusCode;
+            res.responseBody = Blob.valueOf(JSON.serialize(new COMM_WS_EditInvoiceOutput()));
 
         } catch (Exception e) {
             errorResp.errorCode = 'ERROR_FOUND';
             errorResp.message = e.getMessage();
             COMM_GEN_Utility.logError(e, errorResp.message, 'COMM_WS_Invoice');
-            COMM_OCI_Utils.setResponse(res, 500, JSON.serialize(errorResp));
+            COMM_OCI_Utils.setResponse(res, 500, JSON.serialize(errorResp.message));
+            res.statusCode = 500;
+            res.responseBody = Blob.valueOf(JSON.serialize(errorResp));
         }
         
     }

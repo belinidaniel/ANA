@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>ana.automation.user@ana.pt</contactEmail>
+    <label>B2C Commerce Cloud Service Provider</label>
+    <oauthConfig>
+        <callbackUrl>https://production-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/pt_PT/Login-OAuthReentrySalesforce
+https://production-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/en/Login-OAuthReentrySalesforce
+https://production-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/es/Login-OAuthReentrySalesforce
+https://store.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/pt_PT/Login-OAuthReentrySalesforce
+https://store.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/en/Login-OAuthReentrySalesforce
+https://store.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/es/Login-OAuthReentrySalesforce</callbackUrl>
+        <consumerKey>3MVG98Gq2O8Po4ZncPJ5DWhQVrCKoX6ieqFyhiXdzw_fUF11eG25dxR1WPxgN.poS5DZ4hh9dyFnXe2vT63h1</consumerKey>
+        <isAdminApproved>true</isAdminApproved>
+        <isClientCredentialEnabled>false</isClientCredentialEnabled>
+        <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
+        <isCodeCredentialPostOnly>false</isCodeCredentialPostOnly>
+        <isConsumerSecretOptional>false</isConsumerSecretOptional>
+        <isIntrospectAllTokens>false</isIntrospectAllTokens>
+        <isNamedUserJwtEnabled>false</isNamedUserJwtEnabled>
+        <isPkceRequired>false</isPkceRequired>
+        <isRefreshTokenRotationEnabled>false</isRefreshTokenRotationEnabled>
+        <isSecretRequiredForRefreshToken>false</isSecretRequiredForRefreshToken>
+        <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
+        <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
+        <scopes>Basic</scopes>
+        <singleLogoutUrl>https://store.ana.pt</singleLogoutUrl>
+    </oauthConfig>
+    <oauthPolicy>
+        <ipRelaxation>ENFORCE</ipRelaxation>
+        <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
+        <refreshTokenPolicy>zero</refreshTokenPolicy>
+    </oauthPolicy>
+    <plugin>COMM_SL_ConnectedAppCommerce</plugin>
+    <profileName>Customers</profileName>
+</ConnectedApp>

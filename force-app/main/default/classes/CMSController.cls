@@ -193,9 +193,4 @@ public with sharing class CMSController {
             throw new AuraHandledException(e.getMessage());
         }
     }
-
-    @AuraEnabled(cacheable=true)
-    public static String getExperienceId() {
-       return Site.getExperienceId();
-    }
 }

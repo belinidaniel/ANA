@@ -12,6 +12,7 @@
  **/
 public inherited sharing class COMM_SL_WS_GetOrderDetails {
     private static final String INVALID_ORDERNUMBER_PARAMETER_ERROR = 'The Order Number received doesn\'t exist!';
+    private static final String MAX_ATTEMPTS_TO_EDIT_INVOICE = COMM_CommerceConfiguration__mdt.getInstance('MaxAttemptsToEditInvoice').COMM_Value__c;
     /**
      * @description Check if any Order record exists for the request order number.
      * @param String orderNumberValue - Order Number to search
@@ -42,7 +43,6 @@ public inherited sharing class COMM_SL_WS_GetOrderDetails {
             billingAddress.city = orderSummaryRecord.BillingCity;
             billingAddress.vat = orderSummaryRecord.COMM_BillingVATNumber__c;
             billingAddress.phoneNumber = orderSummaryRecord.BillingPhoneNumber;
-            billingAddress.country = orderSummaryRecord.BillingCountry;
             billingAddress.countryCode = orderSummaryRecord.BillingCountryCode;
 
             // process Financial Documents to be sent on the response
@@ -59,6 +59,13 @@ public inherited sharing class COMM_SL_WS_GetOrderDetails {
                 financialDocumentRecord.creditMemoId = invoiceRecord.COMM_CreditMemoSAPId__c;
                 financialDocumentRecord.oldSAPId = invoiceRecord.COMM_SAPDocumentId2__c;
                 financialDocumentRecord.isInvoiceEdited = invoiceRecord.COMM_CreditMemoSAPId__c != null;
+                financialDocumentRecord.creditMemoDate = invoiceRecord.COMM_CreditMemoSAP_Date__c;
+                financialDocumentRecord.previousName = invoiceRecord.COMM_PreviousName__c;
+                financialDocumentRecord.previousDocNumber = invoiceRecord.COMM_SAPDocumentId2__c;
+                financialDocumentRecord.previousDocDate = invoiceRecord.COMM_PreviousDocDate__c;
+                financialDocumentRecord.invoiceEditCount = Integer.valueOf(invoiceRecord.COMM_InvoiceEditCount__c);
+                financialDocumentRecord.maxAttempsToEditInvoice = Integer.valueOf(MAX_ATTEMPTS_TO_EDIT_INVOICE);
+                
                 financialDocumentsList.add(financialDocumentRecord);
             }
             for (CreditMemo creditMemoRecord : orderSummaryRecord.CreditMemos) {
@@ -78,9 +85,7 @@ public inherited sharing class COMM_SL_WS_GetOrderDetails {
             for (OrderItemSummary orderItemSummaryRecord : orderSummaryRecord.OrderItemSummaries) {
                 COMM_WS_OrderDetailOutput.PassengerDetails passengerDetailsRecord = new COMM_WS_OrderDetailOutput.PassengerDetails();
                 passengerDetailsRecord.licensePlate = orderItemSummaryRecord.COMM_LicensePlate__c;
-                passengerDetailsRecord.secondaryLicensePlate = orderItemSummaryRecord.COMM_SecondaryLicensePlate__c;
                 passengerDetailsRecord.name = orderItemSummaryRecord.COMM_ReservationName__c;
-                passengerDetailsRecord.affiliateNumber = orderItemSummaryRecord.COMM_AffiliateNumber__c;
 
                 COMM_WS_OrderDetailOutput.OrderProducts orderProductRecord = new COMM_WS_OrderDetailOutput.OrderProducts();
                 orderProductRecord.productCode = orderItemSummaryRecord.Product2?.ProductCode;

@@ -88,8 +88,7 @@ public with sharing class COMM_SL_WS_SubscriptionManagement {
             requestBody.airports,
             requestBody.status,
             requestBody.licensePlate,
-            requestBody.secondaryLicensePlate,
-            requestBody.affiliateNumber
+            requestBody.secondaryLicensePlate
         );
 
         //Verify if Page Number and Size was provided in request. If not use Default Values.

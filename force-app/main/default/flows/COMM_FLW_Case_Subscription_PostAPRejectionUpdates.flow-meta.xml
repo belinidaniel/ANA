@@ -16,7 +16,6 @@
             </value>
         </inputParameters>
         <nameSegment>Case.COMM_Send_SubscriptionRequestDeniedEmail_EN</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <actionCalls>
         <description>Send Subscription Request Denied Email to Partner Admin ES</description>
@@ -34,7 +33,6 @@
             </value>
         </inputParameters>
         <nameSegment>Case.COMM_Send_SubscriptionRequestDeniedEmail_ES</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <actionCalls>
         <description>Send Subscription Request Denied Email to Partner Admin PT</description>
@@ -52,7 +50,6 @@
             </value>
         </inputParameters>
         <nameSegment>Case.COMM_Send_SubscriptionRequestDeniedEmail_PT</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
@@ -288,7 +285,7 @@
             <label>en_US</label>
         </rules>
     </decisions>
-    <description>Perform field updates and send email notifications after ANA Admin rejects case for test purprose</description>
+    <description>Perform field updates and send email notifications after ANA Admin rejects case</description>
     <environments>Default</environments>
     <interviewLabel>Case Subscription Post AP Rejection Updates {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Case Subscription Post AP Rejection Updates</label>
@@ -512,8 +509,8 @@
                 <targetReference>Change_to_Expired</targetReference>
             </connector>
             <label>15 Days Later</label>
-            <offsetNumber>1</offsetNumber>
-            <offsetUnit>Minutes</offsetUnit>
+            <offsetNumber>15</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
             <timeSource>RecordTriggerEvent</timeSource>
         </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>

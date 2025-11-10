@@ -6,7 +6,7 @@
         <name>Add_User_Email_to_Collection</name>
         <label>Add User Email to Collection</label>
         <locationX>534</locationX>
-        <locationY>2066</locationY>
+        <locationY>1958</locationY>
         <assignmentItems>
             <assignToReference>UserEmails</assignToReference>
             <operator>Add</operator>
@@ -22,7 +22,7 @@
         <name>Add_User_Id_to_Collection</name>
         <label>Add User Id to Collection</label>
         <locationX>534</locationX>
-        <locationY>974</locationY>
+        <locationY>866</locationY>
         <assignmentItems>
             <assignToReference>UserIds</assignToReference>
             <operator>Add</operator>
@@ -47,14 +47,14 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>get_user_ids_to_exclude</targetReference>
+            <targetReference>Get_Queue_Members</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>COMM_Assignment_AddQueueIdToCollection</name>
         <label>Add Queue Id to Collection</label>
         <locationX>270</locationX>
-        <locationY>974</locationY>
+        <locationY>866</locationY>
         <assignmentItems>
             <assignToReference>COMM_Variable_QueueIds</assignToReference>
             <operator>Add</operator>
@@ -70,7 +70,7 @@
         <name>COMM_Assignment_AddRoleIdToCollection</name>
         <label>Add Role Id to Collection</label>
         <locationX>270</locationX>
-        <locationY>1574</locationY>
+        <locationY>1466</locationY>
         <assignmentItems>
             <assignToReference>COMM_Variable_RoleId</assignToReference>
             <operator>Add</operator>
@@ -86,7 +86,7 @@
         <name>COMM_Assignment_StoreEmailInEnglishList</name>
         <label>Store Email in English List</label>
         <locationX>798</locationX>
-        <locationY>2282</locationY>
+        <locationY>2174</locationY>
         <assignmentItems>
             <assignToReference>EnglishEmailList</assignToReference>
             <operator>Add</operator>
@@ -102,7 +102,7 @@
         <name>COMM_Assignment_StoreEmailInPortugueseList</name>
         <label>Store Email in Portuguese List</label>
         <locationX>270</locationX>
-        <locationY>2282</locationY>
+        <locationY>2174</locationY>
         <assignmentItems>
             <assignToReference>PortugueseEmailList</assignToReference>
             <operator>Add</operator>
@@ -118,7 +118,7 @@
         <name>COMM_Assignment_StoreEmailInSpanishList</name>
         <label>Store Email in Spanish List</label>
         <locationX>534</locationX>
-        <locationY>2282</locationY>
+        <locationY>2174</locationY>
         <assignmentItems>
             <assignToReference>SpanishEmailList</assignToReference>
             <operator>Add</operator>
@@ -134,7 +134,7 @@
         <name>COMM_Assignment_StoreUserRecordsInList</name>
         <label>Assignment: Store User Records in List</label>
         <locationX>182</locationX>
-        <locationY>2558</locationY>
+        <locationY>2450</locationY>
         <assignmentItems>
             <assignToReference>COMM_Variable_UserList</assignToReference>
             <operator>Assign</operator>
@@ -147,7 +147,7 @@
         <name>COMM_Decision_MemberIsUserOrQueue</name>
         <label>Member is User or Queue?</label>
         <locationX>402</locationX>
-        <locationY>866</locationY>
+        <locationY>758</locationY>
         <defaultConnector>
             <targetReference>Add_User_Id_to_Collection</targetReference>
         </defaultConnector>
@@ -172,7 +172,7 @@
         <name>COMM_Decision_UserLanguageSplit</name>
         <label>User Language Split</label>
         <locationX>534</locationX>
-        <locationY>2174</locationY>
+        <locationY>2066</locationY>
         <defaultConnector>
             <targetReference>COMM_Assignment_StoreEmailInEnglishList</targetReference>
         </defaultConnector>
@@ -212,7 +212,7 @@
         <name>COMM_Decision_VerifyGroupType</name>
         <label>Verify Group Type</label>
         <locationX>402</locationX>
-        <locationY>1466</locationY>
+        <locationY>1358</locationY>
         <defaultConnector>
             <targetReference>COMM_Loop_CollectRoleIdFromGroup</targetReference>
         </defaultConnector>
@@ -239,7 +239,7 @@
         <locationX>182</locationX>
         <locationY>134</locationY>
         <defaultConnector>
-            <targetReference>get_user_ids_to_exclude</targetReference>
+            <targetReference>Get_Queue_Members</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Has Queue ID</defaultConnectorLabel>
         <rules>
@@ -265,8 +265,7 @@
             <label>No Queue Id</label>
         </rules>
     </decisions>
-    <description>version 1.0 - Returns a list of all the emails of the given queue members
-version 1.1 - https://jira.ana.pt/browse/TICKET-261395</description>
+    <description>Returns a list of all the emails of the given queue members</description>
     <environments>Default</environments>
     <interviewLabel>Get Emails From Queue Members {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Get Emails From Queue Members</label>
@@ -274,7 +273,7 @@ version 1.1 - https://jira.ana.pt/browse/TICKET-261395</description>
         <name>Collect_User_Emails</name>
         <label>Collect User Emails</label>
         <locationX>182</locationX>
-        <locationY>1958</locationY>
+        <locationY>1850</locationY>
         <collectionReference>Get_User_Details</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -288,7 +287,7 @@ version 1.1 - https://jira.ana.pt/browse/TICKET-261395</description>
         <name>Collect_User_Ids</name>
         <label>Collect User Ids</label>
         <locationX>182</locationX>
-        <locationY>758</locationY>
+        <locationY>650</locationY>
         <collectionReference>Get_Queue_Members</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -302,7 +301,7 @@ version 1.1 - https://jira.ana.pt/browse/TICKET-261395</description>
         <name>COMM_Loop_CollectRoleIdFromGroup</name>
         <label>Collect Role Id from Group</label>
         <locationX>182</locationX>
-        <locationY>1358</locationY>
+        <locationY>1250</locationY>
         <collectionReference>COMM_GetRecords_Group</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -335,7 +334,7 @@ version 1.1 - https://jira.ana.pt/browse/TICKET-261395</description>
         <name>COMM_GetRecords_Group</name>
         <label>Get Group</label>
         <locationX>182</locationX>
-        <locationY>1250</locationY>
+        <locationY>1142</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>COMM_Loop_CollectRoleIdFromGroup</targetReference>
@@ -384,7 +383,7 @@ version 1.1 - https://jira.ana.pt/browse/TICKET-261395</description>
         <name>Get_Queue_Members</name>
         <label>Get Queue Members</label>
         <locationX>182</locationX>
-        <locationY>650</locationY>
+        <locationY>542</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Collect_User_Ids</targetReference>
@@ -397,13 +396,6 @@ version 1.1 - https://jira.ana.pt/browse/TICKET-261395</description>
                 <elementReference>QueueId</elementReference>
             </value>
         </filters>
-        <filters>
-            <field>Id</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <elementReference>get_user_ids_to_exclude.Id</elementReference>
-            </value>
-        </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>GroupMember</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -412,7 +404,7 @@ version 1.1 - https://jira.ana.pt/browse/TICKET-261395</description>
         <name>Get_User_Details</name>
         <label>Get User Details</label>
         <locationX>182</locationX>
-        <locationY>1850</locationY>
+        <locationY>1742</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Collect_User_Emails</targetReference>
@@ -437,28 +429,6 @@ version 1.1 - https://jira.ana.pt/browse/TICKET-261395</description>
         <queriedFields>Id</queriedFields>
         <queriedFields>Email</queriedFields>
         <queriedFields>LanguageLocaleKey</queriedFields>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <description>this get records will retrieve the ids of users who do not wish to receive the email message</description>
-        <name>get_user_ids_to_exclude</name>
-        <label>Get User Ids to exclude</label>
-        <locationX>182</locationX>
-        <locationY>542</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Get_Queue_Members</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Email</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>mcinfante@ana.pt</stringValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>User</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <start>

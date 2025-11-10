@@ -433,7 +433,7 @@
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <description>Variable with identifier of Affiliate Account.</description>
         <name>COMM_AffiliateAccountId</name>

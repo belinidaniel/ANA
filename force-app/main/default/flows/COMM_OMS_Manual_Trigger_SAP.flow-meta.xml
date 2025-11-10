@@ -22,6 +22,7 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_OMS_SAPHandler</nameSegment>
+        <offset>0</offset>
     </actionCalls>
     <actionCalls>
         <name>COMM_Action_CallSAPInvoice</name>
@@ -44,6 +45,7 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_OMS_SAPHandler</nameSegment>
+        <offset>0</offset>
     </actionCalls>
     <apiVersion>59.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
@@ -151,13 +153,6 @@
             <name>Outcome_AlreadyHasSAPDocumentIdInvoice</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>COMM_Get_Invoice.COMM_SAPDocumentId__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
                 <leftValueReference>COMM_Get_Invoice</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
@@ -196,7 +191,7 @@
             <conditionLogic>(2 AND (1 OR 5)) OR (4 AND 3)</conditionLogic>
             <conditions>
                 <leftValueReference>COMM_Get_Invoice.NetPaymentsApplied</leftValueReference>
-                <operator>GreaterThan</operator>
+                <operator>EqualTo</operator>
                 <rightValue>
                     <numberValue>0.0</numberValue>
                 </rightValue>
@@ -586,7 +581,7 @@
             <targetReference>Decision_ConfirmObject</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <name>confirmed_to_proceed</name>
         <dataType>Boolean</dataType>

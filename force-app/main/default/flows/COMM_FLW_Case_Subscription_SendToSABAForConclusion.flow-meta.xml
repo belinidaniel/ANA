@@ -64,9 +64,7 @@
         <description>Formula for the Airport Admin Queue Name based on Subscription Location. If Airport value is missing add to ANA Admin Queue.</description>
         <name>COMM_SubscriptionRequestAirportAdminQueueNameFormula</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK({!COMM_SubscriptionAirportFormula}),
- &quot;COMM_SubscriptionRequestANAAdmin&quot;,
- &quot;Subscription_Request_SABA_&quot; + {!COMM_SubscriptionAirportFormula})</expression>
+        <expression>IF(ISBLANK({!COMM_SubscriptionAirportFormula}), &quot;COMM_SubscriptionRequestANAAdmin&quot;, &quot;COMM_SubscriptionRequestAirportAdmin_&quot; + {!COMM_SubscriptionAirportFormula})</expression>
     </formulas>
     <interviewLabel>Case Subscription Send To SABA For Conclusion {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Case Subscription Send To SABA For Conclusion</label>
@@ -176,7 +174,7 @@
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>COMM_SubscriptionRequestAirportAdminQueueNameFormula</elementReference>
+                <stringValue>COMM_SubscriptionRequestSABA</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -209,7 +207,6 @@
         <filterFormula>AND(
   OR(
     {!$Record.RecordType.DeveloperName}=&apos;COMM_NewSubscription&apos;,
-    {!$Record.RecordType.DeveloperName}=&apos;COMM_NewPublicSubscription&apos;,
     {!$Record.RecordType.DeveloperName}=&apos;COMM_CancelationRequest&apos;,
     {!$Record.RecordType.DeveloperName}=&apos;COMM_ManualRenewal&apos;,
     {!$Record.RecordType.DeveloperName}=&apos;COMM_ChangeOwnership&apos;,
@@ -250,7 +247,7 @@
         <inputAssignments>
             <name>COMM_Variable_QueueDeveloperName</name>
             <value>
-                <stringValue>COMM_SubscriptionRequestAirportAdminQueueNameFormula</stringValue>
+                <stringValue>COMM_SubscriptionRequestSABA</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -287,7 +284,7 @@
         <inputAssignments>
             <name>COMM_Variable_QueueDeveloperName</name>
             <value>
-                <stringValue>COMM_SubscriptionRequestAirportAdminQueueNameFormula</stringValue>
+                <stringValue>COMM_SubscriptionRequestSABA</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -324,7 +321,7 @@
         <inputAssignments>
             <name>COMM_Variable_QueueDeveloperName</name>
             <value>
-                <stringValue>COMM_SubscriptionRequestAirportAdminQueueNameFormula</stringValue>
+                <stringValue>COMM_SubscriptionRequestSABA</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -406,7 +403,7 @@
         <inputAssignments>
             <name>QueueDeveloperName</name>
             <value>
-                <elementReference>COMM_SubscriptionRequestAirportAdminQueueNameFormula</elementReference>
+                <stringValue>COMM_SubscriptionRequestSABA</stringValue>
             </value>
         </inputAssignments>
     </subflows>
@@ -531,7 +528,7 @@
         <inputAssignments>
             <name>QueueDeveloperName</name>
             <value>
-                <stringValue>COMM_SubscriptionRequestAirportAdminQueueNameFormula</stringValue>
+                <stringValue>COMM_SubscriptionRequestSABA</stringValue>
             </value>
         </inputAssignments>
     </subflows>
@@ -595,7 +592,7 @@
         <inputAssignments>
             <name>QueueDeveloperName</name>
             <value>
-                <elementReference>COMM_SubscriptionRequestAirportAdminQueueNameFormula</elementReference>
+                <stringValue>COMM_SubscriptionRequestSABA</stringValue>
             </value>
         </inputAssignments>
     </subflows>
