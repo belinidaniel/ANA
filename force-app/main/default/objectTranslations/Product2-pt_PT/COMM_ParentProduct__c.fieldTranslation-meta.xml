@@ -2,8 +2,8 @@
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <label>Produto Pai</label>
     <lookupFilter>
-        <errorMessage><!-- Airport needs to be the same in both Parent and Child Product --></errorMessage>
+        <errorMessage>O aeroporto tem de ser o mesmo nos produtos pai e filho</errorMessage>
     </lookupFilter>
     <name>COMM_ParentProduct__c</name>
-    <relationshipLabel><!-- Products --></relationshipLabel>
+    <relationshipLabel>Produtos</relationshipLabel>
 </CustomFieldTranslation>

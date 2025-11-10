@@ -8,20 +8,6 @@
         <plural>true</plural>
         <value>Capacities</value>
     </caseValues>
-    <layouts>
-        <layout>Capacity Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Subscription Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <recordTypes>
         <description><!-- Record Type for Capacity used in Non-Subscription Products --></description>
         <label><!-- Capacity --></label>

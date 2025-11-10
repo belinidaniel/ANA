@@ -133,6 +133,12 @@ public inherited sharing class COMM_REP_OrderSummary extends FW_SobjectRep imple
         if (inputRequest.licensePlate != null) {
             orderItemSummayWhereClauseQuery.whereEquals('COMM_LicensePlate__c', inputRequest.licensePlate);
         }
+        if (inputRequest.secondaryLicensePlate != null) {
+            orderItemSummayWhereClauseQuery.whereEquals('COMM_SecondaryLicensePlate__c', inputRequest.secondaryLicensePlate);
+        }
+        if (inputRequest.affiliateNumber != null) {
+            orderItemSummayWhereClauseQuery.whereEquals('COMM_AffiliateNumber__c,', inputRequest.affiliateNumber);
+        }
         if (inputRequest.productTypes != null && !inputRequest.productTypes.isEmpty()) {
             orderItemSummayWhereClauseQuery.whereIn('Product2.Family', COMM_DO_Product2.getFilterProductFamilyAPI(inputRequest.productTypes));
         }
@@ -204,6 +210,8 @@ public inherited sharing class COMM_REP_OrderSummary extends FW_SobjectRep imple
                     SELECT
                         Id,
                         COMM_LicensePlate__c,
+                        COMM_SecondaryLicensePlate__c,
+                        COMM_AffiliateNumber__c,
                         COMM_ReservationName__c,
                         COMM_ReservationStart__c,
                         COMM_ReservationEnd__c,

@@ -70,7 +70,7 @@ public with sharing class COMM_SL_PublicSubscriptionCreation {
      * @param invoiceIdsList List of invoice identifiers to process.
      * @return List of Order Item Summary to process.
      */
-    public static List<OrderItemSummary> getOrderItemSummary(List<Id> invoiceIdsList) {
+    private static List<OrderItemSummary> getOrderItemSummary(List<Id> invoiceIdsList) {
         Map<Id, Invoice> invoiceByIdMap = new Map<Id, Invoice>();
         List<InvoiceLine> invoiceLineList = new List<InvoiceLine>();
         Set<String> orderItemSummaryIdSet = new Set<String>();

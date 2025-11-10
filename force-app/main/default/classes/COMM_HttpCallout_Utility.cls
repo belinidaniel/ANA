@@ -70,7 +70,9 @@ public class COMM_HttpCallout_Utility {
 
         try {
             Http http = new Http();
+            System.debug('Callout:httpRequest: '+httpRequest);
             httpResponse = http.send(httpRequest);
+            System.debug('Callout:httpResponse: '+httpResponse);
         } catch (Exception e) {
             COMM_GEN_Utility.logError(e, 'HTTP Callout Utility doCallout', 'COMM_GEN_HttpCalloutUtility');
         }

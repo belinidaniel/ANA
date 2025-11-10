@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>COMM_Active__c</columns>
+    <columns>COMM_Account__c</columns>
+    <columns>COMM_Product__c</columns>
+    <columns>COMM_PriceBook__c</columns>
+    <columns>COMM_DailyLimit__c</columns>
+    <columns>COMM_AvailableDailyQuantity__c</columns>
+    <columns>COMM_CurrentDailyQuantity__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

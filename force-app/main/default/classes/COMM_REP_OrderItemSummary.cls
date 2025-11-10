@@ -81,6 +81,8 @@ public inherited sharing class COMM_REP_OrderItemSummary extends FW_SobjectRep i
                 OriginalOrderItem.COMM_ReservationStart__c,
                 OriginalOrderItem.COMM_ReservationEnd__c,
                 OriginalOrderItem.COMM_LicensePlate__c,
+                OriginalOrderItem.COMM_SecondaryLicensePlate__c,
+                OriginalOrderItem.COMM_AffiliateNumber__c,
                 OriginalOrderItem.Order.AccountId,
                 OriginalOrderItem.Order.BillToContactId,
                 OriginalOrderItem.Order.Account.COMM_BillingFirstName__c,
@@ -126,7 +128,9 @@ public inherited sharing class COMM_REP_OrderItemSummary extends FW_SobjectRep i
                     COMM_TimeZoneByAirport__c,
                     Product2.Family,
                     COMM_ReservationEnd__c,
-                    COMM_LicensePlate__c
+                    COMM_AffiliateNumber__c,
+                    COMM_LicensePlate__c,
+                    COMM_SecondaryLicensePlate__c
                 FROM OrderItemSummary
                 WHERE OrderSummaryId IN :orderSummaryIds AND (COMM_QRCode__c != NULL OR COMM_Barcode__c != NULL) AND Status != :returnedStatus
                 WITH SECURITY_ENFORCED // This is required for the flow to work. With USER_MODE it fails with permission issues on user autoproc.
@@ -143,7 +147,9 @@ public inherited sharing class COMM_REP_OrderItemSummary extends FW_SobjectRep i
                     COMM_TimeZoneByAirport__c,
                     Product2.Family,
                     COMM_ReservationEnd__c,
-                    COMM_LicensePlate__c
+                    COMM_AffiliateNumber__c,
+                    COMM_LicensePlate__c,
+                    COMM_SecondaryLicensePlate__c
                 FROM OrderItemSummary
                 WHERE
                     OrderSummaryId IN :orderSummaryIds

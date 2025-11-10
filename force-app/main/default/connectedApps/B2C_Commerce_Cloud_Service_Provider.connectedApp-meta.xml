@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
-    <contactEmail>ana.automation.user@ana.pt</contactEmail>
+    <contactEmail>luis.oliveira@capgemini.com</contactEmail>
     <label>B2C Commerce Cloud Service Provider</label>
     <oauthConfig>
-        <callbackUrl>https://production-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/pt_PT/Login-OAuthReentrySalesforce
-https://production-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/en/Login-OAuthReentrySalesforce
-https://production-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/es/Login-OAuthReentrySalesforce
-https://store.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/pt_PT/Login-OAuthReentrySalesforce
-https://store.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/en/Login-OAuthReentrySalesforce
-https://store.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/es/Login-OAuthReentrySalesforce</callbackUrl>
-        <consumerKey>3MVG98Gq2O8Po4ZncPJ5DWhQVrCKoX6ieqFyhiXdzw_fUF11eG25dxR1WPxgN.poS5DZ4hh9dyFnXe2vT63h1</consumerKey>
+        <callbackUrl>https://staging-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/pt_PT/Login-OAuthReentrySalesforce
+https://staging-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/es/Login-OAuthReentrySalesforce
+https://staging-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/en/Login-OAuthReentrySalesforce
+https://staging-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/Login-OAuthReentrySalesforce
+https://stg-ecommerce.ext.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/pt_PT/Login-OAuthReentrySalesforce
+https://stg-ecommerce.ext.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/es/Login-OAuthReentrySalesforce
+https://stg-ecommerce.ext.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/en/Login-OAuthReentrySalesforce
+https://stg-ecommerce.ext.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/Login-OAuthReentrySalesforce</callbackUrl>
+        <consumerKey>3MVG9T992fY2Y4vvafIcpDDWi_xGhJgNLVX99bpRz88rIZsGflHZbxk8jRZI_1NZHRfM_GL4r1lkZWEUmgu.x</consumerKey>
         <isAdminApproved>true</isAdminApproved>
         <isClientCredentialEnabled>false</isClientCredentialEnabled>
         <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
@@ -23,7 +25,7 @@ https://store.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/es/Login-OAuth
         <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
         <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
         <scopes>Basic</scopes>
-        <singleLogoutUrl>https://store.ana.pt</singleLogoutUrl>
+        <singleLogoutUrl>https://staging-eu01-anaaeroportos.demandware.net</singleLogoutUrl>
     </oauthConfig>
     <oauthPolicy>
         <ipRelaxation>ENFORCE</ipRelaxation>

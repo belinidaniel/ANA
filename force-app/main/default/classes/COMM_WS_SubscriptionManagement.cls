@@ -45,6 +45,7 @@ global with sharing class COMM_WS_SubscriptionManagement {
 
         try {
             // Parse the request body to a map
+            System.debug(req.requestBody.toString());
             Map<String, Object> requestMap = COMM_RestServices_Utility.parseRequest(req.requestBody.toString());
             //Retrieve Account Id from URL
             String accountId = req.requestURI.substring(req.requestURI.lastIndexOf('/') + 1);

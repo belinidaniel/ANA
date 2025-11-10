@@ -18,6 +18,7 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_GetCardProductPrice</nameSegment>
+        <offset>0</offset>
         <outputParameters>
             <assignToReference>COMM_Variable_LowestPriceBookEntry</assignToReference>
             <name>output</name>
@@ -37,7 +38,7 @@
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>COMM_Outcome_Confirmed</name>
-            <conditionLogic>((1 AND ( 2 OR ( 3 OR 4 OR 5 OR 6 ) ) ) AND (7 OR (9 AND 4) )) AND 8</conditionLogic>
+            <conditionLogic>((((1 AND ( 2 OR ( 3 OR 4 OR 5 OR 6 ) ) ) AND (7 OR (9 AND 4) )) AND 8) OR 10 OR 11)</conditionLogic>
             <conditions>
                 <leftValueReference>recordId.COMM_Status__c</leftValueReference>
                 <operator>NotEqualTo</operator>
@@ -101,6 +102,20 @@
                     <stringValue>COMM_CancelationRequest</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Super Admin</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$UserRole.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>COMM_ANA_Admin</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>COMM_Screen_SubscriptionCancellationWarning</targetReference>
             </connector>
@@ -127,6 +142,11 @@
         <expression>TODAY()</expression>
     </formulas>
     <formulas>
+        <name>COMM_Formula_Status</name>
+        <dataType>String</dataType>
+        <expression>IF( OR ( {!$Profile.Name} == &quot;Super Admin&quot;,  {!$UserRole.DeveloperName} == &quot;COMM_ANA_Admin&quot;), &quot;Process Concluded&quot;, &quot;Waiting Approval&quot;)</expression>
+    </formulas>
+    <formulas>
         <description>Formula to retrieve Subscription&apos;s Airport. If Value Field is empty retrieve airport from Subscription&apos;s Product</description>
         <name>COMM_SubscriptionAirportFormula</name>
         <dataType>String</dataType>
@@ -145,6 +165,7 @@
         <expression>IF(ISNULL({!$User.ContactId}), {!recordId.COMM_Contact__c}, {!$User.ContactId})</expression>
     </formulas>
     <interviewLabel>COMM: Subscription Cancellation {!$Flow.CurrentDateTime}</interviewLabel>
+    <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <label>COMM: Subscription Cancellation</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -363,7 +384,7 @@
         <inputAssignments>
             <field>Status</field>
             <value>
-                <stringValue>Waiting Approval</stringValue>
+                <elementReference>COMM_Formula_Status</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -451,12 +472,6 @@
             </value>
         </filters>
         <inputAssignments>
-            <field>COMM_ActiveSubscriptionRequest__c</field>
-            <value>
-                <elementReference>COMM_Create_CaseRecordCancelSubscription</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>COMM_AutomaticRenewal__c</field>
             <value>
                 <booleanValue>false</booleanValue>
@@ -468,9 +483,15 @@
                 <elementReference>COMM_Formula_CancelationDate</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>COMM_Status__c</field>
+            <value>
+                <stringValue>Archieved</stringValue>
+            </value>
+        </inputAssignments>
         <object>COMM_Subscription__c</object>
     </recordUpdates>
-    <runInMode>SystemModeWithSharing</runInMode>
+    <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
         <name>COMM_Screen_SubscriptionCancellationConfirmationMessage</name>
         <label>Screen Subscription Cancellation Confirmation Message</label>

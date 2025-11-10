@@ -8,12 +8,5 @@
         <plural>true</plural>
         <value>OMS Callout Settings</value>
     </caseValues>
-    <layouts>
-        <layout>OMS Callout Setting Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

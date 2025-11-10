@@ -19,7 +19,9 @@ global class COMM_WS_SearchOrdersInput {
     global Date reservationStartDate;
     global Date reservationEndDate;
     global String orderNumber;
+    global String affiliateNumber;
     global String licensePlate;
+    global String secondaryLicensePlate;
     global List<String> productTypes;
     global List<String> airports;
     global List<Integer> status;

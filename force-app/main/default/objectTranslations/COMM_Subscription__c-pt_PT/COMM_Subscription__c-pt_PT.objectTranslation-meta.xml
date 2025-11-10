@@ -9,98 +9,20 @@
         <value>Avenças</value>
     </caseValues>
     <gender>Feminine</gender>
-    <layouts>
-        <layout>Community - Partner Layout</layout>
-        <sections>
-            <label><!-- Client Information --></label>
-            <section>Client Information</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Subscription Details --></label>
-            <section>Subscription Details</section>
-        </sections>
-        <sections>
-            <label><!-- Vehicle Information --></label>
-            <section>Vehicle Information</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Direct Sales Layout</layout>
-        <sections>
-            <label>Informação do Cliente</label>
-            <section>Client Information</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label>Detalhes da Avença</label>
-            <section>Subscription Details</section>
-        </sections>
-        <sections>
-            <label>Informação do Veículo</label>
-            <section>Vehicle Information</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Partner Layout</layout>
-        <sections>
-            <label>Informação do Cliente</label>
-            <section>Client Information</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label>Detalhes da Avença</label>
-            <section>Subscription Details</section>
-        </sections>
-        <sections>
-            <label>Informação do Veículo</label>
-            <section>Vehicle Information</section>
-        </sections>
-    </layouts>
     <nameFieldLabel>Nome da Avença</nameFieldLabel>
-    <quickActions>
-        <label><!-- Cancel Renewal --></label>
-        <name>COMM_Subscription_CancelRenewalSubscription</name>
-    </quickActions>
-    <quickActions>
-        <aspect>Master</aspect>
-        <label>Cancelar Avença</label>
-        <name>COMM_Subscription_CancelSubscription</name>
-    </quickActions>
-    <quickActions>
-        <aspect>Master</aspect>
-        <label>Alterar Avença</label>
-        <name>COMM_Subscription_ChangeSubscription</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- Re-Activate Subscription --></label>
-        <name>COMM_Subscription_ReactivateSubscription</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- Renew Subscription --></label>
-        <name>COMM_Subscription_RenewSubscription</name>
-    </quickActions>
     <recordTypes>
-        <description><!-- Represents a Subscription associated with Direct Sales --></description>
-        <label><!-- Direct Sales --></label>
+        <description>Representa uma Assinatura associada a Vendas Directas</description>
+        <label>Vendas directas</label>
         <name>COMM_DirectSales</name>
     </recordTypes>
     <recordTypes>
-        <description><!-- Represents a Subscription associated with a Partner --></description>
-        <label><!-- Partner --></label>
+        <description>Representa uma Assinatura associada a um Parceiro</description>
+        <label>Parceiro</label>
         <name>COMM_Partner</name>
     </recordTypes>
     <validationRules>
-        <errorMessage><!-- You can&apos;t deactivate the Subscription when Subscription status is in Process Concluded! --></errorMessage>
+        <errorMessage>Não é possível desativar a Subscrição quando o estado da Subscrição está em
+                    Processo Concluído!</errorMessage>
         <name>COMM_ActiveSubscription</name>
     </validationRules>
 </CustomObjectTranslation>

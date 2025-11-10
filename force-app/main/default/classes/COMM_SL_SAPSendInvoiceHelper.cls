@@ -8,6 +8,8 @@
  * Developer        Date             Description
  * -----------------------------------------------------------------------------------
  * Daniel Lascas    23/04/2024       ECOMM-194: Original version
+ * André Luna       27/10/2025		TICKET-261964: Courtesy Subscriptions filtered to not be sent to SAP
+
  **/
 public inherited sharing class COMM_SL_SAPSendInvoiceHelper {
     private static final String WHERE_CLAUSE = 'CreatedDate = N_MONTHS_AGO:';
@@ -79,19 +81,20 @@ public inherited sharing class COMM_SL_SAPSendInvoiceHelper {
                 controlDate.monthsBetween(Date.valueOf(invoice.CreatedDate)) == 0 &&
                 (invoice.COMM_MonthlyFiscalDocumentControl__c == null || controlId.equals(invoice.COMM_MonthlyFiscalDocumentControl__c))
             ) {
-                invoiceToSendList.add(invoice);
-
-                //Create Key for Ratio appliable Invoices (Key is Park + Airport)
-                String mapKey = invoice.COMM_SubscriptonProduct__r.COMM_Park__c + invoice.COMM_SubscriptonProduct__r.COMM_Airport__c;
-                //If Subscription's Payment Method is Courtesy then exempt it from Payment
                 if (COMM_DO_Subscription.PAYMENT_COURTESY.equals(invoice.COMM_Subscripton__r.COMM_PaymentMethod__c)) {
                     invoice.COMM_ExemptPayment__c = true;
-                } else if (COMM_DO_Product2.SUBCATEGORY_STAFF_COMPANY.equals(invoice.COMM_SubscriptonProduct__r.COMM_SubCategory__c)) {
-                    //For Staff Company Subscriptions verify if Exemption should apply based on Account Ratio
-                    addToMap(staffInvoiceMap, invoice, mapKey);
-                } else if (COMM_DO_Product2.SUBCATEGORY_OFFICIAL_ENTITY.equals(invoice.COMM_SubscriptonProduct__r.COMM_SubCategory__c)) {
-                    //For Official Entity Subscriptions verify if Exemption should apply based on Account Ratio
-                    addToMap(entityInvoiceMap, invoice, mapKey);
+                } else {
+                    invoiceToSendList.add(invoice);
+
+                    //Create Key for Ratio appliable Invoices (Key is Park + Airport)
+                    String mapKey = invoice.COMM_SubscriptonProduct__r.COMM_Park__c + invoice.COMM_SubscriptonProduct__r.COMM_Airport__c;
+                    if (COMM_DO_Product2.SUBCATEGORY_STAFF_COMPANY.equals(invoice.COMM_SubscriptonProduct__r.COMM_SubCategory__c)) {
+                        //For Staff Company Subscriptions verify if Exemption should apply based on Account Ratio
+                        addToMap(staffInvoiceMap, invoice, mapKey);
+                    } else if (COMM_DO_Product2.SUBCATEGORY_OFFICIAL_ENTITY.equals(invoice.COMM_SubscriptonProduct__r.COMM_SubCategory__c)) {
+                        //For Official Entity Subscriptions verify if Exemption should apply based on Account Ratio
+                        addToMap(entityInvoiceMap, invoice, mapKey);
+                    }
                 }
             }
         }

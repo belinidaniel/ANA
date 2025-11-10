@@ -43,6 +43,7 @@ public interface COMM_IREP_Subscription extends FW_ISObjectRep {
      * @param isActive Boolean indicating if Subscriptions to obtain are Active
      * @param licensePlate License Plate of the Vehicle associated with Subscriptions
      * @param secondaryLicensePlate Secondary License Plate of the Vehicle associated with Subscriptions
+     * @param affiliateNumber Customer's affiliate number associated with Subscriptions
      * @return List of Subscription Records found with provided filters
      */
     List<COMM_Subscription__c> getSubscriptionsByAccountId(
@@ -56,7 +57,8 @@ public interface COMM_IREP_Subscription extends FW_ISObjectRep {
         List<String> airportList,
         Boolean isActive,
         String licensePlate,
-        String secondaryLicensePlate
+        String secondaryLicensePlate,
+        String affiliateNumber
     );
     /**
      * @description Get Subscription records by Subscription Number

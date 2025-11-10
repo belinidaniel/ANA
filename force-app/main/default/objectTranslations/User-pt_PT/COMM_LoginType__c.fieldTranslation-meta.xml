@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Login Type --></label>
+    <label>Tipo de início de sessão</label>
     <name>COMM_LoginType__c</name>
     <picklistValues>
         <masterLabel>Azure</masterLabel>
-        <translation><!-- Azure --></translation>
+        <translation>Brasil</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Facebook</masterLabel>
@@ -20,6 +20,6 @@
     </picklistValues>
     <picklistValues>
         <masterLabel>Partner</masterLabel>
-        <translation><!-- Partner --></translation>
+        <translation>Parceiro</translation>
     </picklistValues>
 </CustomFieldTranslation>

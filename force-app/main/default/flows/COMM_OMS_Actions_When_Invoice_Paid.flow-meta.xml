@@ -15,7 +15,6 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_OMS_CPMSHandler</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <actionCalls>
         <name>Call_Create_Gift_Cards</name>
@@ -32,7 +31,6 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_CreateGiftCard</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <actionCalls>
         <description>COMM_CallCreatePublicSubscription</description>
@@ -50,7 +48,6 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_PublicSubscriptionCreation</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <actionCalls>
         <name>Call_SAP_Handler</name>
@@ -67,7 +64,6 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_OMS_SAPHandler</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
@@ -178,7 +174,6 @@
                 <targetReference>Call_Create_Public_Subscription</targetReference>
             </connector>
             <label>Scheduled Path - Create New Public Subscription</label>
-            <maxBatchSize>1</maxBatchSize>
             <offsetNumber>0</offsetNumber>
             <offsetUnit>Minutes</offsetUnit>
             <timeSource>RecordTriggerEvent</timeSource>

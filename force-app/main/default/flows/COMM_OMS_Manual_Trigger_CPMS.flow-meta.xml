@@ -21,10 +21,34 @@
             </value>
         </inputParameters>
         <nameSegment>COMM_SL_OMS_CPMSHandler</nameSegment>
-        <offset>0</offset>
     </actionCalls>
     <apiVersion>59.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Invoice_has_balance_to_retry</name>
+        <label>Invoice has balance to retry</label>
+        <locationX>610</locationX>
+        <locationY>356</locationY>
+        <defaultConnector>
+            <targetReference>Invoice_does_not_have_any_balance_to_retry_screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>NoBalance</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Invoice.Balance</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Confirm_to_proceed_screen</targetReference>
+            </connector>
+            <label>No</label>
+        </rules>
+    </decisions>
     <decisions>
         <name>Is_ReferenceEntity_an_Order</name>
         <label>Is ReferenceEntity an Order</label>
@@ -45,7 +69,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Confirm_to_proceed_screen</targetReference>
+                <targetReference>Invoice_has_balance_to_retry</targetReference>
             </connector>
             <label>Yes</label>
         </rules>
@@ -72,7 +96,6 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>flow version criada para desbloquear https://jira.ana.pt/browse/TICKET-229550</description>
     <environments>Default</environments>
     <interviewLabel>OMS Manually Trigger CPMS {!$Flow.CurrentDateTime}</interviewLabel>
     <label>OMS Manually Trigger CPMS</label>

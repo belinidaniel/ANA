@@ -116,6 +116,7 @@ private class COMM_SL_WS_SubscriptionManagementTest {
                     (List<String>) fflib_Match.isNull(),
                     (Boolean) fflib_Match.isNull(),
                     (String) fflib_Match.isNull(),
+                    (String) fflib_Match.isNull(),
                     (String) fflib_Match.isNull()
                 )
             )
@@ -228,6 +229,7 @@ private class COMM_SL_WS_SubscriptionManagementTest {
                     (String) fflib_Match.isNull(),
                     (List<String>) fflib_Match.isNull(),
                     (Boolean) fflib_Match.isNull(),
+                    (String) fflib_Match.isNull(),
                     (String) fflib_Match.isNull(),
                     (String) fflib_Match.isNull()
                 )

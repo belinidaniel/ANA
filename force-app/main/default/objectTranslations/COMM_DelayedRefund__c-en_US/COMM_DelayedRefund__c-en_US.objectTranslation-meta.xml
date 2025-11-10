@@ -8,12 +8,5 @@
         <plural>true</plural>
         <value>Delayed Refunds</value>
     </caseValues>
-    <layouts>
-        <layout>Delayed Refund Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

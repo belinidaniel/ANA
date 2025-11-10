@@ -25,8 +25,10 @@ public with sharing class COMM_OMS_CPMSReservationRequest {
     public String cpmsReservationId { get; set; }
     public String aeroportId { get; set; }
     public String carParkId { get; set; }
-    public Datetime validFrom { get; set; }
-    public Datetime validTo { get; set; }
+    //public Datetime validFrom { get; set; }
+    //public Datetime validTo { get; set; }
+    public String validFrom { get; set; }
+    public String validTo { get; set; }
     public String barcodeType { get; set; }
     public String barcodeString { get; set; }
     public Contact contact { get; set; }

@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldSets>
-        <label><!-- PersonalInfo_EPIM --></label>
+        <label>Información personal_EPIM</label>
         <name>PersonalInfo_EPIM</name>
     </fieldSets>
-    <layouts>
-        <layout>User Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>User Profile Layout</layout>
-        <layoutType>UserAlt</layoutType>
-        <sections>
-            <label>Acerca de</label>
-            <section>About</section>
-        </sections>
-        <sections>
-            <label>Antecedentes</label>
-            <section>Background</section>
-        </sections>
-        <sections>
-            <label>Contacto</label>
-            <section>Contact</section>
-        </sections>
-    </layouts>
 </CustomObjectTranslation>

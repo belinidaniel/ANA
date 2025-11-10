@@ -225,6 +225,8 @@ public with sharing class COMM_Async_SAPSendInvoiceAndCreditMemo extends FW_Asyn
         for (Account accRecord : accountList) {
             //Verify if Account has Subscription Invoices to send to SAP
             if (invoiceListByAccountIdMap.containsKey(accRecord.Id) || creditMemoListByAccountIdMap.containsKey(accRecord.Id)) {
+                System.debug('accRecord: '+accRecord);
+                System.debug('controlMap: '+controlMap);
                 for (COMM_MonthlyFiscalDocumentControl__c controlRecord : controlMap.get(accRecord.Id)) {
                     //Obtain Date from Control Record then verify invoice/creditMemo to obtain all created on the same month as control record
                     DateTime controlDate = DateTime.newInstanceGmt(

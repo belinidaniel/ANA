@@ -8,12 +8,5 @@
         <plural>true</plural>
         <value>Commerce App Attribute Mappings</value>
     </caseValues>
-    <layouts>
-        <layout>Commerce App Attribute Mapping Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

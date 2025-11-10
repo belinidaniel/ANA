@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Active Subscription Request Status --></label>
+    <label>Estado do pedido de avença ativa</label>
     <name>COMM_ActiveSubscriptionRequestStatus__c</name>
 </CustomFieldTranslation>

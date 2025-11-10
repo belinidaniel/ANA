@@ -4,27 +4,27 @@
     <name>COMM_SubCategory__c</name>
     <picklistValues>
         <masterLabel>ANA + Entities</masterLabel>
-        <translation><!-- ANA + Entities --></translation>
+        <translation>ANA + Entidades</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Courtesy</masterLabel>
-        <translation><!-- Courtesy --></translation>
+        <translation>Cortesía</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Economy</masterLabel>
-        <translation><!-- Economy --></translation>
+        <translation>Economía</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Exempt Official Entity</masterLabel>
-        <translation><!-- Exempt Official Entity --></translation>
+        <translation>Entidad Oficial Exenta</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Fast Lane</masterLabel>
-        <translation><!-- Fast Lane --></translation>
+        <translation>Vía Rápida</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Fast Track</masterLabel>
-        <translation><!-- Fast Track --></translation>
+        <translation>Vía Rápida</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Fast Track Plus</masterLabel>
@@ -32,43 +32,43 @@
     </picklistValues>
     <picklistValues>
         <masterLabel>Lounge</masterLabel>
-        <translation><!-- Lounge --></translation>
+        <translation>Sala VIP</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Lounge Adult</masterLabel>
-        <translation><!-- Lounge Adult --></translation>
+        <translation>Sala VIP Adulto</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Lounge Adult Non Schengen</masterLabel>
-        <translation><!-- Lounge Adult Non Schengen --></translation>
+        <translation>Sala Adulto No Schengen</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Lounge Adult Schengen</masterLabel>
-        <translation><!-- Lounge Adult Schengen --></translation>
+        <translation>Sala Adulto Schengen</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Lounge Adult with shower</masterLabel>
-        <translation><!-- Lounge Adult with shower --></translation>
+        <translation>Sala Adulto con ducha</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Lounge Child</masterLabel>
-        <translation><!-- Lounge Child --></translation>
+        <translation>Sala Niño</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Lounge Child Non Schengen</masterLabel>
-        <translation><!-- Lounge Child Non Schengen --></translation>
+        <translation>Sala Niño No Schengen</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Lounge Child Schengen</masterLabel>
-        <translation><!-- Lounge Child Schengen --></translation>
+        <translation>Sala Niño Schengen</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Lounge Child with shower</masterLabel>
-        <translation><!-- Lounge Child with shower --></translation>
+        <translation>Sala Niño con ducha</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Park</masterLabel>
-        <translation><!-- Park --></translation>
+        <translation>Parque</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Premium</masterLabel>
@@ -76,19 +76,19 @@
     </picklistValues>
     <picklistValues>
         <masterLabel>Public</masterLabel>
-        <translation><!-- Public --></translation>
+        <translation>Público</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>RAC / Shuttle NL</masterLabel>
-        <translation><!-- RAC / Shuttle NL --></translation>
+        <translation>RAC / Lanzadera NL</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Staff Company</masterLabel>
-        <translation><!-- Staff Company --></translation>
+        <translation>Personal Empresa</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Staff Individual</masterLabel>
-        <translation><!-- Staff Individual --></translation>
+        <translation>Personal Individual</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Terminal</masterLabel>

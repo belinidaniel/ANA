@@ -8,24 +8,5 @@
         <plural>true</plural>
         <value>Batch Definitions</value>
     </caseValues>
-    <layouts>
-        <layout>Batch Definition Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
-    <quickActions>
-        <label><!-- Abort Schedule --></label>
-        <name>Abort_Schedule</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- New Job Execution --></label>
-        <name>New_Job_Execution</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- Schedule Batch --></label>
-        <name>Schedule_Batch</name>
-    </quickActions>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

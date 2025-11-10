@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
-    <contactEmail>az.salesforce.svc@ana.pt</contactEmail>
+    <contactEmail>tbsantos.externo@ana.pt</contactEmail>
     <label>B2C Commerce Core Integration</label>
     <oauthConfig>
         <callbackUrl>http://localhost:1717/OauthRedirect</callbackUrl>
         <certificate>MIIDrTCCApWgAwIBAgIUNt5UgqAoi1WvjoV/gaev4qyYuBcwDQYJKoZIhvcNAQELBQAwfzELMAkGA1UEBhMCUFQxDzANBgNVBAgMBkxpc2JvbjEPMA0GA1UEBwwGTGlzYm9uMRcwFQYDVQQKDA5BTkEgQWVyb3BvcnRvczEMMAoGA1UECwwDQU5BMScwJQYJKoZIhvcNAQkBFhhhei5zYWxlc2ZvcmNlLnN2Y0BhbmEucHQwHhcNMjUwNzE1MTg0NjMyWhcNMjYwNzE1MTg0NjMyWjB/MQswCQYDVQQGEwJQVDEPMA0GA1UECAwGTGlzYm9uMQ8wDQYDVQQHDAZMaXNib24xFzAVBgNVBAoMDkFOQSBBZXJvcG9ydG9zMQwwCgYDVQQLDANBTkExJzAlBgkqhkiG9w0BCQEWGGF6LnNhbGVzZm9yY2Uuc3ZjQGFuYS5wdDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKYqkg9Pwmug/BWrSzR61fpHfsKB21E2LXexqfn3kFJxFCRVLaIPA4hlg3OznMw7sQAb8VL8e6FXJNtpQGePjXXKJQst3tV0WCYyecl3Cw5CI4/jvDKhdb0IXLsj9txpiMLfHul0pnhYF2CcLJt6m+tysKnoQzp0e5tVJ4UZixpZeSICwznDy/mat4NmVfxQ4PD/nVKzT2KmrZ3Vtyu8Iej+8TxtBL0Pb43Ojl/LISB9MWmKGff4GWxzSUhyeMXlUYjpLzfAao+OwfwzdDIrS3cGlM+fF6iBccslX92wGAlQucp+HdT+uPtzKyGAdxn2dKNMzzWxpHsOwTcDj+zPEYsCAwEAAaMhMB8wHQYDVR0OBBYEFL5JNc5Tk9Cru/QszEB3ndR7TM94MA0GCSqGSIb3DQEBCwUAA4IBAQBcZ4XUvnLDJxJb5efNrOg7co7gjlwYRcTWbYOqXZOzO/9YXTWaIp6ro+D+rn+VCGs6035n6b4JAz0fBUhCuCKTAf6VkDgXK+p18Fi4eYy0i3Vd3gTNAMTSg49aiWMTEkAlJX0BzISxRxuZbQhj/oR7yBLEyHP8RNXAOJ32qoo48+hnH2NLEyt2/uqjccayFJSGFhAaYdG02oSxIKW9x9Mr/f1aXQ7bJG9qwh7NdCHSOojB52n2h0aatfgTkaR+zoVLXhYwQJcL+A7usUnZct0qz7zGk39cYeKCTcg1uQ8VAqSZr5H/IZIXZwbGdhF8X220yijyG3DWFLodQ87Fbfxx</certificate>
-        <consumerKey>3MVG98Gq2O8Po4ZncPJ5DWhQVrIJoKvNns0jBOCOv_fhxh.BHmEWd1ZDcKpp_SghAXwnLc6V2ZEuRaQhasQFX</consumerKey>
+        <consumerKey>3MVG9T992fY2Y4vvafIcpDDWi_xZ9CE3Lzb_G4tCnjS.jF_.Se6yNEhSpaTLvBCBE8FPktVPDiuPtFvEOrO2c</consumerKey>
         <isAdminApproved>true</isAdminApproved>
         <isClientCredentialEnabled>false</isClientCredentialEnabled>
         <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
@@ -25,7 +25,8 @@
     <oauthPolicy>
         <ipRelaxation>ENFORCE</ipRelaxation>
         <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
-        <refreshTokenPolicy>specific_lifetime:13:DAYS</refreshTokenPolicy>
+        <refreshTokenPolicy>infinite</refreshTokenPolicy>
     </oauthPolicy>
+    <profileName>Super Admin</profileName>
     <profileName>System Administrator</profileName>
 </ConnectedApp>

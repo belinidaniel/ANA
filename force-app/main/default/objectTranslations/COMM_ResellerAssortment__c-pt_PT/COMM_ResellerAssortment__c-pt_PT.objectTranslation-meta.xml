@@ -9,20 +9,5 @@
         <value><!-- Reseller Assortment --></value>
     </caseValues>
     <gender><!-- Feminine --></gender>
-    <layouts>
-        <layout>Reseller Assortment Layout</layout>
-        <sections>
-            <label><!-- Account Details --></label>
-            <section>Account Details</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Product Details --></label>
-            <section>Product Details</section>
-        </sections>
-    </layouts>
     <nameFieldLabel><!-- Reseller Product Name --></nameFieldLabel>
 </CustomObjectTranslation>

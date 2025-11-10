@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help><!-- Use semicolon &apos;;&apos; to separate different features --></help>
-    <label><!-- Product Feature --></label>
+    <help>Utilice punto y coma &apos;;&apos; para separar diferentes características</help>
+    <label>Característica del producto</label>
     <name>COMM_ProductFeature__c</name>
 </CustomFieldTranslation>
