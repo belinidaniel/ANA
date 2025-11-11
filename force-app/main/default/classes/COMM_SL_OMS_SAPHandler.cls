@@ -16,7 +16,13 @@
 @SuppressWarnings('PMD.ExcessiveClassLength')
 public without sharing class COMM_SL_OMS_SAPHandler {
     private static String defaultCurrency = 'EUR';
-    private static String defaultVATNumber = '999999990';
+    private static String defaultVATNumber = 'PT999999990';
+    private static final String DEFAULT_BILLING_NAME = 'Consumidor Final';
+    private static final String DEFAULT_BILLING_ADDRESS = '-';
+    private static final String DEFAULT_BILLING_CITY = '-';
+    private static final String DEFAULT_BILLING_POSTAL_CODE = '-';
+    private static final String DEFAULT_BILLING_EMAIL = 'kiosk@ana.pt';
+    private static final String DEFAULT_BILLING_COUNTRY = 'PT';
     private static final String PE_MESSAGE = 'Communication with SAP failed';
     private static final String ERROR_DEFAULT_GIFTCARD_NOTFOUND = 'No default giftCard payment product found: ';
     private static final string INVOICEOBJECTID = '3tt';
@@ -460,13 +466,17 @@ public without sharing class COMM_SL_OMS_SAPHandler {
             request.vatDifferenceAmount = 0.00;
         }
         request.taxAmout = invoice.TotalTaxAmount;
-        request.billingEmail = os.BillingEmailAddress;
-        request.billingAddress = os.BillingStreet;
-        request.billingPostalCode = os.BillingPostalCode;
-        request.billingCity = os.BillingCity;
-        request.billingVat = (String.isEmpty(os.COMM_BillingVATNumber__c) ? defaultVATNumber : (os.BillingCountryCode + os.COMM_BillingVATNumber__c));
-        request.billingCountry = os.BillingCountryCode;
-        verifyName(os.COMM_BillingName__c, request);
+        populateBillingData(
+            request,
+            os.BillingEmailAddress,
+            os.BillingStreet,
+            os.BillingPostalCode,
+            os.BillingCity,
+            os.BillingCountryCode,
+            os.COMM_BillingVATNumber__c,
+            os.COMM_BillingName__c,
+            os.COMM_BillingVATNumber__c
+        );
 
         request.orderItems = new List<COMM_SL_SAPDocumentRequest.OrderItems>();
         //Build Map with all Promotion Lines in Invoice
@@ -762,14 +772,17 @@ public without sharing class COMM_SL_OMS_SAPHandler {
             request.vatDifferenceAmount = 0.00;
         }
         request.taxAmout = creditMemoRecord.TotalTaxAmount;
-        request.billingEmail = os.billingEmailAddress;
-        request.billingAddress = os.BillingStreet;
-        request.billingPostalCode = os.BillingPostalCode;
-        request.billingCity = os.BillingCity;
-        request.billingVat = (String.isEmpty(os.COMM_BillingVATNumber__c) ? defaultVATNumber : (os.BillingCountryCode + os.COMM_BillingVATNumber__c));
-        request.billingCountry = os.BillingCountryCode;
-        verifyName(os.COMM_BillingName__c, request);
-
+        populateBillingData(
+            request,
+            os.BillingEmailAddress,
+            os.BillingStreet,
+            os.BillingPostalCode,
+            os.BillingCity,
+            os.BillingCountryCode,
+            os.COMM_BillingVATNumber__c,
+            os.COMM_BillingName__c,
+            os.COMM_BillingVATNumber__c
+        );
         request.orderItems = new List<COMM_SL_SAPDocumentRequest.OrderItems>();
         //Build Map with all Promotion Lines in Credit Memo
         Map<String, List<CreditMemoLine>> mapPromotionLines = new Map<String, List<CreditMemoLine>>();
@@ -895,15 +908,18 @@ public without sharing class COMM_SL_OMS_SAPHandler {
             request.vatDifferenceAmount = 0.00;
         }
         request.taxAmout = invoice.TotalTaxAmount;
-        request.billingEmail = os.billingEmailAddress;
-        request.billingAddress = os.BillingStreet;
-        request.billingPostalCode = os.BillingPostalCode;
-        request.billingCity = os.BillingCity;
-        request.billingVat = (String.isEmpty(os.COMM_BillingVATNumber__c) ? defaultVATNumber : (os.BillingCountryCode + os.COMM_BillingVATNumber__c));
-        request.billingCountry = os.BillingCountryCode;
+        populateBillingData(
+            request,
+            os.BillingEmailAddress,
+            os.BillingStreet,
+            os.BillingPostalCode,
+            os.BillingCity,
+            os.BillingCountryCode,
+            os.COMM_BillingVATNumber__c,
+            os.COMM_BillingName__c,
+            os.COMM_BillingVATNumber__c
+        );
         request.creditMemoPay = 'CR';
-        
-        verifyName(os.COMM_BillingName__c, request);
 
         request.orderItems = new List<COMM_SL_SAPDocumentRequest.OrderItems>();
         
@@ -971,15 +987,21 @@ public without sharing class COMM_SL_OMS_SAPHandler {
             request.vatDifferenceAmount = 0.00;
         }
         request.taxAmout = invoice.TotalTaxAmount;
-        request.billingEmail = os.billingEmailAddress;
-        request.billingAddress = input.address;
-        request.billingPostalCode = input.postalCode;
-        request.billingCity = input.city;
-        request.billingVat = (String.isEmpty(os.COMM_BillingVATNumber__c) ? defaultVATNumber : (input.countryCode + input.vatNumber));
-        request.billingCountry = os.BillingCountryCode;
+        String vatNumberDetector = os.COMM_BillingVATNumber__c;
+        String vatNumberForRequest = String.isBlank(input.vatNumber) ? os.COMM_BillingVATNumber__c : input.vatNumber;
+        String vatCountryForRequest = String.isBlank(input.countryCode) ? os.BillingCountryCode : input.countryCode;
+        populateBillingData(
+            request,
+            os.BillingEmailAddress,
+            input.address,
+            input.postalCode,
+            input.city,
+            vatCountryForRequest,
+            vatNumberForRequest,
+            os.COMM_BillingName__c,
+            vatNumberDetector
+        );
         request.creditMemoPay = '';
-        
-        verifyName(os.COMM_BillingName__c, request);
 
         request.orderItems = new List<COMM_SL_SAPDocumentRequest.OrderItems>();
         
@@ -1053,16 +1075,21 @@ public without sharing class COMM_SL_OMS_SAPHandler {
         } else {
             request.vatDifferenceAmount = 0.00;
         }
-        request.billingEmail = String.isEmpty(accountRecord.COMM_Email__c) ? accountRecord.PersonEmail : accountRecord.COMM_Email__c;
-        request.billingAddress = accountRecord.BillingStreet;
-        request.billingPostalCode = accountRecord.BillingPostalCode;
-        request.billingCity = accountRecord.BillingCity;
-        request.billingVat = (String.isEmpty(accountRecord.COMM_VATNumber__c)
-            ? defaultVATNumber
-            : (accountRecord.BillingCountryCode + accountRecord.COMM_VATNumber__c));
-        request.billingCountry = accountRecord.BillingCountryCode;
 
-        verifyName(accountRecord.Name, request);
+        String accountBillingEmail = String.isEmpty(accountRecord.COMM_Email__c)
+            ? accountRecord.PersonEmail
+            : accountRecord.COMM_Email__c;
+        populateBillingData(
+            request,
+            accountBillingEmail,
+            accountRecord.BillingStreet,
+            accountRecord.BillingPostalCode,
+            accountRecord.BillingCity,
+            accountRecord.BillingCountryCode,
+            accountRecord.COMM_VATNumber__c,
+            accountRecord.Name,
+            accountRecord.COMM_VATNumber__c
+        );
 
         //Build Map with Promotion Lines in Invoices and Map with Tax Values
         Map<String, List<InvoiceLine>> mapInvoicePromotionLines = new Map<String, List<InvoiceLine>>();
@@ -1506,6 +1533,44 @@ public without sharing class COMM_SL_OMS_SAPHandler {
         }
 
         return invoiceGiftPaymentsMap;
+    }
+
+    /**
+     * @description Populates request billing fields or applies kiosk defaults when VAT is missing.
+     *
+     * @return true if default data was applied, false otherwise
+     */
+    @TestVisible
+    private static void populateBillingData(
+        COMM_SL_SAPDocumentRequest request,
+        String billingEmail,
+        String billingAddress,
+        String billingPostalCode,
+        String billingCity,
+        String billingCountryCode,
+        String billingVatNumber,
+        String billingName,
+        String vatNumberDetector
+    ) {
+        Boolean useDefaultBillingData = vatNumberDetector == null ? String.isBlank(billingVatNumber) : String.isBlank(vatNumberDetector);
+        if (useDefaultBillingData) {
+            request.billingEmail = DEFAULT_BILLING_EMAIL;
+            request.billingAddress = DEFAULT_BILLING_ADDRESS;
+            request.billingPostalCode = DEFAULT_BILLING_POSTAL_CODE;
+            request.billingCity = DEFAULT_BILLING_CITY;
+            request.billingVat = defaultVATNumber;
+            request.billingCountry = DEFAULT_BILLING_COUNTRY;
+            verifyName(DEFAULT_BILLING_NAME, request);
+            return;
+        }
+        String effectiveCountry = String.isBlank(billingCountryCode) ? DEFAULT_BILLING_COUNTRY : billingCountryCode;
+        request.billingEmail = billingEmail;
+        request.billingAddress = billingAddress;
+        request.billingPostalCode = billingPostalCode;
+        request.billingCity = billingCity;
+        request.billingVat = effectiveCountry + billingVatNumber;
+        request.billingCountry = effectiveCountry;
+        verifyName(billingName, request);
     }
 
     /**
