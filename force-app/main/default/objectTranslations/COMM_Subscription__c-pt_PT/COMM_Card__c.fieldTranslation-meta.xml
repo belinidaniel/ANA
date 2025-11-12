@@ -2,7 +2,7 @@
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <label>Cartão</label>
     <lookupFilter>
-        <errorMessage>O Produto Associado só pode ser um Cartão</errorMessage>
+        <errorMessage><!-- Associated Product can only be a Card --></errorMessage>
     </lookupFilter>
     <name>COMM_Card__c</name>
     <relationshipLabel>Avenças (Cartão)</relationshipLabel>

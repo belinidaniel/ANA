@@ -8,6 +8,44 @@
         <plural>true</plural>
         <value>Job Executions</value>
     </caseValues>
+    <layouts>
+        <layout>Job Execution Defined Layout</layout>
+        <sections>
+            <label><!-- Batch Information --></label>
+            <section>Batch Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Execution Details --></label>
+            <section>Execution Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Job Execution Initial Layout</layout>
+        <sections>
+            <label><!-- Batch Information --></label>
+            <section>Batch Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- Cancel --></label>
+        <name>Cancel</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Execute Job --></label>
+        <name>Execute_Job</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Schedule Job --></label>
+        <name>Schedule_Job</name>
+    </quickActions>
     <recordTypes>
         <label><!-- Defined --></label>
         <name>Defined</name>

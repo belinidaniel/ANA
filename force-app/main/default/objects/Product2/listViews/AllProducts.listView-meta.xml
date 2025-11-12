@@ -3,19 +3,19 @@
     <fullName>AllProducts</fullName>
     <columns>PRODUCT2.NAME</columns>
     <columns>PRODUCT2.PRODUCT_CLASS</columns>
+    <columns>COMM_ValidFrom__c</columns>
+    <columns>COMM_ValidTo__c</columns>
+    <columns>CREATEDBY_USER.ALIAS</columns>
     <columns>PRODUCT2.CUSTOMER_PRODUCT_ID</columns>
-    <columns>PRODUCT2.ACTIVE</columns>
     <columns>PRODUCT2.DESCRIPTION</columns>
     <columns>PRODUCT2.FAMILY</columns>
     <columns>COMM_Airport__c</columns>
     <columns>PRODUCT2.CREATED_DATE</columns>
-    <columns>COMM_CPMS__c</columns>
-    <columns>COMM_Park__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>PRODUCT2.ACTIVE</field>
         <operation>equals</operation>
         <value>1</value>
     </filters>
-    <label>Todos os produtos</label>
+    <label>All Products</label>
 </ListView>

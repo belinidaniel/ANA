@@ -73,8 +73,6 @@ public inherited sharing class COMM_REP_Invoice extends FW_SobjectRep implements
                 DueDate,
                 TotalAmount,
                 COMM_SAPCount__c,
-            	COMM_SAPDocumentId__c,
-                COMM_InvoiceEditCount__c,
                 TotalTaxAmount,
                 BillingAccount.Name,
                 BillingAccount.COMM_Email__c,
@@ -134,8 +132,6 @@ public inherited sharing class COMM_REP_Invoice extends FW_SobjectRep implements
                 'DueDate, ' +
                 'TotalAmount, ' +
                 'COMM_SAPCount__c, ' +
-                'COMM_SAPDocumentId__c, ' +
-                'COMM_InvoiceEditCount__c, ' +
                 'TotalTaxAmount, ' +
                 'BillingAccountId, ' +
                 'BillingAccount.Name, ' +

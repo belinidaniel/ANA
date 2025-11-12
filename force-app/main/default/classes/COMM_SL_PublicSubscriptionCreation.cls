@@ -183,62 +183,31 @@ public with sharing class COMM_SL_PublicSubscriptionCreation {
         FW_ISObjectRep sObjectRep = new FW_SObjectRep();
         Set<Id> createdCaseIdsSet = new Set<Id>();
 
-        List<COMM_Subscription__c> subscriptionsToCreateList = new List<COMM_Subscription__c>();
-        try{
-            subscriptionsToCreateList = setSubscriptionsToCreate(subscriptionsByAirportMap, cardByAirportMap);
+        List<COMM_Subscription__c> subscriptionsToCreateList = setSubscriptionsToCreate(subscriptionsByAirportMap, cardByAirportMap);
 
-            setSubscriptionOCIEndateRequest(subscriptionsToCreateList, productSetByParentProductIdMap);
-        } 
-        catch (COMM_WS_OCIException e) {
-            throw e;
-        }
-        catch (Exception e) {
-            COMM_GEN_Utility.logError(
-                e,
-                'Public Subscription creation handleSubscriptionAndCaseCreationUpdate error',
-                'COMM_SL_PublicSubscriptionCreation'
-            );
-            throw e;
-        }
+        setSubscriptionOCIEndateRequest(subscriptionsToCreateList, productSetByParentProductIdMap);
 
-        try{
+        try {
             sObjectRep.insertSObjects(subscriptionsToCreateList);
-        } 
-        catch (Exception e) {
-            COMM_GEN_Utility.logError(
-                e,
-                'Public Subscription creation handleSubscriptionAndCaseCreationUpdate error',
-                'COMM_SL_PublicSubscriptionCreation'
-            );
-        }
-
-        List<Case> casesToCreate = new List<Case>();
-        List<COMM_Subscription__c> existingSubscriptionList = new List<COMM_Subscription__c>();
-        try{
-            casesToCreate = setCasesToCreate(
-                subscriptionsToCreateList,
-                cardByAirportMap,
-                orderSummaryByIdMap,
-                new Map<String, OrderItemSummary>()
-            );
-
-            existingSubscriptionList = subsriptionRep.getSubscriptionsById(oItemSummaryBySubscriptionNbrMap.keySet());
-
-            if (!existingSubscriptionList.isEmpty()) {
-                casesToCreate.addAll(setCasesToCreate(existingSubscriptionList, cardByAirportMap, orderSummaryByIdMap, oItemSummaryBySubscriptionNbrMap));
-            }
-            if(Test.isRunningTest()){
-                throw new COMM_WS_OCIException('Test Coverage', 'Test Coverage');
-            }
         } catch (Exception e) {
             COMM_GEN_Utility.logError(
                 e,
                 'Public Subscription creation handleSubscriptionAndCaseCreationUpdate error',
                 'COMM_SL_PublicSubscriptionCreation'
             );
-            if(!Test.isRunningTest()){
-                throw e;
-            }            
+        }
+
+        List<Case> casesToCreate = setCasesToCreate(
+            subscriptionsToCreateList,
+            cardByAirportMap,
+            orderSummaryByIdMap,
+            new Map<String, OrderItemSummary>()
+        );
+
+        List<COMM_Subscription__c> existingSubscriptionList = subsriptionRep.getSubscriptionsById(oItemSummaryBySubscriptionNbrMap.keySet());
+
+        if (!existingSubscriptionList.isEmpty()) {
+            casesToCreate.addAll(setCasesToCreate(existingSubscriptionList, cardByAirportMap, orderSummaryByIdMap, oItemSummaryBySubscriptionNbrMap));
         }
 
         try {
@@ -251,36 +220,18 @@ public with sharing class COMM_SL_PublicSubscriptionCreation {
             );
         }
 
-        List<COMM_Subscription__c> subscriptionsToUpdateList = new List<COMM_Subscription__c>();
-        try{
-            for (Case currentCase : casesToCreate) {
-                createdCaseIdsSet.add(currentCase.Id);
-            }
-
-            Map<Id, COMM_Subscription__c> subscriptionByIdMap = new Map<Id, COMM_Subscription__c>(subscriptionsToCreateList);
-
-            if (!existingSubscriptionList.isEmpty()) {
-                Map<Id, COMM_Subscription__c> existingSubscriptionByIdMap = new Map<Id, COMM_Subscription__c>(existingSubscriptionList);
-                subscriptionByIdMap.putAll(existingSubscriptionByIdMap);
-            }
-
-            subscriptionsToUpdateList = setSubscriptionActiveRequest(casesToCreate, subscriptionByIdMap);
-
-            if(Test.isRunningTest()){
-                throw new COMM_WS_OCIException('Test Coverage', 'Test Coverage');
-            }
-        } catch (Exception e) {
-            COMM_GEN_Utility.logError(
-                e,
-                'Public Subscription creation handleSubscriptionAndCaseCreationUpdate error',
-                'COMM_SL_PublicSubscriptionCreation'
-            );
-            
-            if(!Test.isRunningTest()){
-                throw e;
-            }
+        for (Case currentCase : casesToCreate) {
+            createdCaseIdsSet.add(currentCase.Id);
         }
 
+        Map<Id, COMM_Subscription__c> subscriptionByIdMap = new Map<Id, COMM_Subscription__c>(subscriptionsToCreateList);
+
+        if (!existingSubscriptionList.isEmpty()) {
+            Map<Id, COMM_Subscription__c> existingSubscriptionByIdMap = new Map<Id, COMM_Subscription__c>(existingSubscriptionList);
+            subscriptionByIdMap.putAll(existingSubscriptionByIdMap);
+        }
+
+        List<COMM_Subscription__c> subscriptionsToUpdateList = setSubscriptionActiveRequest(casesToCreate, subscriptionByIdMap);
         try {
             sObjectRep.updateSObjects(subscriptionsToUpdateList);
         } catch (Exception e) {

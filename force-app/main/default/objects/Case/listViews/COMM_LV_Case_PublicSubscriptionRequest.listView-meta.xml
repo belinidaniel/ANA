@@ -9,6 +9,7 @@
     <columns>CASES.STATUS</columns>
     <columns>CASES.CREATED_DATE</columns>
     <columns>CORE.USERS.ALIAS</columns>
+    <columns>PRODUCT.NAME</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>

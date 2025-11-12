@@ -126,6 +126,18 @@
                 <default>false</default>
                 <label>Premium</label>
             </value>
+            <value>
+                <fullName>Lounge Adult Non -Schengen</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Lounge Adult Non -Schengen</label>
+            </value>
+            <value>
+                <fullName>Lounge Child Non - Schengen</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Lounge Child Non - Schengen</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Fast Track</controllingFieldValue>

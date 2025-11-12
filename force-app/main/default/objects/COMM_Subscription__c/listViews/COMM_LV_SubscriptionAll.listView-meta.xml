@@ -2,7 +2,6 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>COMM_LV_SubscriptionAll</fullName>
     <columns>NAME</columns>
-    <columns>COMM_SubscriptionNumber__c</columns>
     <columns>COMM_FirstName__c</columns>
     <columns>COMM_LastName__c</columns>
     <columns>COMM_Account__c</columns>

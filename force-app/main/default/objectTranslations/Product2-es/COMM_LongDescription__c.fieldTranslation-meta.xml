@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Descripción larga del producto</label>
+    <label><!-- Product Long Description --></label>
     <name>COMM_LongDescription__c</name>
 </CustomFieldTranslation>

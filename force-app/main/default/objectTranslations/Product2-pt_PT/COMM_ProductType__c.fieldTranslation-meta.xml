@@ -4,10 +4,10 @@
     <name>COMM_ProductType__c</name>
     <picklistValues>
         <masterLabel>bundle</masterLabel>
-        <translation>pacote</translation>
+        <translation><!-- bundle --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>single</masterLabel>
-        <translation>único</translation>
+        <translation><!-- single --></translation>
     </picklistValues>
 </CustomFieldTranslation>

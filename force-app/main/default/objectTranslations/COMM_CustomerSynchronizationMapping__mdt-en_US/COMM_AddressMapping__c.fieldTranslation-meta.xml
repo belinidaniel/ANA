@@ -10,4 +10,12 @@
         <masterLabel>COMM_BILLING_COMPANY</masterLabel>
         <translation><!-- COMM_BILLING_COMPANY --></translation>
     </picklistValues>
+    <picklistValues>
+        <masterLabel>c_primaryVehicle</masterLabel>
+        <translation><!-- c_primaryVehicle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>c_secondaryVehicle</masterLabel>
+        <translation><!-- c_secondaryVehicle --></translation>
+    </picklistValues>
 </CustomFieldTranslation>

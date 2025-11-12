@@ -280,7 +280,7 @@
         <name>COMM_GetNewPendingRequestCustomNotification</name>
         <label>Get New Pending Request Custom Notification</label>
         <locationX>50</locationX>
-        <locationY>492</locationY>
+        <locationY>600</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>COMM_SendNotificationToSABAUsers</targetReference>
@@ -444,7 +444,7 @@
         <name>COMM_SendNotificationToSABAUsers</name>
         <label>Send Notification To SABA Users</label>
         <locationX>50</locationX>
-        <locationY>600</locationY>
+        <locationY>708</locationY>
         <connector>
             <targetReference>COMM_Subflow_SendEmailToSABAQueue_RunImmediately</targetReference>
         </connector>
@@ -610,7 +610,7 @@
         <name>COMM_Subflow_SendEmailToSABAQueue_RunImmediately</name>
         <label>Send Email to SABA Queue</label>
         <locationX>50</locationX>
-        <locationY>708</locationY>
+        <locationY>816</locationY>
         <flowName>COMM_FLW_Utilities_SendEmailToQueueMembers</flowName>
         <inputAssignments>
             <name>COMM_Variable_EmailTemplateName</name>

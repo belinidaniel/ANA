@@ -42,7 +42,7 @@ public inherited sharing class COMM_REP_OrderSummary extends FW_SobjectRep imple
                 BillingEmailAddress,
                 BillToContactId,
                 OriginalOrder.GrandTotalAmount,
-                (SELECT id, COMM_SAPDocumentId__c, COMM_IssuanceDate__c, TotalAmount, COMM_CreditMemoSAPId__c, COMM_SAPDocumentId2__c, COMM_CreditMemoSAP_Date__c FROM Invoices),
+                (SELECT id, COMM_SAPDocumentId__c, COMM_IssuanceDate__c, TotalAmount, COMM_CreditMemoSAPId__c FROM Invoices),
                 (SELECT Id, Status, Type, TypeCode FROM OrderItemSummaries),
                 (SELECT EmailAddress FROM OrderDeliveryGroupSummaries ORDER BY id DESC LIMIT 1)
             FROM OrderSummary
@@ -175,31 +175,16 @@ public inherited sharing class COMM_REP_OrderSummary extends FW_SobjectRep imple
                 BillingStreet,
                 BillingPostalCode,
                 BillingCity,
+            	BillingCountry,
+            	BillingCountryCode,
                 COMM_BillingVATNumber__c,
                 BillingPhoneNumber,
-            	BillingCountry, 
-            	BillingCountryCode, 
                 TotalAmount,
                 TotalTaxAmount,
                 GrandTotalAmount,
                 COMM_IsLegacyOrder__c,
                 (
-                    SELECT 
-                    	Id,
-                    	COMM_SAPIntegrationDate__c, 
-                    	COMM_SAPDocumentId__c,
-                    	COMM_CreditMemoSAPId__c,
-                    	COMM_SAPDocumentId2__c, 
-                        TotalAmountWithTax, 
-                        COMM_CreditMemoSAP_Date__c,
-                    	COMM_PreviousName__c,
-                    	COMM_PreviousAddress__c,
-                    	COMM_PreviousCity__c,
-                    	COMM_PreviousDocDate__c,
-                    	COMM_PreviousVATNumber__c,
-                    	COMM_PreviousZipCode__c,
-                    	COMM_PreviousCountryCode__c,
-                        COMM_InvoiceEditCount__c
+                    SELECT Id, COMM_SAPIntegrationDate__c, COMM_SAPDocumentId__c, TotalAmountWithTax, COMM_CreditMemoSAPId__c, COMM_SAPDocumentId2__c
                     FROM Invoices
                 ),
                 (

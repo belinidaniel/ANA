@@ -3,15 +3,17 @@
     <contactEmail>luis.oliveira@capgemini.com</contactEmail>
     <label>B2C Commerce Cloud Service Provider</label>
     <oauthConfig>
-        <callbackUrl>https://staging-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/pt_PT/Login-OAuthReentrySalesforce
-https://staging-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/es/Login-OAuthReentrySalesforce
-https://staging-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/en/Login-OAuthReentrySalesforce
-https://staging-eu01-anaaeroportos.demandware.net/on/demandware.store/Sites-ANAAeroportos-Site/Login-OAuthReentrySalesforce
-https://stg-ecommerce.ext.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/pt_PT/Login-OAuthReentrySalesforce
-https://stg-ecommerce.ext.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/es/Login-OAuthReentrySalesforce
-https://stg-ecommerce.ext.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/en/Login-OAuthReentrySalesforce
-https://stg-ecommerce.ext.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/Login-OAuthReentrySalesforce</callbackUrl>
-        <consumerKey>3MVG9T992fY2Y4vvafIcpDDWi_xGhJgNLVX99bpRz88rIZsGflHZbxk8jRZI_1NZHRfM_GL4r1lkZWEUmgu.x</consumerKey>
+        <callbackUrl>https://bksk-001.dx.commercecloud.salesforce.com/on/demandware.store/Sites-ANAAeroportos-Site/pt_PT/Login-OAuthReentrySalesforce
+https://bksk-001.dx.commercecloud.salesforce.com/on/demandware.store/Sites-ANAAeroportos-Site/en/Login-OAuthReentrySalesforce
+https://bksk-001.dx.commercecloud.salesforce.com/on/demandware.store/Sites-ANAAeroportos-Site/es/Login-OAuthReentrySalesforce
+https://bksk-002.dx.commercecloud.salesforce.com/on/demandware.store/Sites-ANAAeroportos-Site/pt_PT/Login-OAuthReentrySalesforce
+https://bksk-002.dx.commercecloud.salesforce.com/on/demandware.store/Sites-ANAAeroportos-Site/en/Login-OAuthReentrySalesforce
+https://bksk-002.dx.commercecloud.salesforce.com/on/demandware.store/Sites-ANAAeroportos-Site/es/Login-OAuthReentrySalesforce
+https://bksk-009.dx.commercecloud.salesforce.com/on/demandware.store/Sites-ANAAeroportos-Site/pt_PT/Login-OAuthReentrySalesforce
+https://bksk-013.dx.commercecloud.salesforce.com/on/demandware.store/Sites-ANAAeroportos-Site/pt_PT/Login-OAuthReentrySalesforce
+https://bksk-013.dx.commercecloud.salesforce.com/on/demandware.store/Sites-ANAAeroportos-Site/en/Login-OAuthReentrySalesforce
+https://bksk-013.dx.commercecloud.salesforce.com/on/demandware.store/Sites-ANAAeroportos-Site/es/Login-OAuthReentrySalesforce</callbackUrl>
+        <consumerKey>3MVG9OjW2TAjFKUvqwbtpgBTx6C.NPj6KZhMtvcgxF5.OBO0Cde4okYBKqbFY_Y8TBHYl6wgWoSB6SZTo4.4V</consumerKey>
         <isAdminApproved>true</isAdminApproved>
         <isClientCredentialEnabled>false</isClientCredentialEnabled>
         <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
@@ -25,7 +27,6 @@ https://stg-ecommerce.ext.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/Lo
         <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
         <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
         <scopes>Basic</scopes>
-        <singleLogoutUrl>https://staging-eu01-anaaeroportos.demandware.net</singleLogoutUrl>
     </oauthConfig>
     <oauthPolicy>
         <ipRelaxation>ENFORCE</ipRelaxation>
@@ -34,4 +35,7 @@ https://stg-ecommerce.ext.ana.pt/on/demandware.store/Sites-ANAAeroportos-Site/Lo
     </oauthPolicy>
     <plugin>COMM_SL_ConnectedAppCommerce</plugin>
     <profileName>Customers</profileName>
+    <sessionPolicy>
+        <sessionTimeout>15</sessionTimeout>
+    </sessionPolicy>
 </ConnectedApp>

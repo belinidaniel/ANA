@@ -3,14 +3,8 @@
     <fullName>All</fullName>
     <columns>NAME</columns>
     <columns>COMM_Account__c</columns>
-    <columns>COMM_DocumentType__c</columns>
-    <columns>COMM_DocumentYear__c</columns>
-    <columns>COMM_DocumentMonth__c</columns>
     <columns>COMM_ProcessStatus__c</columns>
     <columns>COMM_StatusMessage__c</columns>
-    <columns>LAST_UPDATE</columns>
-    <columns>CREATED_DATE</columns>
-    <columns>COMM_Type__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

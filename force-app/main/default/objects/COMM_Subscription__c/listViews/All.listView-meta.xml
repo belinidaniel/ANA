@@ -5,13 +5,19 @@
     <columns>COMM_SubscriptionNumber__c</columns>
     <columns>COMM_Status__c</columns>
     <columns>COMM_Account__c</columns>
+    <columns>COMM_StartDate__c</columns>
+    <columns>COMM_EndDate__c</columns>
     <columns>COMM_FirstName__c</columns>
     <columns>COMM_LastName__c</columns>
     <columns>COMM_Product__c</columns>
     <columns>COMM_Airport__c</columns>
     <columns>COMM_ActiveSubscriptionRequest__c</columns>
     <columns>COMM_ActiveSubscriptionRequestStatus__c</columns>
-    <columns>CREATED_DATE</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>COMM_Periodicity__c</field>
+        <operation>equals</operation>
+        <value>Quarterly</value>
+    </filters>
     <label>All</label>
 </ListView>

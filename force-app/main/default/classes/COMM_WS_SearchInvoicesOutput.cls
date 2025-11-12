@@ -51,7 +51,7 @@ global class COMM_WS_SearchInvoicesOutput {
         List<Invoice> invoiceList
     ) {
         outputRequest.data = new List<COMM_WS_SearchInvoicesOutput.InvoiceSummary>();
-        Integer startIndex =
+   Integer startIndex =
             ((inputRequest.page != null) ? inputRequest.page : 0) * ((inputRequest.pageSize != null) ? inputRequest.pageSize : invoiceList.size());
         Integer endIndex = Math.min(startIndex + inputRequest.pageSize - 1, invoiceList.size());
         Integer index = 0;
@@ -63,7 +63,7 @@ global class COMM_WS_SearchInvoicesOutput {
                 List<COMM_WS_SearchInvoicesOutput.InvoiceSummaryLine> invoiceSummaryLines = new List<COMM_WS_SearchInvoicesOutput.InvoiceSummaryLine>();
                 COMM_WS_SearchInvoicesOutput.InvoiceSummary invoiceRecordOnRequest = new COMM_WS_SearchInvoicesOutput.InvoiceSummary();
                 OrderSummary orderSummary = (OrderSummary) invoiceRecord.ReferenceEntity;
-                OrderItemSummary orderItemSummary;
+                OrderItemSummary orderItemSummary ;
                 invoiceAirportValues = new Set<String>();
                 affiliateNumbers = new Set<String>();
                 invoiceRecordOnRequest.invoiceNumber = invoiceRecord.DocumentNumber;

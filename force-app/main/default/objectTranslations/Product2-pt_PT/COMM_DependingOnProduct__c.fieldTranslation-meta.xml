@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help>Verificar se o produto requer que outro produto seja comprado em conjunto</help>
-    <label>Dependendo de um produto? ???</label>
+    <help><!-- Check if Product requires another Product to be bought together --></help>
+    <label><!-- Depending on a Product? --></label>
     <name>COMM_DependingOnProduct__c</name>
 </CustomFieldTranslation>

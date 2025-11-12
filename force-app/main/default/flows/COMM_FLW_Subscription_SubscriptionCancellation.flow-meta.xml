@@ -165,7 +165,6 @@
         <expression>IF(ISNULL({!$User.ContactId}), {!recordId.COMM_Contact__c}, {!$User.ContactId})</expression>
     </formulas>
     <interviewLabel>COMM: Subscription Cancellation {!$Flow.CurrentDateTime}</interviewLabel>
-    <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <label>COMM: Subscription Cancellation</label>
     <processMetadataValues>
         <name>BuilderType</name>

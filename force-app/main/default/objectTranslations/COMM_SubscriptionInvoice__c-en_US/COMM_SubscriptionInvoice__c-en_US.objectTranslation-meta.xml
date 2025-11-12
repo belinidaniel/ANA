@@ -8,5 +8,24 @@
         <plural>true</plural>
         <value>Subscription Invoices</value>
     </caseValues>
+    <layouts>
+        <layout>Subscription Invoice Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Invoice Details --></label>
+            <section>Invoice Details</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- Get Document --></label>
+        <name>COMM_AuraGetInvoiceDocument</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Get Document --></label>
+        <name>COMM_GetInvoiceDocument</name>
+    </quickActions>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

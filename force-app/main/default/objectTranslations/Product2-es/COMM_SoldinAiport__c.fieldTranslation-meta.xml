@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help>La lista de aeropuertos donde el producto puede ser vendido en ecommerce</help>
+    <help><!-- The list of airports where the product can be sold on ecommerce --></help>
     <label>Se vende en el aeropuerto</label>
     <name>COMM_SoldinAiport__c</name>
 </CustomFieldTranslation>

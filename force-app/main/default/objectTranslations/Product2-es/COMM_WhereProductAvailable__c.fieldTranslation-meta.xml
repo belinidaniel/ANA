@@ -4,10 +4,10 @@
     <name>COMM_WhereProductAvailable__c</name>
     <picklistValues>
         <masterLabel>Subscriptions Portal</masterLabel>
-        <translation>Portal de suscripciones</translation>
+        <translation><!-- Subscriptions Portal --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>eCommerce</masterLabel>
-        <translation>Comercio electrónico</translation>
+        <translation><!-- eCommerce --></translation>
     </picklistValues>
 </CustomFieldTranslation>

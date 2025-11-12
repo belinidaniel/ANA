@@ -149,7 +149,6 @@ public inherited sharing class COMM_REP_Subscription extends FW_SobjectRep imple
                     COMM_Subscription__c.COMM_InRenewal__c,
                     COMM_Subscription__c.COMM_IsRenewable__c,
                     COMM_Subscription__c.COMM_LicensePlate__c,
-                    COMM_Subscription__c.COMM_SecondaryLicensePlate__c,
                     COMM_Subscription__c.COMM_Periodicity__c,
                     COMM_Subscription__c.COMM_Price__c,
                     COMM_Subscription__c.COMM_StartDate__c,

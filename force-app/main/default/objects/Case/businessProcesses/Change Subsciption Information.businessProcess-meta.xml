@@ -4,6 +4,10 @@
     <description>Case Support Process for Change Subsciption Information</description>
     <isActive>true</isActive>
     <values>
+        <fullName>Canceled</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>In Approval</fullName>
         <default>false</default>
     </values>

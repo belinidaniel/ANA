@@ -9,19 +9,98 @@
         <value>Suscripciones</value>
     </caseValues>
     <gender>Feminine</gender>
+    <layouts>
+        <layout>Community - Partner Layout</layout>
+        <sections>
+            <label><!-- Client Information --></label>
+            <section>Client Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Subscription Details --></label>
+            <section>Subscription Details</section>
+        </sections>
+        <sections>
+            <label><!-- Vehicle Information --></label>
+            <section>Vehicle Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Direct Sales Layout</layout>
+        <sections>
+            <label>Información para el cliente</label>
+            <section>Client Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Datos de suscripción</label>
+            <section>Subscription Details</section>
+        </sections>
+        <sections>
+            <label>Información del vehículo</label>
+            <section>Vehicle Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Partner Layout</layout>
+        <sections>
+            <label>Información para el cliente</label>
+            <section>Client Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Datos de suscripción</label>
+            <section>Subscription Details</section>
+        </sections>
+        <sections>
+            <label>Información del vehículo</label>
+            <section>Vehicle Information</section>
+        </sections>
+    </layouts>
     <nameFieldLabel>Nombre de la suscripción</nameFieldLabel>
+    <quickActions>
+        <label><!-- Cancel Renewal --></label>
+        <name>COMM_Subscription_CancelRenewalSubscription</name>
+    </quickActions>
+    <quickActions>
+        <aspect>Master</aspect>
+        <label>Cancelar Suscripción</label>
+        <name>COMM_Subscription_CancelSubscription</name>
+    </quickActions>
+    <quickActions>
+        <aspect>Master</aspect>
+        <label>Cambiar Suscripción</label>
+        <name>COMM_Subscription_ChangeSubscription</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Re-Activate Subscription --></label>
+        <name>COMM_Subscription_ReactivateSubscription</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Renew Subscription --></label>
+        <name>COMM_Subscription_RenewSubscription</name>
+    </quickActions>
     <recordTypes>
-        <description>Representa una suscripción asociada a ventas directas</description>
-        <label>Ventas directas</label>
+        <description><!-- Represents a Subscription associated with Direct Sales --></description>
+        <label><!-- Direct Sales --></label>
         <name>COMM_DirectSales</name>
     </recordTypes>
     <recordTypes>
-        <description>Representa una suscripción asociada a un socio</description>
-        <label>Socio</label>
+        <description><!-- Represents a Subscription associated with a Partner --></description>
+        <label><!-- Partner --></label>
         <name>COMM_Partner</name>
     </recordTypes>
     <validationRules>
-        <errorMessage>¡No se puede desactivar la Suscripción cuando el estado de la Suscripción está en Proceso Concluido!</errorMessage>
+        <errorMessage><!-- You can&apos;t deactivate the Subscription when Subscription status is in Process Concluded! --></errorMessage>
         <name>COMM_ActiveSubscription</name>
     </validationRules>
 </CustomObjectTranslation>

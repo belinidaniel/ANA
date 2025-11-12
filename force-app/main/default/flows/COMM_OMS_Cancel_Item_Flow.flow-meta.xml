@@ -167,6 +167,10 @@
         <connector>
             <targetReference>Fee_Change_Order_Id_Exists</targetReference>
         </connector>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Invocable_Action_Error_Message</targetReference>
+        </faultConnector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>orderSummaryId</name>
@@ -922,7 +926,7 @@
     <assignments>
         <name>Set_Wrong_Entity_Error_Message</name>
         <label>Set Wrong Entity Error Message</label>
-        <locationX>2866</locationX>
+        <locationX>3130</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>errorMessage</assignToReference>
@@ -994,7 +998,7 @@
     <decisions>
         <name>Are_Any_Items_To_Return</name>
         <label>Are Any Items To Return</label>
-        <locationX>1326</locationX>
+        <locationX>1458</locationX>
         <locationY>458</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -1244,7 +1248,7 @@
     <decisions>
         <name>isValid</name>
         <label>isValid</label>
-        <locationX>1590</locationX>
+        <locationX>1722</locationX>
         <locationY>242</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -1476,8 +1480,7 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>***************TEST *******************
-This flow will allow to cancel items within OMS, after the order gets fulfilled.
+    <description>This flow will allow to cancel items within OMS, after the order gets fulfilled.
 - bypass release stock if dates are in the past
 - Delay Partial Refunds</description>
     <environments>Default</environments>
@@ -1736,7 +1739,7 @@ This flow will allow to cancel items within OMS, after the order gets fulfilled.
     <recordLookups>
         <name>Get_Order_Item_Summary</name>
         <label>Get Order Item Summary</label>
-        <locationX>1326</locationX>
+        <locationX>1458</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1776,7 +1779,7 @@ This flow will allow to cancel items within OMS, after the order gets fulfilled.
         <description>Get OrderSummary for the record Id passed</description>
         <name>Get_Order_Summary</name>
         <label>Get Order Summary</label>
-        <locationX>1590</locationX>
+        <locationX>1722</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1829,7 +1832,7 @@ This flow will allow to cancel items within OMS, after the order gets fulfilled.
     <recordRollbacks>
         <name>FailureExit</name>
         <label>Failure Exit</label>
-        <locationX>1590</locationX>
+        <locationX>1722</locationX>
         <locationY>8966</locationY>
         <connector>
             <targetReference>Error_Message</targetReference>
@@ -1912,7 +1915,7 @@ This flow will allow to cancel items within OMS, after the order gets fulfilled.
     <screens>
         <name>Error_Message</name>
         <label>Error Message</label>
-        <locationX>1590</locationX>
+        <locationX>1722</locationX>
         <locationY>9074</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -2558,13 +2561,13 @@ This flow will allow to cancel items within OMS, after the order gets fulfilled.
         <stageOrder>6</stageOrder>
     </stages>
     <start>
-        <locationX>1464</locationX>
+        <locationX>1596</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Order_Summary</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <subflows>
         <name>COMM_SubFlow_CreateCaseCancelPublicSubscription</name>
         <label>Create Case Cancel Public Subscription</label>

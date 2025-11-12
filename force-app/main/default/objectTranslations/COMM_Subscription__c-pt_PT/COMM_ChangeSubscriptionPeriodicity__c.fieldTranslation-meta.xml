@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Alteração da periodicidade da avença</label>
+    <label><!-- Change of Subscription Periodicity --></label>
     <name>COMM_ChangeSubscriptionPeriodicity__c</name>
-    <relationshipLabel>Avenças (Alteração da periodicidade da avença)</relationshipLabel>
+    <relationshipLabel><!-- Subscriptions (Change of Subscription Periodicity) --></relationshipLabel>
 </CustomFieldTranslation>

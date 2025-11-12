@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help>Para poner el producto como suspendido, cambie la capacidad a 0.</help>
-    <label>Capacidad</label>
+    <help><!-- To put the product as suspended, changed capacity to 0. --></help>
+    <label><!-- Capacity --></label>
     <name>COMM_Capacity__c</name>
 </CustomFieldTranslation>

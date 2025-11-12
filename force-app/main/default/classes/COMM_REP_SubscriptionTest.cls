@@ -223,9 +223,7 @@ private class COMM_REP_SubscriptionTest {
                 COMM_Order__r.EndDate,
                 COMM_Product__r.COMM_Airport__c,
                 COMM_Active__c,
-                COMM_LicensePlate__c,
-            	COMM_SecondaryLicensePlate__c,
-            	COMM_AffiliateNumber__c 
+                COMM_LicensePlate__c
             FROM COMM_Subscription__c
         ];
 
@@ -240,9 +238,7 @@ private class COMM_REP_SubscriptionTest {
             expectedList[0].COMM_Order__r.OrderNumber,
             new List<String>{ expectedList[0].COMM_Product__r.COMM_Airport__c },
             expectedList[0].COMM_Active__c,
-            expectedList[0].COMM_LicensePlate__c,
-            expectedList[0].COMM_SecondaryLicensePlate__c,
-            expectedList[0].COMM_AffiliateNumber__c
+            expectedList[0].COMM_LicensePlate__c
         );
         Test.stopTest();
 

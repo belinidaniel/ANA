@@ -66,7 +66,7 @@ public with sharing class COMM_Async_CreateProductInCommerce extends FW_AsyncHan
             .setWhere('COMM_WhereProductAvailable__c includes ' + availableIn)
             .whereEquals(Product2.isActive, true)
             .whereEquals(Product2.COMM_IsIntegratedInCommerce__c, false);
-		system.debug('query:'+String.valueOf(query));
+
         return executeQuery(query);
     }
 
@@ -77,7 +77,6 @@ public with sharing class COMM_Async_CreateProductInCommerce extends FW_AsyncHan
      * @param products List of Products that will be created in Commerce
      */
     public void execute(Database.BatchableContext bc, List<Product2> products) {
-        system.debug('produtos: '+products);
         COMM_SL_ProductIntegrationInCommerce productIntegrationInCommerce = new COMM_SL_ProductIntegrationInCommerce();
         sObjectRep.updateSObjects(productIntegrationInCommerce.getProductsIntegratedInCommerce(products, COMM_HttpCallout_Utility.HTTP_PUT_METHOD));
     }

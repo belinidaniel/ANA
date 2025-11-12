@@ -6,7 +6,7 @@
  * ------------------------------------------------------------------------------------
  * Developer        Date            Description
  * -----------------------------------------------------------------------------------
- * Daniel Lascas    25/03/2024	    Original version
+ * Daniel Lascas    25/03/2024      Original version
  **/
 trigger COMM_CaseTrigger on Case(before insert, before update, after update) {
     new COMM_TH_Case().execute();

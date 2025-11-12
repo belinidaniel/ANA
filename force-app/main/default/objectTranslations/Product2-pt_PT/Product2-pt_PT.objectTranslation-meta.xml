@@ -1,26 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <layouts>
+        <layout>Gift Card Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Description Information --></label>
+            <section>Description Information</section>
+        </sections>
+        <sections>
+            <label><!-- Product Information --></label>
+            <section>Product Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Product Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Detalhes do Estacionamento</label>
+            <section>Parking Details</section>
+        </sections>
+        <sections>
+            <label>Disponibilidade do Produto</label>
+            <section>Product Availability</section>
+        </sections>
+        <sections>
+            <label>Categoria do Produto</label>
+            <section>Product Category</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Subscription Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Detalhes do Estacionamento</label>
+            <section>Parking Details</section>
+        </sections>
+        <sections>
+            <label>Disponibilidade do Produto</label>
+            <section>Product Availability</section>
+        </sections>
+        <sections>
+            <label>Categoria do Produto</label>
+            <section>Product Category</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <aspect>Master</aspect>
+        <label>Criar Voucher Gratuito</label>
+        <name>COMM_CreateFreeVoucher</name>
+    </quickActions>
     <recordTypes>
         <description><!-- This record type will used to typify gift cards --></description>
         <label><!-- Gift Card --></label>
         <name>COMM_GiftCard</name>
     </recordTypes>
     <recordTypes>
-        <description>Este tipo de registo será utilizado para tipificar os produtos</description>
-        <label>Produtos</label>
+        <description><!-- This record type will be used to typify the products --></description>
+        <label><!-- Product --></label>
         <name>COMM_Product</name>
     </recordTypes>
     <recordTypes>
-        <description>Este tipo de registo será utilizado para tipificar as subscrições</description>
-        <label>Assinatura</label>
+        <description><!-- This record type will used to typify subscriptions --></description>
+        <label><!-- Subscription --></label>
         <name>COMM_Subscription</name>
     </recordTypes>
     <validationRules>
-        <errorMessage>Preencher o sistema de estacionamento utilizado</errorMessage>
+        <errorMessage><!-- Please fill the Parking System used --></errorMessage>
         <name>COMM_CPMSMandatoryForParkAndSubs</name>
     </validationRules>
     <validationRules>
-        <errorMessage>Preencher os códigos de produto de que o produto atual depende</errorMessage>
+        <errorMessage><!-- Please fill the Product Codes that the current Product is dependent on --></errorMessage>
         <name>COMM_DependentProductCodeRequired</name>
     </validationRules>
     <validationRules>
@@ -28,35 +86,35 @@
         <name>COMM_LimitProductName</name>
     </validationRules>
     <validationRules>
-        <errorMessage>Preencher o tipo de pagamento</errorMessage>
+        <errorMessage><!-- Please fill Payment Type --></errorMessage>
         <name>COMM_PaymentTypeRequiredForSubPortal</name>
     </validationRules>
     <validationRules>
-        <errorMessage>Preencher o campo Periodicidade</errorMessage>
+        <errorMessage><!-- Please fill Periodicity --></errorMessage>
         <name>COMM_PeriodicityMandatoryForChildSub</name>
     </validationRules>
     <validationRules>
-        <errorMessage>Preencher a subcategoria</errorMessage>
+        <errorMessage><!-- Please fill the sub-category --></errorMessage>
         <name>COMM_SubcategoryRequiredForSubOrLounge</name>
     </validationRules>
     <validationRules>
-        <errorMessage>A % de alarme não pode ser negativa</errorMessage>
+        <errorMessage><!-- Alarmistic % cannot be negative --></errorMessage>
         <name>COMM_VerifyAlarmistic</name>
     </validationRules>
     <validationRules>
-        <errorMessage>Os produtos expirados não podem ser alterados</errorMessage>
+        <errorMessage><!-- Expired Products cannot be changed --></errorMessage>
         <name>COMM_VerifyExpiredDate</name>
     </validationRules>
     <validationRules>
-        <errorMessage>Os produtos não podem ser definidos no passado</errorMessage>
+        <errorMessage><!-- Products cannot be set in the past --></errorMessage>
         <name>COMM_VerifyPastDates</name>
     </validationRules>
     <validationRules>
-        <errorMessage>Válido até não pode ser definido antes de Válido de</errorMessage>
+        <errorMessage><!-- Valid To cannot be set before Valid From --></errorMessage>
         <name>COMM_VerifyRangeDates</name>
     </validationRules>
     <validationRules>
-        <errorMessage>Por favor, preencha o local onde o produto está disponível para compra</errorMessage>
+        <errorMessage><!-- Please fill where the Product is available for purchase --></errorMessage>
         <name>COMM_WhereProdAvailableRequiredForChid</name>
     </validationRules>
 </CustomObjectTranslation>

@@ -8,5 +8,12 @@
         <plural>true</plural>
         <value>Monthly Fiscal Document Controllers</value>
     </caseValues>
+    <layouts>
+        <layout>Monthly Fiscal Document Control Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

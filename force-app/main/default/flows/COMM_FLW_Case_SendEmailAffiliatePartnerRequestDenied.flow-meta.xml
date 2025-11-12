@@ -355,7 +355,7 @@
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <subflows>
         <name>COMM_Subflow_GetEmailTemplateAffiliate</name>
         <label>Subflow: Get Email Template Affiliate</label>

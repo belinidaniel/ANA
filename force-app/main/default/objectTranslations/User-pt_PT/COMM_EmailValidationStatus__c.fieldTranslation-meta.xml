@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Estado da validação de email</label>
+    <label><!-- Email Validation Status --></label>
     <name>COMM_EmailValidationStatus__c</name>
     <picklistValues>
         <masterLabel>In Validation</masterLabel>
-        <translation>Em Validação</translation>
+        <translation><!-- In Validation --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Validated</masterLabel>
-        <translation>Validado</translation>
+        <translation><!-- Validated --></translation>
     </picklistValues>
 </CustomFieldTranslation>

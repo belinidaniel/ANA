@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Estado del proceso</label>
+    <label><!-- Process Status --></label>
     <name>COMM_ProcessStatus__c</name>
     <picklistValues>
         <masterLabel>Completed</masterLabel>
-        <translation>Completado</translation>
+        <translation><!-- Completed --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Failed</masterLabel>
-        <translation>Fallida</translation>
+        <translation><!-- Failed --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Not Processed</masterLabel>
-        <translation>No procesado</translation>
+        <translation><!-- Not Processed --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Pending</masterLabel>
-        <translation>Pendiente</translation>
+        <translation><!-- Pending --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Running</masterLabel>
-        <translation>Em Curso</translation>
+        <translation><!-- Running --></translation>
     </picklistValues>
 </CustomFieldTranslation>

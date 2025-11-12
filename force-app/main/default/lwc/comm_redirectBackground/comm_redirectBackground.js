@@ -24,6 +24,7 @@ export default class Comm_redirectBackground extends LightningElement {
         const target = new URLSearchParams(window.location.search)?.get('target');
         const urlRedirection =
             target === 'checkout' ? this.redirectLink.replace('oauthLoginTargetEndPoint=3', 'oauthLoginTargetEndPoint=2') : this.redirectLink;
+
         window.location.replace(urlRedirection);
     }
 

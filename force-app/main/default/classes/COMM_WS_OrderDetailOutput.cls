@@ -36,7 +36,9 @@ global class COMM_WS_OrderDetailOutput {
         global String city;
         global String vat;
         global String phoneNumber;
+        global String country;
         global String countryCode;
+        
     }
 
     global class FinancialDocuments {
@@ -49,15 +51,8 @@ global class COMM_WS_OrderDetailOutput {
         global String currencyCode;
         global Integer status;
         global String creditMemoId;
-        global Date creditMemoDate;
         global String oldSAPId;
-        global Boolean canEditInvoice;
         global Boolean isInvoiceEdited;
-        global String previousName;
-        global String previousDocNumber;
-        global DateTime previousDocDate;
-        global Integer invoiceEditCount;
-        global Integer maxAttempsToEditInvoice;
     }
 
     global class OrderProducts {

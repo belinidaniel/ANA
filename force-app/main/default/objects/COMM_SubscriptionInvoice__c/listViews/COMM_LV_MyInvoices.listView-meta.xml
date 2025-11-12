@@ -6,7 +6,6 @@
     <columns>COMM_SubscriptonProduct__c</columns>
     <columns>COMM_IssuanceDate__c</columns>
     <columns>COMM_Status__c</columns>
-    <columns>COMM_Account__c</columns>
     <filterScope>Everything</filterScope>
     <label>My Invoices</label>
 </ListView>

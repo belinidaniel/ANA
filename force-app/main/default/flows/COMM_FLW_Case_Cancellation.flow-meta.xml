@@ -2,12 +2,61 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>63.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>assign_setCaseFields</name>
+        <label>Set Case Fields</label>
+        <locationX>50</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>var_Case.Id</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Get_Case.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Case.Status</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Canceled</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>assign_setSubscriptionFields</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>assign_setSubscriptionFields</name>
+        <label>Set Subscription Fields</label>
+        <locationX>50</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>var_Subscription.Id</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Get_Case.COMM_Subscription__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Subscription.COMM_ActiveSubscriptionRequest__c</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <connector>
+            <targetReference>update_Case</targetReference>
+        </connector>
+    </assignments>
+    <customProperties>
+        <name>ScreenProgressIndicator</name>
+        <value>
+            <stringValue>{&quot;location&quot;:&quot;top&quot;,&quot;type&quot;:&quot;simple&quot;}</stringValue>
+        </value>
+    </customProperties>
     <decisions>
         <description>This action checks if the current user profile has permission to execute the flow</description>
         <name>Validate_users_permissions</name>
         <label>Validate users permissions</label>
         <locationX>182</locationX>
-        <locationY>242</locationY>
+        <locationY>134</locationY>
         <defaultConnector>
             <targetReference>No_permission_screen</targetReference>
         </defaultConnector>
@@ -30,7 +79,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_Case</targetReference>
+                <targetReference>dsply_confirmation</targetReference>
             </connector>
             <label>Has permission</label>
         </rules>
@@ -63,11 +112,11 @@
         <description>query element to fetch the Case that matches the recordId variable</description>
         <name>Get_Case</name>
         <label>Get Case</label>
-        <locationX>182</locationX>
-        <locationY>134</locationY>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Validate_users_permissions</targetReference>
+            <targetReference>assign_setCaseFields</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -83,36 +132,59 @@
     </recordLookups>
     <recordUpdates>
         <description>update action that will update the case record</description>
-        <name>Update_Case</name>
-        <label>Update Case</label>
+        <name>update_Case</name>
+        <label>Case</label>
         <locationX>50</locationX>
-        <locationY>350</locationY>
+        <locationY>674</locationY>
+        <connector>
+            <targetReference>update_Subscription</targetReference>
+        </connector>
+        <inputReference>var_Case</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>update_Subscription</name>
+        <label>Subscription</label>
+        <locationX>50</locationX>
+        <locationY>782</locationY>
         <connector>
             <targetReference>Success</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>recordId</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Status</field>
-            <value>
-                <stringValue>Canceled</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Case</object>
+        <inputReference>var_Subscription</inputReference>
     </recordUpdates>
     <runInMode>SystemModeWithoutSharing</runInMode>
+    <screens>
+        <name>dsply_confirmation</name>
+        <label>Confirmation Message</label>
+        <locationX>50</locationX>
+        <locationY>242</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Get_Case</targetReference>
+        </connector>
+        <fields>
+            <name>COMM_DisplayText_CASECANCELWARNING</name>
+            <fieldText>&lt;p&gt;{!$Label.COMM_CASE_CANCELWARNING}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
     <screens>
         <description>This screen will be use to display lack of permission message</description>
         <name>No_permission_screen</name>
         <label>No permission screen</label>
         <locationX>314</locationX>
-        <locationY>350</locationY>
+        <locationY>242</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -137,7 +209,7 @@
         <name>Success</name>
         <label>Success</label>
         <locationX>50</locationX>
-        <locationY>458</locationY>
+        <locationY>890</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -161,7 +233,7 @@
         <locationX>56</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Case</targetReference>
+            <targetReference>Validate_users_permissions</targetReference>
         </connector>
     </start>
     <status>Active</status>
@@ -172,5 +244,21 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>var_Case</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+    <variables>
+        <name>var_Subscription</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>COMM_Subscription__c</objectType>
     </variables>
 </Flow>

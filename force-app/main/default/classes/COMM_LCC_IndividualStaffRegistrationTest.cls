@@ -111,20 +111,8 @@ private class COMM_LCC_IndividualStaffRegistrationTest {
 
     @isTest
     static void handleSubmitCaseTest() {
-        //Scenario: User fills form and submits it. There are no pending case in existence.
+        //Scenario: User fills form and submits it
         //Expected: Case is created
-
-        //Mock User Record
-        List<User> userList = (List<User>) COMM_TestDataFactory.insertRecords(
-            1,
-            false,
-            'User',
-            new Map<String, Object>{ 'Id' => fflib_IdGenerator.generate(User.sObjectType), 'FirstName' => 'Test', 'LastName' => 'User' }
-        );
-        userList[0] = (User) COMM_TestDataFactory.setField(
-            userList[0],
-            new Map<String, Object>{ 'AccountId' => fflib_IdGenerator.generate(User.sObjectType) }
-        );
 
         Case caseRecord = (Case) COMM_TestDataFactory.insertRecords(
             1,
@@ -144,9 +132,6 @@ private class COMM_LCC_IndividualStaffRegistrationTest {
 
         //Mock insert DML operations
         MOCKS.startStubbing();
-        MOCKS.when(USER_REP.getUserAccountAndContactDataById((Set<Id>) fflib_Match.anyObject())).thenReturn(userList);
-        MOCKS.when(CASE_REP.getIndividualStaffRequestPendingByAccountId((Set<Id>) fflib_Match.anyObject(), fflib_Match.anyBoolean()))
-            .thenReturn(new List<Case>());
         MOCKS.when(CASE_REP.insertSObjects((List<Case>) fflib_Match.anyList())).thenReturn(new List<Database.SaveResult>());
         MOCKS.when(ATTACHMENT_REP.insertSObjects((List<Attachment>) fflib_Match.anyList())).thenReturn(new List<Database.SaveResult>());
         MOCKS.stopStubbing();
@@ -169,32 +154,8 @@ private class COMM_LCC_IndividualStaffRegistrationTest {
 
     @isTest
     static void handleSubmitCaseFailureTest() {
-        //Scenario: User fills form and submits it. A pending case already exists.
+        //Scenario: User fills form and submits it. An unexpected error occurs.
         //Expected: An exception is throwed.
-
-        //Mock User Record
-        List<User> userList = (List<User>) COMM_TestDataFactory.insertRecords(
-            1,
-            false,
-            'User',
-            new Map<String, Object>{ 'Id' => fflib_IdGenerator.generate(User.sObjectType), 'FirstName' => 'Test', 'LastName' => 'User' }
-        );
-        userList[0] = (User) COMM_TestDataFactory.setField(
-            userList[0],
-            new Map<String, Object>{ 'AccountId' => fflib_IdGenerator.generate(User.sObjectType) }
-        );
-
-        //Mock Pending Case
-        List<Case> caseList = (List<Case>) COMM_TestDataFactory.insertRecords(
-            1,
-            false,
-            'Case',
-            new Map<String, Object>{
-                'Id' => fflib_IdGenerator.generate(Case.sObjectType),
-                'Status' => COMM_DO_Case.WAITING_APPROVAL_STATUS,
-                'AccountId' => userList[0].AccountId
-            }
-        );
 
         Case caseRecord = (Case) COMM_TestDataFactory.insertRecords(
             1,
@@ -214,11 +175,9 @@ private class COMM_LCC_IndividualStaffRegistrationTest {
 
         //Throws an Exception when method is called (to test failure)
         MOCKS.startStubbing();
-        MOCKS.when(USER_REP.getUserAccountAndContactDataById((Set<Id>) fflib_Match.anyObject())).thenReturn(userList);
-        MOCKS.when(CASE_REP.getIndividualStaffRequestPendingByAccountId((Set<Id>) fflib_Match.anyObject(), fflib_Match.anyBoolean()))
-            .thenReturn(caseList);
         MOCKS.when(CASE_REP.insertSObjects((List<Case>) fflib_Match.anyList())).thenReturn(new List<Database.SaveResult>());
-        MOCKS.when(ATTACHMENT_REP.insertSObjects((List<Attachment>) fflib_Match.anyList())).thenReturn(new List<Database.SaveResult>());
+        ((COMM_IREP_Attachment) MOCKS.doThrowWhen(new List<Exception>{ new AuraException('Error creating Attachment') }, ATTACHMENT_REP))
+            .insertSObjects((List<Attachment>) fflib_Match.anyList());
         MOCKS.stopStubbing();
 
         Boolean errorOccured = false;
@@ -233,8 +192,8 @@ private class COMM_LCC_IndividualStaffRegistrationTest {
         }
         Test.stopTest();
 
-        ((COMM_IREP_Case) mocks.verify(CASE_REP, 0)).insertSObjects((List<Case>) fflib_Match.anyList());
-        ((COMM_IREP_Attachment) mocks.verify(ATTACHMENT_REP, 0)).insertSObjects((List<Attachment>) fflib_Match.anyList());
+        ((COMM_IREP_Case) mocks.verify(CASE_REP, 1)).insertSObjects(new List<Case>{ caseRecord });
+        ((COMM_IREP_Attachment) mocks.verify(ATTACHMENT_REP, 1)).insertSObjects(new List<Attachment>{ expectedAttachment });
 
         Assert.isTrue(errorOccured, 'no error occured when expected one');
     }

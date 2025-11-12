@@ -4,10 +4,10 @@
     <name>COMM_PreferredContact__c</name>
     <picklistValues>
         <masterLabel>Email</masterLabel>
-        <translation>Correio eletrónico</translation>
+        <translation><!-- Email --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Mobile</masterLabel>
-        <translation>Telemóvel</translation>
+        <translation><!-- Mobile --></translation>
     </picklistValues>
 </CustomFieldTranslation>

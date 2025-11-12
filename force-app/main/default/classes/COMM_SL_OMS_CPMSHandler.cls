@@ -337,10 +337,6 @@ public without sharing class COMM_SL_OMS_CPMSHandler {
             request.cpmsReservationId = orderItemSummary.COMM_ReservationIdCPMS__c;
             request.aeroportId = invoiceLine.Product2.COMM_Airport__c.toUpperCase();
             request.carParkId = invoiceLine.Product2.COMM_Park__c;
-            
-            //request.validFrom = orderItemSummary.COMM_ReservationStart__c;
-            //request.validTo = orderItemSummary.COMM_ReservationEnd__c;
-
             //Convert UTC DateTime to local datetime
             //request.validFrom = String.isBlank(orderItemSummary.COMM_TimeZoneByAirport__c) ? orderItemSummary.COMM_ReservationStart__c : convertUTCToTimezone(orderItemSummary.COMM_ReservationStart__c, orderItemSummary.COMM_TimeZoneByAirport__c);
             //request.validTo = String.isBlank(orderItemSummary.COMM_TimeZoneByAirport__c) ? orderItemSummary.COMM_ReservationEnd__c : convertUTCToTimezone(orderItemSummary.COMM_ReservationEnd__c, orderItemSummary.COMM_TimeZoneByAirport__c);

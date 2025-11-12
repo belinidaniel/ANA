@@ -9,5 +9,29 @@
         <value>Vales Gratuitos</value>
     </caseValues>
     <gender>Masculine</gender>
+    <layouts>
+        <layout>Free Voucher Layout</layout>
+        <sections>
+            <label>Información de contacto</label>
+            <section>Contact Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Estado</label>
+            <section>Status</section>
+        </sections>
+        <sections>
+            <label>Detalles del vale</label>
+            <section>Voucher Details</section>
+        </sections>
+    </layouts>
     <nameFieldLabel>Número de Vale Gratuito</nameFieldLabel>
+    <quickActions>
+        <aspect>Master</aspect>
+        <label>Enviar Vale</label>
+        <name>COMM_SendVoucher</name>
+    </quickActions>
 </CustomObjectTranslation>

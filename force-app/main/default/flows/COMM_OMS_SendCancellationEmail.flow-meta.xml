@@ -99,7 +99,7 @@
         <connector>
             <targetReference>Get_Order_Summary</targetReference>
         </connector>
-        <flowRunAsUser>DefaultWorkflowUser</flowRunAsUser>
+        <flowRunAsUser>TriggeringUser</flowRunAsUser>
         <object>COMM_SendCancellationEmail__e</object>
         <triggerType>PlatformEvent</triggerType>
     </start>

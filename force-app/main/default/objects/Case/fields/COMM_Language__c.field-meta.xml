@@ -28,16 +28,16 @@
                 <label>Spanish</label>
             </value>
             <value>
-                <fullName>en</fullName>
+                <fullName>1</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
-                <label>en</label>
+                <label>1</label>
             </value>
             <value>
-                <fullName>en_EN</fullName>
+                <fullName>en_PT</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
-                <label>en_EN</label>
+                <label>en_PT</label>
             </value>
         </valueSetDefinition>
     </valueSet>

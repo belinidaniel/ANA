@@ -8,6 +8,7 @@
  * -----------------------------------------------------------------------------------
  * Ruben Rodrigues      12/04/2024       Original version
  **/
+@testVisible
 public inherited sharing class COMM_SL_SAPDocumentRequest {
     public class OrderItems {
         public String location;

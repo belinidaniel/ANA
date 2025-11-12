@@ -7,7 +7,6 @@
  * Developer        Date            Coverage(%)    Description
  * -----------------------------------------------------------------------------------
  * Daniel Lascas    23/04/2024      100            ECOMM-194: Original version
-* André Luna        27/10/2025		100             TICKET-261964
  **/
 @isTest
 private class COMM_SL_SAPSendInvoiceHelperTest {
@@ -347,32 +346,21 @@ private class COMM_SL_SAPSendInvoiceHelperTest {
             controlDate,
             fflib_IDGenerator.generate(COMM_SubscriptionInvoice__c.sObjectType),
             invoiceList,
-            null, 
-            '4/9' 
+            null,
+            '4/9'
         );
         Test.stopTest();
 
-        Assert.areEqual(5, parsedList.size(), 'Expected list to only have the 5 non-courtesy invoice records');
-
-        for(COMM_SubscriptionInvoice__c invoiceInOutList : parsedList) {
-            Assert.isFalse(
-                COMM_DO_Subscription.PAYMENT_COURTESY.equals(invoiceInOutList.COMM_Subscripton__r.COMM_PaymentMethod__c),
-                'ERROR: Courtesy invoice found in the list returned for SAP. Invoice ID: ' + invoiceInOutList.Id
-            );
-            Assert.isFalse(invoiceInOutList.COMM_ExemptPayment__c, 
-                'Expected non-courtesy invoice ' + invoiceInOutList.Id + ' in parsedList NOT to be exempt (check ratio logic if applicable)');
-        }
-
-        Assert.isTrue(invoiceList[2].COMM_ExemptPayment__c, 'Expected original invoiceList[2] (courtesy) to BE marked as exempt');
-        Assert.isTrue(invoiceList[4].COMM_ExemptPayment__c, 'Expected original invoiceList[4] (courtesy) to BE marked as exempt');
-        Assert.isTrue(invoiceList[6].COMM_ExemptPayment__c, 'Expected original invoiceList[6] (courtesy) to BE marked as exempt');
-        Assert.isTrue(invoiceList[7].COMM_ExemptPayment__c, 'Expected original invoiceList[7] (courtesy) to BE marked as exempt');
-
-        Assert.isFalse(invoiceList[0].COMM_ExemptPayment__c, 'Expected original invoiceList[0] (non-courtesy) NOT to be exempt');
-        Assert.isFalse(invoiceList[1].COMM_ExemptPayment__c, 'Expected original invoiceList[1] (non-courtesy) NOT to be exempt');
-        Assert.isFalse(invoiceList[3].COMM_ExemptPayment__c, 'Expected original invoiceList[3] (non-courtesy) NOT to be exempt');
-        Assert.isFalse(invoiceList[5].COMM_ExemptPayment__c, 'Expected original invoiceList[5] (non-courtesy) NOT to be exempt');
-        Assert.isFalse(invoiceList[8].COMM_ExemptPayment__c, 'Expected original invoiceList[8] (non-courtesy) NOT to be exempt');
+        Assert.areEqual(9, parsedList.size(), 'expected list to only have nine invoice record');
+        Assert.isFalse(parsedList[0].COMM_ExemptPayment__c, 'expected invoice 1 to NOT be set as exempt from payment');
+        Assert.isFalse(parsedList[1].COMM_ExemptPayment__c, 'expected invoice 2 to NOT be set as exempt from payment');
+        Assert.isTrue(parsedList[2].COMM_ExemptPayment__c, 'expected invoice 3 to be set as exempt from payment');
+        Assert.isFalse(parsedList[3].COMM_ExemptPayment__c, 'expected invoice 4 to NOT be set as exempt from payment');
+        Assert.isTrue(parsedList[4].COMM_ExemptPayment__c, 'expected invoice 5 to be set as exempt from payment');
+        Assert.isFalse(parsedList[5].COMM_ExemptPayment__c, 'expected invoice 6 to NOT be set as exempt from payment');
+        Assert.isTrue(parsedList[6].COMM_ExemptPayment__c, 'expected invoice 7 to be set as exempt from payment');
+        Assert.isTrue(parsedList[7].COMM_ExemptPayment__c, 'expected invoice 8 to be set as exempt from payment');
+        Assert.isFalse(parsedList[8].COMM_ExemptPayment__c, 'expected invoice 9 to NOT be set as exempt from payment');
     }
 
     @isTest

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Renovação automática</label>
+    <label><!-- Automatic Renewal --></label>
     <name>COMM_AutomaticRenewal__c</name>
 </CustomFieldTranslation>
