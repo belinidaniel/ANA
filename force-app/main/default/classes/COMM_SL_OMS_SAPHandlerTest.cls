@@ -134,7 +134,7 @@ private class COMM_SL_OMS_SAPHandlerTest {
             WHERE OrderSummaryId = :osList[0].id
         ];
         System.assertEquals(ofList.isEmpty(), false, 'Order Fulfillment not found.');
-        List<Invoice> invcList = [SELECT Id, status, balance, COMM_InvoiceEditCount__c, (SELECT id FROM InvoiceLines) FROM Invoice WHERE ReferenceEntityId = :osList[0].id];
+        List<Invoice> invcList = [SELECT Id, status, balance, (SELECT id FROM InvoiceLines) FROM Invoice WHERE ReferenceEntityId = :osList[0].id];
         System.assertEquals(invcList.isEmpty(), false, 'Invoice not found.');
         List<Id> incoiceIdList = new List<Id>();
         for (Invoice invc : invcList) {
@@ -145,8 +145,6 @@ private class COMM_SL_OMS_SAPHandlerTest {
         Test.startTest();
         Test.setMock(HttpCalloutMock.class, new HttpResponseSuccessMock());
         COMM_SL_OMS_SAPHandler.invocableMethod(incoiceIdList);
-        
-        COMM_SL_OMS_SAPHandler.createCreditMemoFuture(JSON.serialize(input));
         
         Test.stopTest();
 
@@ -219,7 +217,7 @@ private class COMM_SL_OMS_SAPHandlerTest {
         System.assertEquals(false, ofList.isEmpty(), 'Order Fulfillment not found.');
 
         List<Invoice> invcList = [
-            SELECT Id, status, balance, COMM_InvoiceEditCount__c, (SELECT id FROM InvoiceLines)
+            SELECT Id, status, balance, (SELECT id FROM InvoiceLines)
             FROM Invoice
             WHERE ReferenceEntityId = :osList[0].id
             LIMIT 1
@@ -292,8 +290,6 @@ private class COMM_SL_OMS_SAPHandlerTest {
         COMM_SL_OMS_SAPHandler.doCall(incoiceIdList);
         COMM_SL_OMS_SAPHandler.doCallNotFuture(incoiceIdList);
         List<ProcessException> processExceptionList = [SELECT Id FROM ProcessException];
-        
-        COMM_SL_OMS_SAPHandler.createCreditMemoFuture(JSON.serialize(input));
         Test.stopTest();
 
         // Check if any errors were generated
@@ -964,6 +960,165 @@ private class COMM_SL_OMS_SAPHandlerTest {
 
         System.assertEquals(1, aggregated.size(), 'Itens iguais deveriam ser consolidados');
         System.assertEquals(3, aggregated[0].quantity, 'Quantidade deveria ser somada');
+    }
+
+    @IsTest
+    static void testPopulateBillingDataDefaults() {
+        COMM_SL_SAPDocumentRequest req = new COMM_SL_SAPDocumentRequest();
+
+        Test.startTest();
+        COMM_SL_OMS_SAPHandler.populateBillingData(
+            req,
+            'custom@email.com',
+            'Rua Um',
+            '1000-100',
+            'Lisboa',
+            'PT',
+            null,
+            'Cliente Desconhecido',
+            null
+        );
+        Test.stopTest();
+
+        System.assertEquals('kiosk@ana.pt', req.billingEmail, 'Default email deveria ser usado');
+        System.assertEquals('-', req.billingAddress, 'Default morada deveria ser usada');
+        System.assertEquals('-', req.billingCity, 'Default cidade deveria ser usada');
+        System.assertEquals('-', req.billingPostalCode, 'Default codigo postal deveria ser usado');
+        System.assertEquals('PT999999990', req.billingVat, 'NIF default deveria ser usado');
+        System.assertEquals('PT', req.billingCountry, 'Pais default deveria ser usado');
+    }
+
+    @IsTest
+    static void testPopulateBillingDataCustomValues() {
+        COMM_SL_SAPDocumentRequest req = new COMM_SL_SAPDocumentRequest();
+
+        Test.startTest();
+        COMM_SL_OMS_SAPHandler.populateBillingData(
+            req,
+            'cliente@ana.pt',
+            'Rua Dois',
+            '2000-200',
+            'Porto',
+            'PT',
+            '123456789',
+            'Cliente Teste',
+            '1'
+        );
+        Test.stopTest();
+
+        System.assertEquals('cliente@ana.pt', req.billingEmail);
+        System.assertEquals('Rua Dois', req.billingAddress);
+        System.assertEquals('2000-200', req.billingPostalCode);
+        System.assertEquals('Porto', req.billingCity);
+        System.assertEquals('PT', req.billingCountry);
+        System.assertEquals('PT123456789', req.billingVat);
+    }
+
+    @IsTest
+    static void testPopulateBillingDataDetectorOverridesVat() {
+        COMM_SL_SAPDocumentRequest req = new COMM_SL_SAPDocumentRequest();
+
+        Test.startTest();
+        COMM_SL_OMS_SAPHandler.populateBillingData(
+            req,
+            'cliente@ana.pt',
+            'Rua Dois',
+            '2000-200',
+            'Porto',
+            'PT',
+            '123456789',
+            'Cliente Detector',
+            ''
+        );
+        Test.stopTest();
+
+        System.assertEquals('kiosk@ana.pt', req.billingEmail, 'Detector vazio deve acionar defaults mesmo com VAT preenchido');
+        System.assertEquals('-', req.billingAddress);
+        System.assertEquals('-', req.billingCity);
+        System.assertEquals('-', req.billingPostalCode);
+        System.assertEquals('PT999999990', req.billingVat);
+        System.assertEquals('PT', req.billingCountry);
+        System.assertEquals('Consumidor Final', req.billingName);
+    }
+
+    @IsTest
+    static void testBuildInvoiceRequestUsesDefaultBilling() {
+        OrderSummary osRecord = [
+            SELECT Id,
+                BillingEmailAddress,
+                BillingStreet,
+                BillingPostalCode,
+                BillingCity,
+                BillingCountryCode,
+                COMM_BillingVATNumber__c,
+                COMM_BillingName__c,
+                SalesChannel.SalesChannelName,
+                OrderedDate
+            FROM OrderSummary
+            LIMIT 1
+        ];
+        String originalVat = osRecord.COMM_BillingVATNumber__c;
+        Boolean revertedVat = false;
+        if (!String.isBlank(originalVat)) {
+            osRecord.COMM_BillingVATNumber__c = null;
+            update osRecord;
+            revertedVat = true;
+        }
+
+        Invoice invoiceRecord = [
+            SELECT Id,
+                DocumentNumber,
+                TotalAmount,
+                TotalTaxAmount,
+                TYPEOF ReferenceEntity WHEN OrderSummary THEN
+                    Id,
+                    BillingEmailAddress,
+                    BillingStreet,
+                    BillingPostalCode,
+                    BillingCity,
+                    BillingCountryCode,
+                    COMM_BillingVATNumber__c,
+                    COMM_BillingName__c,
+                    SalesChannel.SalesChannelName,
+                    OrderedDate
+                END,
+                (SELECT Id,
+                    Type,
+                    LineAmount,
+                    Quantity,
+                    RelatedLineId,
+                    ReferenceEntityItemType,
+                    Product2.StockKeepingUnit,
+                    Product2.COMM_SAPLocation__c,
+                    Product2.COMM_Tax__c,
+                    TYPEOF ReferenceEntityItem WHEN OrderItemSummary THEN Description END
+                FROM InvoiceLines)
+            FROM Invoice
+            WHERE ReferenceEntityId = :osRecord.Id
+            LIMIT 1
+        ];
+
+        COMM_SL_SAPDocumentRequest request;
+        Test.startTest();
+        request = COMM_SL_OMS_SAPHandler.buildInvoiceRequest(
+            invoiceRecord,
+            new Map<String, String>(),
+            new List<Payment>()
+        );
+        Test.stopTest();
+
+        if (revertedVat) {
+            osRecord.COMM_BillingVATNumber__c = originalVat;
+            update osRecord;
+        }
+
+        System.assertEquals('kiosk@ana.pt', request.billingEmail);
+        System.assertEquals('-', request.billingAddress);
+        System.assertEquals('-', request.billingCity);
+        System.assertEquals('-', request.billingPostalCode);
+        System.assertEquals('PT999999990', request.billingVat);
+        System.assertEquals('PT', request.billingCountry);
+        System.assertEquals('Consumidor Final', request.billingName);
     }
 
     @IsTest
